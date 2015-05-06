@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "br.com.mariagata.app"
+        versionCode = "10" 
+        version     = "1.0.0" >
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Maria Gata</name>
+
+    <description>
+        Maria Gata - App da Escovaria e Esmalteria Maria Gata
+    </description>
+
+    <author href="https://mariagata.com.br" email="juliana@mariagata.com.br">
+        Maria Gata
+    </author>
+
+</widget>
