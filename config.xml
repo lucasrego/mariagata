@@ -12,9 +12,13 @@
     <description>
         Maria Gata - App da Escovaria e Esmalteria Maria Gata
     </description>
-
+	
     <author href="https://mariagata.com.br" email="juliana@mariagata.com.br">
         Maria Gata
     </author>
-
+	
+	<!-- Plugins -->
+	<gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
+	<gap:plugin name="org.apache.cordova.vibration" version="0.3.11" />
+	
 </widget>
