@@ -183,9 +183,20 @@
 <script src="phonegap.js"></script>
 	
 	<script>
-		$( document ).ready(function() {
+		document.addEventListener('deviceready', function () {
+			
 			navigator.vibrate(3000);
-		});
+			
+			cordova.plugins.notification.local.schedule({
+				title: "Lembrete Maria Gata",
+				message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
+			});
+			
+		}, false);
+
+		//$( document ).ready(function() {			
+		//});
+		
 	</script>
 	
 
