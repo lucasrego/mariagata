@@ -208,8 +208,7 @@
 					message: "nome: " + $("#cadastro_nome").val() 
 				});
 				//alert("nome: " + $("#cadastro_nome").val());
-				event.preventDefault();
-				
+								
 				//Insere no banco local
 				db = conectarBD();
 				db.transaction(function(tx) {
@@ -229,8 +228,9 @@
 						//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
 						//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
 					});
-				});			
-			});
+				});
+				event.preventDefault();
+			}); //Fim form submit
 			
 			function conectarBD() {
 				var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
