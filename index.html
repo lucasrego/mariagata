@@ -62,13 +62,16 @@
         <!-- Bottom Toolbar-->
         <div class="toolbar">
               <div class="toolbar-inner">
-              <ul class="toolbar_icons">
-              <li><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/user.png" alt="" title="" /></a></li>
-              <li><a href="photos.html"><img src="images/icons/white/photos.png" alt="" title="" /></a></li>
-              <li class="menuicon"><a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>
-              <li><a href="blog.html"><img src="images/icons/white/blog.png" alt="" title="" /></a></li>
-              <li><a href="contact.html"><img src="images/icons/white/contact.png" alt="" title="" /></a></li>
-              </ul>
+				<ul class="toolbar_icons">
+					<li><a href="agendar.html"><img src="images/icons/white/blog.png" alt="Agendar Visita" title="Agendar Visita" /></a></li>
+					<li><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/user.png" alt="" title="" /></a></li>
+					<!-- Botão central
+					<li class="menuicon"><a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>
+					-->
+					<li class="menuicon"><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>			  
+					<li><a href="photos.html"><img src="images/icons/white/photos.png" alt="" title="" /></a></li>
+					<li><a href="blog.html"><img src="images/icons/white/contact.png" alt="" title="" /></a></li>              
+				</ul>
               </div>  
         </div>
       </div>
@@ -183,19 +186,18 @@
 <script src="phonegap.js"></script>
 	
 	<script>
+	
 		document.addEventListener('deviceready', function () {
 			
 			navigator.vibrate(3000);
 			
+			//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 			cordova.plugins.notification.local.schedule({
 				title: "Lembrete Maria Gata",
 				message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 			});
 			
 		}, false);
-
-		//$( document ).ready(function() {			
-		//});
 		
 	</script>
 	
