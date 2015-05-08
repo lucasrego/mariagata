@@ -123,18 +123,23 @@
     <!-- Register Popup -->
     <div class="popup popup-signup">
     <div class="content-block-login">
-      <h4>REGISTER</h4>
+      <h4>NOVO USUÁRIO</h4>
       <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
             <div class="loginform">
-            <form id="LoginForm" method="post">
-            <input type="text" name="Username" value="" class="form_input required" placeholder="username" />
-            <input type="text" name="Email" value="" class="form_input required" placeholder="email" />
-            <input type="password" name="Password" value="" class="form_input required" placeholder="password" />
-            <input type="submit" name="submit" class="form_submit" id="submit" value="SIGN UP" />
-            </form>
-            <div class="signup_social">
-            <a href="#" class="signup_facebook">FACEBOOK</a>
-            <a href="#" class="signup_twitter">TWITTER</a>            </div>
+				<!--<form id="LoginForm" method="post">-->
+				<form id="frmCadastro" method="post">
+					<input type="text" name="cadastro_nome" id="cadastro_nome" value="" class="form_input required" placeholder="Primeiro Nome" />
+					<input type="text" name="cadastro_email" id="cadastro_email" value="" class="form_input required" placeholder="E-mail" />
+					<input type="text" name="cadastro_celular" id="cadastro_celular" value="" class="form_input required" placeholder="celular (com DDD)" />
+					<input type="password" name="cadastro_password" id="cadastro_password" value="" class="form_input required" placeholder="senha" />
+					<input type="submit" name="submit" class="form_submit" id="submit" value="CADASTRAR" />
+				</form>
+				<!--
+				<div class="signup_social">
+					<a href="#" class="signup_facebook">FACEBOOK</a>
+					<a href="#" class="signup_twitter">TWITTER</a>            
+				</div>
+				-->
             </div>
       <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
     </div>
@@ -186,64 +191,55 @@
 <script src="phonegap.js"></script>
 	
 	<script>
-	
+
 		document.addEventListener('deviceready', function () {
 			
 			navigator.vibrate(3000);
 			
 			//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
-			cordova.plugins.notification.local.schedule({
-				title: "Lembrete Maria Gata",
-				message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
-			});
+			//cordova.plugins.notification.local.schedule({
+			//	title: "Lembrete Maria Gata",
+			//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
+			//});			
 			
-			//Cria/abre banco de dados: https://github.com/litehelpers/Cordova-sqlite-storage/blob/a97198d/README.md
-			var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
-			db.transaction(function(tx) {
-				tx.executeSql('DROP TABLE IF EXISTS usuario');
-				//tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, data text, data_num integer)');
-				tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text)');
-				
-				// demonstrate PRAGMA:
-				db.executeSql("pragma table_info (usuario);", [], function(res) {
-					cordova.plugins.notification.local.schedule({
-						title: "PRAGMA res: ",
-						message: JSON.stringify(res)
-					});
-				  //console.log("PRAGMA res: " + JSON.stringify(res));
+			$("#frmCadastro").submit(function( event ) {
+				cordova.plugins.notification.local.schedule({
+					title: "inicio submit: ",
+					message: "nome: " + $("#cadastro_nome").val() 
 				});
-
-				tx.executeSql("INSERT INTO usuario (nome, email, celular) VALUES (?,?,?)", ["Lucas", "lucasrego@gmail.com", "careca"], function(tx, res) {
-				  cordova.plugins.notification.local.schedule({
-						title: "id, rowsAffected: ",
-						message: res.insertId + "-" + res.rowsAffected
+				//alert("nome: " + $("#cadastro_nome").val());
+				event.preventDefault();
+				
+				//Insere no banco local
+				db = conectarBD();
+				db.transaction(function(tx) {
+					tx.executeSql("INSERT INTO usuario (nome, email, celular) VALUES (?,?,?)", [$("#cadastro_nome").val(), "lucasrego@gmail.com", "7188145977", "careca1"], function(tx, res) {
+						//Registro inserido
+					}, function(e) {
+						console.log("ERROR: " + e.message);
 					});
-				  //console.log("insertId: " + res.insertId + " -- probably 1");
-				  //console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
-					
-				  db.transaction(function(tx) {
-					tx.executeSql("select count(id) as cnt from usuario;", [], function(tx, res) {
+				});
+				
+				db.transaction(function(tx) {
+					tx.executeSql("select nome, email, celular, senha from usuario;", [], function(tx, res) {
 						cordova.plugins.notification.local.schedule({
-							title: "res.rows.length, res.rows.item(0).cnt: ",
-							message: res.rows.length + "-" + res.rows.item(0).cnt
+							title: "dados: ",
+							message: res.rows.item(0).nome + ", " + res.rows.item(0).email + ", " + res.rows.item(0).celular + ", " + res.rows.item(0).senha
 						});
 						//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
 						//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
 					});
-
-				  });
-
-				}, function(e) {				
-					cordova.plugins.notification.local.schedule({
-						title: "erro: ",
-						message: e.message
-					});
-					//console.log("ERROR: " + e.message);
+				});			
+			});
+			
+			function conectarBD() {
+				var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
+				db.transaction(function(tx) {
+					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text)');				
 				});
-			  });
+			}
 			
-			
-		}, false);
+		}, false); //Fim deviceready
 		
 	</script>
 	
