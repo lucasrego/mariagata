@@ -35,14 +35,15 @@
 				  </div>      
             </div>
 
-                  <nav class="user-nav">
+                <nav class="user-nav">
                     <ul>
-                      <li><a href="features.html" class="close-panel"><img src="images/icons/white/settings.png" alt="" title="" /><span>Login</span></a></li>
-                      <li><a href="features.html" class="close-panel"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Agendar</span></a></li>
-                      <li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Meus Agendamentos</span><strong class="green">12</strong></a></li>
-                      <li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Contato</span></a></li>
+						<li><a href="#" class="close-panel" data-popup=".popup-login" class="open-popup"><img src="images/icons/white/lock.png" alt="" title="" /><span>Login</span></a></li>
+						<li><a href="features.html" class="close-panel"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Agendar</span></a></li>
+						<li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Meus Agendamentos</span><strong class="green">12</strong></a></li>
+						<li><a href="#" class="close-panel" data-popup=".popup-signup" class="open-popup"><img src="images/icons/white/settings.png" alt="" title="" /><span>Meus Dados</span></a></li>
+						<li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Contato</span></a></li>
                     </ul>
-                  </nav>
+                </nav>
           </div>
     </div>
 
@@ -228,11 +229,6 @@
 			
 			
 			$("#frmCadastro").submit(function( event ) {
-				
-				cordova.plugins.notification.local.schedule({
-					title: "Lembrete Maria Gata1",
-					message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
-				});
 				
 				//Cria/abre banco de dados: https://github.com/litehelpers/Cordova-sqlite-storage/blob/a97198d/README.md
 				var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
