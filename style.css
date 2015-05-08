@@ -1221,6 +1221,14 @@ border:1px solid #45535d;
 background-color:#35434c;
 color:#b7bec2;
 }
+.loginform select.form_input{
+padding:10px 3%; 
+width:100%; 
+margin:0 0 15px 0;
+border:1px solid #45535d;
+background-color:#35434c;
+color:#b7bec2;
+}
 .loginform input.form_submit{ 
 width:100%;
 padding:10px 0; 
