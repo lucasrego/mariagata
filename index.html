@@ -207,37 +207,43 @@
 					title: "inicio submit: ",
 					message: "nome: " + $("#cadastro_nome").val() 
 				});
-				//alert("nome: " + $("#cadastro_nome").val());
-								
-				//Insere no banco local
+				
+				//Cria/abre banco de dados: https://github.com/litehelpers/Cordova-sqlite-storage/blob/a97198d/README.md
 				var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
 				db.transaction(function(tx) {
-					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text)');				
-					alert("tabela criada");
-				
-					db.transaction(function(tx) {
-						tx.executeSql("INSERT INTO usuario (nome, email, celular) VALUES (?,?,?)", [$("#cadastro_nome").val(), "lucasrego@gmail.com", "7188145977", "careca1"], function(tx, res) {
-							//Registro inserido
-						}, function(e) {
-							alert("ERROR ao inserir dados: " + e.message);
-							//console.log("ERROR: " + e.message);
+					tx.executeSql('DROP TABLE IF EXISTS usuario');
+					//tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, data text, data_num integer)');
+					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text, senha text)');
+									
+					tx.executeSql("INSERT INTO usuario (nome, email, celular) VALUES (?,?,?,?)", ["Lucas", "lucasrego@gmail.com", "7188145976", "careca"], function(tx, res) {
+					  cordova.plugins.notification.local.schedule({
+							title: "id, rowsAffected: ",
+							message: res.insertId + "-" + res.rowsAffected
 						});
-					});
-					
-					db.transaction(function(tx) {
-						tx.executeSql("select nome, email, celular, senha from usuario;", [], function(tx, res) {
+					  //console.log("insertId: " + res.insertId + " -- probably 1");
+					  //console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
+						
+					  db.transaction(function(tx) {
+						tx.executeSql("select count(id) as cnt from usuario;", [], function(tx, res) {
 							cordova.plugins.notification.local.schedule({
-								title: "dados: ",
-								message: res.rows.item(0).nome + ", " + res.rows.item(0).email + ", " + res.rows.item(0).celular + ", " + res.rows.item(0).senha
+								title: "res.rows.length, res.rows.item(0).cnt: ",
+								message: res.rows.length + "-" + res.rows.item(0).cnt
 							});
 							//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
 							//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
 						});
+
+					  });
+
+					}, function(e) {				
+						cordova.plugins.notification.local.schedule({
+							title: "erro: ",
+							message: e.message
+						});
+						//console.log("ERROR: " + e.message);
 					});
-				}, function(e) {
-					alert("ERROR ao inserir dados: " + e.message);
-					//console.log("ERROR: " + e.message);
-				});
+				  });
+				
 				event.preventDefault();
 			}); //Fim form submit
 			
