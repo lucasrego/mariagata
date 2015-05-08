@@ -107,10 +107,10 @@
       <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
             <div class="loginform">
 				<form id="frmLogin" method="post">
-					<input type="text" name="Username" id="Username" value="" class="form_input required" placeholder="username" />
-					<input type="password" name="Password" id="Password" value="" class="form_input required" placeholder="password" />
+					<input type="text" name="Username" id="Username" value="" class="form_input required" placeholder="Digite seu e-mail" />
+					<input type="password" name="Password" id="Password" value="" class="form_input required" placeholder="sua senha" />
 					<div class="forgot_pass"><a href="#" data-popup=".popup-forgot" class="open-popup">Esqueceu senha?</a></div>
-					<input type="submit" name="submit" class="form_submit" id="submit" value="SIGN IN" />
+					<input type="submit" name="submit" class="form_submit" id="submit" value="ACESSAR" />
 				</form>
 				<div class="signup_bottom">
 					<p>Ainda não tem uma conta?</p>
@@ -228,7 +228,12 @@
 			
 			
 			$("#frmCadastro").submit(function( event ) {
-			
+				
+				cordova.plugins.notification.local.schedule({
+					title: "Lembrete Maria Gata1",
+					message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
+				});
+				
 				//Cria/abre banco de dados: https://github.com/litehelpers/Cordova-sqlite-storage/blob/a97198d/README.md
 				var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
 				db.transaction(function(tx) {
