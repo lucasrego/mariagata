@@ -197,6 +197,52 @@
 				message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 			});
 			
+			//Cria/abre banco de dados: https://github.com/litehelpers/Cordova-sqlite-storage/blob/a97198d/README.md
+			var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
+			db.transaction(function(tx) {
+				tx.executeSql('DROP TABLE IF EXISTS usuario');
+				//tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, data text, data_num integer)');
+				tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text)');
+				
+				// demonstrate PRAGMA:
+				db.executeSql("pragma table_info (usuario);", [], function(res) {
+					cordova.plugins.notification.local.schedule({
+						title: "PRAGMA res: ",
+						message: JSON.stringify(res)
+					});
+				  //console.log("PRAGMA res: " + JSON.stringify(res));
+				});
+
+				tx.executeSql("INSERT INTO usuario (nome, email, celular) VALUES (?,?,?)", ["Lucas", "lucasrego@gmail.com", "careca"], function(tx, res) {
+				  cordova.plugins.notification.local.schedule({
+						title: "id, rowsAffected: ",
+						message: res.insertId + "-" + res.rowsAffected
+					});
+				  //console.log("insertId: " + res.insertId + " -- probably 1");
+				  //console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
+					
+				  db.transaction(function(tx) {
+					tx.executeSql("select count(id) as cnt from usuario;", [], function(tx, res) {
+						cordova.plugins.notification.local.schedule({
+							title: "res.rows.length, res.rows.item(0).cnt: ",
+							message: res.rows.length + "-" + res.rows.item(0).cnt
+						});
+						//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
+						//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
+					});
+
+				  });
+
+				}, function(e) {				
+					cordova.plugins.notification.local.schedule({
+						title: "erro: ",
+						message: e.message
+					});
+					//console.log("ERROR: " + e.message);
+				});
+			  });
+			
+			
 		}, false);
 		
 	</script>
