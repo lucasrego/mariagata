@@ -234,8 +234,11 @@
 							//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
 						});
 					});
+				}, function(e) {
+					alert("ERROR ao inserir dados: " + e.message);
+					//console.log("ERROR: " + e.message);
 				});
-				//event.preventDefault();
+				event.preventDefault();
 			}); //Fim form submit
 			
 			
