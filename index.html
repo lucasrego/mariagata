@@ -106,15 +106,16 @@
       <h4>LOGIN</h4>
       <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
             <div class="loginform">
-            <form id="LoginForm" method="post">
-            <input type="text" name="Username" value="" class="form_input required" placeholder="username" />
-            <input type="password" name="Password" value="" class="form_input required" placeholder="password" />
-            <div class="forgot_pass"><a href="#" data-popup=".popup-forgot" class="open-popup">Forgot Password?</a></div>
-            <input type="submit" name="submit" class="form_submit" id="submit" value="SIGN IN" />
-            </form>
-            <div class="signup_bottom">
-            <p>Don't have an account?</p>
-            <a href="#" data-popup=".popup-signup" class="open-popup">SIGN UP</a>            </div>
+				<form id="frmLogin" method="post">
+					<input type="text" name="Username" id="Username" value="" class="form_input required" placeholder="username" />
+					<input type="password" name="Password" id="Password" value="" class="form_input required" placeholder="password" />
+					<div class="forgot_pass"><a href="#" data-popup=".popup-forgot" class="open-popup">Esqueceu senha?</a></div>
+					<input type="submit" name="submit" class="form_submit" id="submit" value="SIGN IN" />
+				</form>
+				<div class="signup_bottom">
+					<p>Ainda não tem uma conta?</p>
+					<a href="#" id="btnCadastrar" data-popup=".popup-signup" class="open-popup">CADASTRE AQUI</a>
+				</div>
             </div>
       <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
     </div>
@@ -122,27 +123,27 @@
     
     <!-- Register Popup -->
     <div class="popup popup-signup">
-    <div class="content-block-login">
-      <h4>NOVO USUÁRIO</h4>
-      <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
-            <div class="loginform">
-				<!--<form id="LoginForm" method="post">-->
-				<form id="frmCadastro" method="post">
-					<input type="text" name="cadastro_nome" id="cadastro_nome" value="" class="form_input required" placeholder="Primeiro Nome" />
-					<input type="text" name="cadastro_email" id="cadastro_email" value="" class="form_input required" placeholder="E-mail" />
-					<input type="text" name="cadastro_celular" id="cadastro_celular" value="" class="form_input required" placeholder="celular (com DDD)" />
-					<input type="password" name="cadastro_password" id="cadastro_password" value="" class="form_input required" placeholder="senha" />
-					<input type="submit" name="submit" class="form_submit" id="submit" value="CADASTRAR" />
-				</form>
-				<!--
-				<div class="signup_social">
-					<a href="#" class="signup_facebook">FACEBOOK</a>
-					<a href="#" class="signup_twitter">TWITTER</a>            
+		<div class="content-block-login">
+		  <h4>NOVO USUÁRIO</h4>
+		  <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
+				<div class="loginform">
+					<!--<form id="LoginForm" method="post">-->
+					<form id="frmCadastro" method="post">
+						<input type="text" name="cadastro_nome" id="cadastro_nome" value="" class="form_input required" placeholder="Primeiro Nome" />
+						<input type="text" name="cadastro_email" id="cadastro_email" value="" class="form_input required" placeholder="E-mail" />
+						<input type="text" name="cadastro_celular" id="cadastro_celular" value="" class="form_input required" placeholder="celular (com DDD)" />
+						<input type="password" name="cadastro_password" id="cadastro_password" value="" class="form_input required" placeholder="senha" />
+						<input type="submit" name="submit" class="form_submit" id="submit" value="CADASTRAR" />
+					</form>
+					<!--
+					<div class="signup_social">
+						<a href="#" class="signup_facebook">FACEBOOK</a>
+						<a href="#" class="signup_twitter">TWITTER</a>            
+					</div>
+					-->
 				</div>
-				-->
-            </div>
-      <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
-    </div>
+		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
+		</div>
     </div>
     
     <!-- Login Popup -->
@@ -202,47 +203,52 @@
 			//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 			//});			
 			
-			$("#frmCadastro").submit(function( event ) {
-				cordova.plugins.notification.local.schedule({
-					title: "inicio submit: ",
-					message: "nome: " + $("#cadastro_nome").val() 
+			
+			$("#btnCadastrar").click(function() {
+				
+				var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
+				db.transaction(function(tx) {
+					
+					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text, senha text)');
+					
+					tx.executeSql("select nome, email, celular, senha from usuario;", [], function(tx, res) {
+						$("#cadastro_nome").val(res.rows.item(0).nome);
+						$("#cadastro_email").val(res.rows.item(0).email);
+						$("#cadastro_celular").val(res.rows.item(0).celular);
+						$("#cadastro_password").val(res.rows.item(0).senha);
+						
+						//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
+						//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
+					}, function(e) {				
+						alert("ERROR: " + e.message);
+					});
 				});
 				
+			}); //Fim click btnCadastrar
+			
+			
+			$("#frmCadastro").submit(function( event ) {
+			
 				//Cria/abre banco de dados: https://github.com/litehelpers/Cordova-sqlite-storage/blob/a97198d/README.md
 				var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
 				db.transaction(function(tx) {
-					tx.executeSql('DROP TABLE IF EXISTS usuario');
-					//tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, data text, data_num integer)');
+					//tx.executeSql('DROP TABLE IF EXISTS usuario');
 					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text, senha text)');
 									
-					tx.executeSql("INSERT INTO usuario (nome, email, celular, senha) VALUES (?,?,?,?)", ["Lucas", "lucasrego@gmail.com", "7188145976", "careca"], function(tx, res) {
-					  cordova.plugins.notification.local.schedule({
-							title: "id, rowsAffected: ",
-							message: res.insertId + "-" + res.rowsAffected
-						});
-					  //console.log("insertId: " + res.insertId + " -- probably 1");
-					  //console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
+					tx.executeSql("INSERT INTO usuario (nome, email, celular, senha) VALUES (?,?,?,?)", [$("#cadastro_nome").val(), $("#cadastro_email").val(), $("#cadastro_celular").val(), $("#cadastro_password").val()], function(tx, res) {
+						//console.log("insertId: " + res.insertId + " -- probably 1");
 						
-					  db.transaction(function(tx) {
-						tx.executeSql("select count(id) as cnt from usuario;", [], function(tx, res) {
-							cordova.plugins.notification.local.schedule({
-								title: "res.rows.length, res.rows.item(0).cnt: ",
-								message: res.rows.length + "-" + res.rows.item(0).cnt
+						db.transaction(function(tx) {
+							tx.executeSql("select count(id) as cnt from usuario;", [], function(tx, res) {
+								//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
+								//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
 							});
-							//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-							//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
 						});
-
-					  });
 
 					}, function(e) {				
-						cordova.plugins.notification.local.schedule({
-							title: "erro: ",
-							message: e.message
-						});
 						//console.log("ERROR: " + e.message);
 					});
-				  });
+				});
 				
 				event.preventDefault();
 			}); //Fim form submit
