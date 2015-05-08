@@ -215,7 +215,7 @@
 					//tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, data text, data_num integer)');
 					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text, senha text)');
 									
-					tx.executeSql("INSERT INTO usuario (nome, email, celular) VALUES (?,?,?,?)", ["Lucas", "lucasrego@gmail.com", "7188145976", "careca"], function(tx, res) {
+					tx.executeSql("INSERT INTO usuario (nome, email, celular, senha) VALUES (?,?,?,?)", ["Lucas", "lucasrego@gmail.com", "7188145976", "careca"], function(tx, res) {
 					  cordova.plugins.notification.local.schedule({
 							title: "id, rowsAffected: ",
 							message: res.insertId + "-" + res.rowsAffected
