@@ -14,6 +14,8 @@
 <link type="text/css" rel="stylesheet" href="css/swipebox.css" />
 <link type="text/css" rel="stylesheet" href="css/animations.css" />
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700,900' rel='stylesheet' type='text/css'>
+
+
 </head>
 <body id="mobile_wrap">
 
@@ -164,50 +166,33 @@
 				<div class="loginform">
 					<form id="frmAgendar" method="post">
 						<select class="form_input" id="agendamento_data">
-							<option value=0>Escolha uma data</option>
-							<option value="20150509">Hoje (09/05/2015)</option>
-							<option value="20150512">Terça (12/05/2015)</option>
-							<option value="20150513">Quarta (13/05/2015)</option>							
-							<option value="20150514">Quinta (14/05/2015)</option>
-							<option value="20150515">Sexta (15/05/2015)</option>
-							<option value="20150516">Sábado (16/05/2015)</option>
+							<option value=0>Escolha uma data</option>							
 						</select>
 						<select class="form_input" id="agendamento_pacotes">
-							<option value=0>Pacotes Especiais</option>
-							<option value="20150509">Escova + Hidratação + Pé e Mão (15%OFF)</option>
-							<option value="20150512">Escova + Hidratação Loreal (20%OFF)</option>
-							<option value="20150513">Pé e Mão + Spa dos Pés (20%OFF)</option>
-						</select>
-						<select class="form_input">
-							<option value=0>Serviços Avulsos Escovaria</option>
-							<option value="20150509">Escova</option>
-							<option value="20150513">Lavagem</option>
-							<option value="20150512">Hidratação Alfapharf</option>							
-							<option value="20150512">Hidratação Loreal</option>
-						</select>
-						<select class="form_input">
-							<option value=0>Serviços Avulsos Esmalteria</option>
-							<option value="20150509">Pé e Mão Nacional</option>
-							<option value="20150512">Pé e Mão Importado</option>
-							<option value="20150513">Cutilagem</option>
-						</select>
-						<select class="form_input">
-							<option value=0>Horário Inicio</option>
-							<option value="08:00">08:00h</option>
-							<option value="09:00">09:00h</option>
-							<option value="10:00">10:00h</option>
-							<option value="11:00">11:00h</option>
-							<option value="12:00">12:00h</option>
-							<option value="13:00">13:00h</option>
-							<option value="14:00">14:00h</option>
-							<option value="15:00">15:00h</option>
-							<option value="16:00">16:00h</option>
-							<option value="17:00">17:00h</option>
-							<option value="18:00">18:00h</option>
-							<option value="19:00">19:00h</option>
+							<option value="0">Selecione os serviços</option>
+							<option value="0">PACOTES ESPECIAIS</option>
+							<option value="1|2|3">&nbsp;&nbsp;Escova + Hidratação + Pé e Mão (15%OFF)</option>
+							<option value="1|4">&nbsp;&nbsp;Escova + Hidratação Loreal (20%OFF)</option>
+							<option value="1|6">&nbsp;&nbsp;Pé e Mão + Spa dos Pés (20%OFF)</option>
+							
+							<option value="0">&nbsp;</option>
+							
+							<option value="0">SERVIÇOS ESMALTERIA</option>
+							<option value="1|2|3">&nbsp;&nbsp;Pé e Mão</option>
+							<option value="1|2|3">&nbsp;&nbsp;Apenas Mão ou Apenas Pé</option>
+							<option value="1|2|3">&nbsp;&nbsp;Spa dos Pés</option>
+							
+							<option value="0">&nbsp;</option>
+							
+							<option value="0">SERVIÇOS ESCOVARIA</option>
+							<option value="1">&nbsp;&nbsp;Escova</option>
+							<option value="2">&nbsp;&nbsp;Hidratação</option>
+							<option value="7">&nbsp;&nbsp;Lavagem</option>
+							
 						</select>
 						
-						<input type="submit" name="submit" class="form_submit" id="submit" value="CADASTRAR" />
+						<input type="button" data-popup=".popup-horarios" class="form_submit open-popup close-panel" value="PRÓXIMO" />
+						
 					</form>
 					<!--
 					<div class="signup_social">
@@ -219,6 +204,60 @@
 		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
 		</div>
     </div>
+	
+	<!-- ESCOLHER PROFISSIONAIS E HORARIOS -->
+    <div class="popup popup-horarios">
+		<div class="content-block-login">
+		  <h4>CONCLUIR AGEDAMENTO</h4>
+		  <div class="form_logo">
+			<img src="images/logo.png" alt="" title="" />
+		  </div>
+				<div class="loginform">
+					<form id="frmAgendar" method="post">
+						<select class="form_input" id="agendamento_data">
+							<option value=0>Escolha uma data</option>							
+						</select>
+						<select class="form_input" id="agendamento_pacotes">
+							<option value="0">Selecione os serviços</option>
+							<option value="2">&nbsp;&nbsp;Hidratação</option>
+							<option value="7">&nbsp;&nbsp;Lavagem</option>
+						</select>
+						<div data-role="collapsible">
+							<h4>Heading</h4>
+							<p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+						</div>
+						
+						 <div class="custom-accordion">
+                        
+							<div class="accordion-item">
+								<div class="accordion-item-toggle">
+									<i class="icon icon-plus">+</i>
+									<i class="icon icon-minus">-</i>
+									<span>Esmalteria</span>
+								</div>
+								<div class="accordion-item-content">
+									<img src="images/icons/white/facebook.png" alt="" title="" />
+									<h4>Ana</h4>
+									<input type="button" class="" id="9" value="09:00h" />
+									<input type="button" class="" id="9" value="09:30h" />
+									<input type="button" class="" id="9" value="10:00h" />
+									<input type="button" class="" id="9" value="10:30h" />
+									<input type="button" class="" id="9" value="11:00h" />
+									<input type="button" class="" id="9" value="11:30h" />
+									<input type="button" class="" id="9" value="12:00h" />
+									<input type="button" class="" id="9" value="12:30h" />
+								</div>
+							</div>
+							
+						</div>
+						
+						<input type="submit" name="submit" class="form_submit" id="submit" value="AGENDAR" />
+					</form>
+				</div>
+		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
+		</div>
+    </div>
+	
     
     <!-- Login Popup -->
     <div class="popup popup-forgot">
@@ -264,18 +303,37 @@
 <script type="text/javascript" src="js/jquery.fitvids.js"></script>
 <script type="text/javascript" src="js/email.js"></script>
 
+<!--<script type="text/javascript" src="phonegap.js"></script>-->
+
+<!-- http://momentjs.com/ -->
+<script type="text/javascript" src="js/moment.min.js"></script>
+<script type="text/javascript" src="js/locale/pt-br.js"></script>
+
 	
 	<script>
-
-		document.addEventListener('deviceready', function () {
+		
+		$( document ).ready(function() {
 			
 			navigator.vibrate(3000);
 			
-			$('#agendamento_pacotes').prop('disabled', 'disabled');
-				
+			//Desabilita os pacotes/servicos			
+			$('#agendamento_pacotes').prop('disabled', 'disabled');			
+			
+			//Preencher datas disponíveis			
+			//moment().locale("pt-br");			
+			for (i = 0; i < 15; i++) {				
+				var m = moment(new Date());
+				m.add(i, 'days');
+				dia = m.day(); //0=dom, 1=seg, 2=ter, 3=qua, 4=qui, 5=sex, 6=sab
+				nome_dia = m.format('dddd');
+				if ((dia != 0)&&((dia != 1))) {
+					$('#agendamento_data').append('<option value=' + m.format('L') + '>' + m.format('L') + ' (' + nome_dia + ')' + '</option>');
+				}				
+			}
+			
+			//Habiltiar o combo de pacotes e serviços
 			$("#agendamento_data").change(function() {
 				agendamento_data = $("#agendamento_data").find('option:selected').val();
-				alert('sdfsdf');
 				if (agendamento_data == 0) {
 					$('#agendamento_pacotes').prop('disabled', 'disabled');
 				} else {
@@ -283,7 +341,11 @@
 				}
 				
 			});
+			
+		});
 		
+		
+		document.addEventListener('deviceready', function () {
 			
 			//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 			//cordova.plugins.notification.local.schedule({
