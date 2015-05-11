@@ -38,7 +38,7 @@
                 <nav class="user-nav">
                     <ul>
 						<li><a href="#" data-popup=".popup-login" class="open-popup close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Login</span></a></li>
-						<li><a href="features.html" class="close-panel"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Agendar</span></a></li>
+						<li><a href="#" data-popup=".popup-agendar" class="open-popup close-panel"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Agendar</span></a></li>
 						<li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Meus Agendamentos</span><strong class="green">12</strong></a></li>
 						<li><a href="#" data-popup=".popup-signup" class="open-popup close-panel"><img src="images/icons/white/settings.png" alt="" title="" /><span>Meus Dados</span></a></li>
 						<li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Contato</span></a></li>
@@ -157,20 +157,54 @@
 	<!-- NOVO AGENDAMENTO -->
     <div class="popup popup-agendar">
 		<div class="content-block-login">
-		  <h4>AGENDAR</h4>
-		  <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
+		  <h4>AGENDE SEU MOMENTO</h4>
+		  <div class="form_logo">
+			<img src="images/logo.png" alt="" title="" />
+		  </div>
 				<div class="loginform">
-					<!--<form id="LoginForm" method="post">-->
-					<form id="frmCadastro" method="post">
-						<input type="text" name="cadastro_nome" id="cadastro_nome" value="" class="form_input required" placeholder="Primeiro Nome" />
-						<input type="text" name="cadastro_email" id="cadastro_email" value="" class="form_input required" placeholder="E-mail" />
-						<input type="text" name="cadastro_celular" id="cadastro_celular" value="" class="form_input required" placeholder="celular (com DDD)" />
-						<input type="password" name="cadastro_password" id="cadastro_password" value="" class="form_input required" placeholder="senha" />
+					<form id="frmAgendar" method="post">
+						<select class="form_input" id="agendamento_data">
+							<option value=0>Escolha uma data</option>
+							<option value="20150509">Hoje (09/05/2015)</option>
+							<option value="20150512">Terça (12/05/2015)</option>
+							<option value="20150513">Quarta (13/05/2015)</option>							
+							<option value="20150514">Quinta (14/05/2015)</option>
+							<option value="20150515">Sexta (15/05/2015)</option>
+							<option value="20150516">Sábado (16/05/2015)</option>
+						</select>
+						<select class="form_input" id="agendamento_pacotes">
+							<option value=0>Pacotes Especiais</option>
+							<option value="20150509">Escova + Hidratação + Pé e Mão (15%OFF)</option>
+							<option value="20150512">Escova + Hidratação Loreal (20%OFF)</option>
+							<option value="20150513">Pé e Mão + Spa dos Pés (20%OFF)</option>
+						</select>
 						<select class="form_input">
-							<option value="volvo">Volvo</option>
-							<option value="saab">Saab</option>
-							<option value="mercedes">Mercedes</option>
-							<option value="audi">Audi</option>
+							<option value=0>Serviços Avulsos Escovaria</option>
+							<option value="20150509">Escova</option>
+							<option value="20150513">Lavagem</option>
+							<option value="20150512">Hidratação Alfapharf</option>							
+							<option value="20150512">Hidratação Loreal</option>
+						</select>
+						<select class="form_input">
+							<option value=0>Serviços Avulsos Esmalteria</option>
+							<option value="20150509">Pé e Mão Nacional</option>
+							<option value="20150512">Pé e Mão Importado</option>
+							<option value="20150513">Cutilagem</option>
+						</select>
+						<select class="form_input">
+							<option value=0>Horário Inicio</option>
+							<option value="08:00">08:00h</option>
+							<option value="09:00">09:00h</option>
+							<option value="10:00">10:00h</option>
+							<option value="11:00">11:00h</option>
+							<option value="12:00">12:00h</option>
+							<option value="13:00">13:00h</option>
+							<option value="14:00">14:00h</option>
+							<option value="15:00">15:00h</option>
+							<option value="16:00">16:00h</option>
+							<option value="17:00">17:00h</option>
+							<option value="18:00">18:00h</option>
+							<option value="19:00">19:00h</option>
 						</select>
 						
 						<input type="submit" name="submit" class="form_submit" id="submit" value="CADASTRAR" />
@@ -229,13 +263,27 @@
 <script type="text/javascript" src="js/jquery.swipebox.js"></script>
 <script type="text/javascript" src="js/jquery.fitvids.js"></script>
 <script type="text/javascript" src="js/email.js"></script>
-<script src="phonegap.js"></script>
+
 	
 	<script>
 
 		document.addEventListener('deviceready', function () {
 			
 			navigator.vibrate(3000);
+			
+			$('#agendamento_pacotes').prop('disabled', 'disabled');
+				
+			$("#agendamento_data").change(function() {
+				agendamento_data = $("#agendamento_data").find('option:selected').val();
+				alert('sdfsdf');
+				if (agendamento_data == 0) {
+					$('#agendamento_pacotes').prop('disabled', 'disabled');
+				} else {
+					$('#agendamento_pacotes').prop('disabled', false);
+				}
+				
+			});
+		
 			
 			//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 			//cordova.plugins.notification.local.schedule({
