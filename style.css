@@ -748,7 +748,7 @@ font-size:14px;
 .popup-social h4{
 padding-top:40px;
 }
-.popup-login h4, .popup-signup h4, .popup-forgot h4{
+.popup-login h4, .popup-signup h4, .popup-forgot h4, .popup-agendar1 h4, .popup-agendar2 h4, .popup-agendar3 h4 {
 color:#FFFFFF;
 font-size:18px;
 font-weight:700;

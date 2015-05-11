@@ -40,7 +40,7 @@
                 <nav class="user-nav">
                     <ul>
 						<li><a href="#" data-popup=".popup-login" class="open-popup close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Login</span></a></li>
-						<li><a href="#" data-popup=".popup-agendar" class="open-popup close-panel"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Agendar</span></a></li>
+						<li><a href="#" data-popup=".popup-agendar1" class="open-popup close-panel"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Agendar</span></a></li>
 						<li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Meus Agendamentos</span><strong class="green">12</strong></a></li>
 						<li><a href="#" data-popup=".popup-signup" class="open-popup close-panel"><img src="images/icons/white/settings.png" alt="" title="" /><span>Meus Dados</span></a></li>
 						<li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Contato</span></a></li>
@@ -66,7 +66,7 @@
         <div class="toolbar">
               <div class="toolbar-inner">
 				<ul class="toolbar_icons">
-					<li><a href="agendar.html"><img src="images/icons/white/blog.png" alt="Agendar Visita" title="Agendar Visita" /></a></li>
+					<li><a href="#" data-popup=".popup-agendar1" class="open-popup close-panel"><img src="images/icons/white/blog.png" alt="Agendar Visita" title="Agendar Visita" /></a></li>
 					<li><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/user.png" alt="" title="" /></a></li>
 					<!-- Botão central
 					<li class="menuicon"><a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>
@@ -157,7 +157,7 @@
     </div>
 	
 	<!-- NOVO AGENDAMENTO -->
-    <div class="popup popup-agendar">
+    <div class="popup popup-agendar1">
 		<div class="content-block-login">
 			<div class="form_logo">
 				<img src="images/logo.png" alt="" title="" />
@@ -191,7 +191,7 @@
 						
 					</select>
 					
-					<input type="button" data-popup=".popup-horarios" class="form_submit open-popup close-panel" value="PRÓXIMO" />
+					<input type="button" data-popup=".popup-agendar2" class="form_submit open-popup close-panel" value="PRÓXIMO" />
 					
 				</form>
 				<!--
@@ -206,7 +206,7 @@
     </div>
 	
 	<!-- ESCOLHER PROFISSIONAIS E HORARIOS -->
-    <div class="popup popup-horarios">
+    <div class="popup popup-agendar2">
 		<div class="content-block-login">
 			<div class="form_logo">
 				<img src="images/logo.png" alt="" title="" />
@@ -305,11 +305,8 @@
 								<input type="button" class="" id="9" value="18:30" />
 								<input type="button" class="" id="9" value="19:00" />
 							</div>
-						</div>
-						
-						
-					</div>
-					
+						</div>						
+					</div>					
 					<input type="submit" name="submit" class="form_submit" id="submit" value="AGENDAR" />
 				</form>
 			</div>
@@ -373,14 +370,11 @@
 		
 		$( document ).ready(function() {
 			
-			navigator.vibrate(3000);
-			
 			//Desabilita os pacotes/servicos			
 			$('#agendamento_pacotes').prop('disabled', 'disabled');			
 			
 			//Preencher datas disponíveis			
-			//moment().locale("pt-br");			
-			for (i = 0; i < 15; i++) {				
+			/*for (i = 0; i < 15; i++) {				
 				var m = moment(new Date());
 				m.add(i, 'days');
 				dia = m.day(); //0=dom, 1=seg, 2=ter, 3=qua, 4=qui, 5=sex, 6=sab
@@ -388,7 +382,7 @@
 				if ((dia != 0)&&((dia != 1))) {
 					$('#agendamento_data').append('<option value=' + m.format('L') + '>' + m.format('L') + ' (' + nome_dia + ')' + '</option>');
 				}				
-			}
+			}*/
 			
 			//Habiltiar o combo de pacotes e serviços
 			$("#agendamento_data").change(function() {
@@ -412,6 +406,7 @@
 			//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 			//});			
 			
+			navigator.vibrate(3000);
 			
 			$("#btnCadastrar").click(function() {
 				

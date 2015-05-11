@@ -74,6 +74,9 @@ background: #171717;
 .popup-login, .popup-signup, .popup-forgot{
 background-color:#263239;
 }
+.popup-agendar1, .popup-agendar2, .popup-agendar3{
+background-color:#ff0060;
+}
 .toolbar:before {
 background-color: #171717;
 }
