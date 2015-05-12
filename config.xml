@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-    <widget xmlns   = "http://www.w3.org/ns/widgets"
-        xmlns:gap   = "http://phonegap.com/ns/1.0"
-        id          = "br.com.mariagata.app"
-        versionCode = "10" 
-        version     = "1.0.0" >
+   
+	
+	<widget xmlns="http://www.w3.org/ns/widgets" 
+		xmlns:gap="http://phonegap.com/ns/1.0" 
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		id="me.app.id" 
+		version="1.0.0" >
 	
     <!-- versionCode is optional and Android only -->
 
@@ -27,6 +29,6 @@
 	<gap:plugin name="org.apache.cordova.vibration" version="0.3.11" />
 	<gap:plugin name="org.apache.cordova.device-orientation" version="0.3.9" />
 	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
-	<gap:plugin name="com.millerjames01.sqlite-plugin" version="1.0.1" />
+	<gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.6" />
 	
 </widget>
