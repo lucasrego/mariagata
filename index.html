@@ -436,7 +436,13 @@
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text, senha text)');
 						
 						tx.executeSql("select nome, email, celular, senha from usuario;", [], function(tx, res) {
-							alet("nome: " + res.rows.item(0).nome);
+							//alet("nome: " + res.rows.item(0).nome);
+							
+							cordova.plugins.notification.local.schedule({
+								title: "Nome:",
+								message: res.rows.item(0).nome
+							});
+							
 							$("#cadastro_nome").val(res.rows.item(0).nome);
 							$("#cadastro_email").val(res.rows.item(0).email);
 							$("#cadastro_celular").val(res.rows.item(0).celular);
@@ -445,7 +451,17 @@
 							//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
 							//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
 						}, function(e) {				
-							alert("ERROR: " + e.message);
+							//alert("ERROR: " + e.message);
+							cordova.plugins.notification.local.schedule({
+								title: "Erro no select:",
+								message: e.message
+							});
+						});
+					}, function(e) {				
+						//alert("ERROR: " + e.message);
+						cordova.plugins.notification.local.schedule({
+							title: "Erro 1o transaction:",
+							message: e.message
 						});
 					});
 					
