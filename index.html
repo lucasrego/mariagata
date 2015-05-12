@@ -72,7 +72,7 @@
 					<li class="menuicon"><a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>
 					-->
 					<li class="menuicon"><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>			  
-					<li><a href="photos.html"><img src="images/icons/white/photos.png" alt="" title="" /></a></li>
+					<li><a href="agendar2.html"><img src="images/icons/white/photos.png" alt="" title="" /></a></li>
 					<li><a href="blog.html"><img src="images/icons/white/contact.png" alt="" title="" /></a></li>              
 				</ul>
               </div>  
@@ -162,37 +162,63 @@
 			<div class="form_logo">
 				<img src="images/logo.png" alt="" title="" />
 			</div>
-			<h4>Data e Serviços</h4>
-			<div class="loginform">
-				<form id="frmAgendar" method="post">
+			
+			<div class="mariagataform">
+				<form id="frmAgendar" method="post" action="agendar2.html">
+					<h4>Quando quer ser atendida?</h4>
 					<select class="form_input" id="agendamento_data">
 						<option value=0>Escolha uma data</option>							
 					</select>
+					<h4>Agora escolha os serviços:</h4>
 					<select class="form_input" id="agendamento_pacotes">
-						<option value="0">Selecione os serviços</option>
+						<option value="0">Selecione um serviço ou pacote</option>
 						<option value="0">PACOTES ESPECIAIS</option>
 						<option value="1|2|3">&nbsp;&nbsp;Escova + Hidratação + Pé e Mão (15%OFF)</option>
 						<option value="1|4">&nbsp;&nbsp;Escova + Hidratação Loreal (20%OFF)</option>
 						<option value="1|6">&nbsp;&nbsp;Pé e Mão + Spa dos Pés (20%OFF)</option>
-						
-						<option value="0">&nbsp;</option>
-						
 						<option value="0">SERVIÇOS ESMALTERIA</option>
 						<option value="1|2|3">&nbsp;&nbsp;Pé e Mão</option>
 						<option value="1|2|3">&nbsp;&nbsp;Apenas Mão ou Apenas Pé</option>
 						<option value="1|2|3">&nbsp;&nbsp;Spa dos Pés</option>
-						
-						<option value="0">&nbsp;</option>
-						
 						<option value="0">SERVIÇOS ESCOVARIA</option>
 						<option value="1">&nbsp;&nbsp;Escova</option>
 						<option value="2">&nbsp;&nbsp;Hidratação</option>
-						<option value="7">&nbsp;&nbsp;Lavagem</option>
-						
+						<option value="7">&nbsp;&nbsp;Lavagem</option>						
+					</select>
+					<select class="form_input" id="agendamento_pacotes">
+						<option value="0">Algum outro? (opcional)</option>
+						<option value="0">PACOTES ESPECIAIS</option>
+						<option value="1|2|3">&nbsp;&nbsp;Escova + Hidratação + Pé e Mão (15%OFF)</option>
+						<option value="1|4">&nbsp;&nbsp;Escova + Hidratação Loreal (20%OFF)</option>
+						<option value="1|6">&nbsp;&nbsp;Pé e Mão + Spa dos Pés (20%OFF)</option>
+						<option value="0">SERVIÇOS ESMALTERIA</option>
+						<option value="1|2|3">&nbsp;&nbsp;Pé e Mão</option>
+						<option value="1|2|3">&nbsp;&nbsp;Apenas Mão ou Apenas Pé</option>
+						<option value="1|2|3">&nbsp;&nbsp;Spa dos Pés</option>
+						<option value="0">SERVIÇOS ESCOVARIA</option>
+						<option value="1">&nbsp;&nbsp;Escova</option>
+						<option value="2">&nbsp;&nbsp;Hidratação</option>
+						<option value="7">&nbsp;&nbsp;Lavagem</option>						
+					</select>
+					<select class="form_input" id="agendamento_pacotes">
+						<option value="0">Algo mais? (opcional)</option>
+						<option value="0">PACOTES ESPECIAIS</option>
+						<option value="1|2|3">&nbsp;&nbsp;Escova + Hidratação + Pé e Mão (15%OFF)</option>
+						<option value="1|4">&nbsp;&nbsp;Escova + Hidratação Loreal (20%OFF)</option>
+						<option value="1|6">&nbsp;&nbsp;Pé e Mão + Spa dos Pés (20%OFF)</option>
+						<option value="0">SERVIÇOS ESMALTERIA</option>
+						<option value="1|2|3">&nbsp;&nbsp;Pé e Mão</option>
+						<option value="1|2|3">&nbsp;&nbsp;Apenas Mão ou Apenas Pé</option>
+						<option value="1|2|3">&nbsp;&nbsp;Spa dos Pés</option>
+						<option value="0">SERVIÇOS ESCOVARIA</option>
+						<option value="1">&nbsp;&nbsp;Escova</option>
+						<option value="2">&nbsp;&nbsp;Hidratação</option>
+						<option value="7">&nbsp;&nbsp;Lavagem</option>						
 					</select>
 					
-					<input type="button" data-popup=".popup-agendar2" class="form_submit open-popup close-panel" value="PRÓXIMO" />
-					
+					<!--<input type="button" data-popup=".popup-agendar2" class="form_submit open-popup close-panel" value="CONSULTAR" />-->
+					<input type="button" class="form_submit" value="CONSULTAR" />
+										
 				</form>
 				<!--
 				<div class="signup_social">
@@ -212,10 +238,10 @@
 				<img src="images/logo.png" alt="" title="" />
 			</div>
 			<h4>Profissionais e Horários</h4>
-		  	<div class="loginform">
+		  	<div class="mariagataform">
 				<form id="frmAgendar" method="post">
 					
-					<p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+					<p>Escolha os profissionais e horários para a Esmalteria e/ou Escovaria.</p>
 					
 					 <div class="custom-accordion">
 					
@@ -359,19 +385,16 @@
 <script type="text/javascript" src="js/jquery.fitvids.js"></script>
 <script type="text/javascript" src="js/email.js"></script>
 
-<!--<script type="text/javascript" src="phonegap.js"></script>-->
+<script type="text/javascript" src="phonegap.js"></script>
 
-<!-- http://momentjs.com/ -->
+<!-- http://momentjs.com/ 
 <script type="text/javascript" src="js/moment.min.js"></script>
 <script type="text/javascript" src="js/locale/pt-br.js"></script>
-
+-->
 	
 	<script>
 		
 		$( document ).ready(function() {
-			
-			//Desabilita os pacotes/servicos			
-			$('#agendamento_pacotes').prop('disabled', 'disabled');			
 			
 			//Preencher datas disponíveis			
 			for (i = 0; i < 15; i++) {
@@ -387,18 +410,7 @@
 					$('#agendamento_data').append('<option value=' + data_id + '>' + data_exibicao + '</option>');
 				}
 			}
-			
-			//Habiltiar o combo de pacotes e serviços
-			$("#agendamento_data").change(function() {
-				agendamento_data = $("#agendamento_data").find('option:selected').val();
-				if (agendamento_data == 0) {
-					$('#agendamento_pacotes').prop('disabled', 'disabled');
-				} else {
-					$('#agendamento_pacotes').prop('disabled', false);
-				}
-				
-			});
-			
+						
 		});
 		
 		
