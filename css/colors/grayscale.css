@@ -72,7 +72,8 @@ color:#d7d7d7;
 background: #171717;
 }
 .popup-login, .popup-signup, .popup-forgot{
-background-color:#263239;
+/*background-color:#263239;*/
+background-color:#EA0059;
 }
 .popup-agendar1, .popup-agendar2, .popup-agendar3{
 background-color:#EA0059;

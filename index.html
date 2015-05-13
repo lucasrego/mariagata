@@ -42,8 +42,9 @@
 						<li><a href="#" data-popup=".popup-login" class="open-popup close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Login</span></a></li>
 						<li><a href="#" data-popup=".popup-agendar1" class="open-popup close-panel"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Agendar</span></a></li>
 						<li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Meus Agendamentos</span><strong class="green">12</strong></a></li>
-						<li><a href="#" data-popup=".popup-signup" class="open-popup close-panel"><img src="images/icons/white/settings.png" alt="" title="" /><span>Meus Dados</span></a></li>
-						<li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Contato</span></a></li>
+						<li><a href="#" data-popup=".popup-signup" class="open-popup close-panel"><img src="images/icons/white/settings.png" alt="" title="" /><span>Meu Cadastro</span></a></li>
+						<li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Contato Maria Gata</span></a></li>
+						<li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Localização</span></a></li>
                     </ul>
                 </nav>
           </div>
@@ -105,10 +106,11 @@
     
     <!-- Login Popup -->
     <div class="popup popup-login">
-    <div class="content-block-login">
-      <h4>LOGIN</h4>
+    <div class="content-block-login">      
       <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
-            <div class="loginform">
+			<h4>LOGIN</h4>
+            <!--<div class="loginform">-->
+			<div class="mariagataform">
 				<form id="frmLogin" method="post">
 					<input type="text" name="Username" id="Username" value="" class="form_input required" placeholder="E-mail" />
 					<input type="password" name="Password" id="Password" value="" class="form_input required" placeholder="Senha" />
@@ -127,23 +129,18 @@
     <!-- NOVO USUÁRIO -->
     <div class="popup popup-signup">
 		<div class="content-block-login">
-		  <h4>NOVO USUÁRIO</h4>
-		  <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
-				<div class="loginform">
+		    <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
+				<h4>CADASTRO</h4>
+				<!--<div class="loginform">-->
+				<div class="mariagataform">
 					<!--<form id="LoginForm" method="post">-->
 					<form id="frmCadastro" method="post">
 						<input type="text" name="cadastro_nome" id="cadastro_nome" value="" class="form_input required" placeholder="Primeiro Nome" />
 						<input type="text" name="cadastro_email" id="cadastro_email" value="" class="form_input required" placeholder="E-mail" />
 						<input type="text" name="cadastro_celular" id="cadastro_celular" value="" class="form_input required" placeholder="celular (com DDD)" />
-						<input type="password" name="cadastro_password" id="cadastro_password" value="" class="form_input required" placeholder="senha" />
-						<select class="form_input">
-							<option value="volvo">Volvo</option>
-							<option value="saab">Saab</option>
-							<option value="mercedes">Mercedes</option>
-							<option value="audi">Audi</option>
-						</select>
+						<input type="password" name="cadastro_password" id="cadastro_password" value="" class="form_input required" placeholder="senha" />					
 						
-						<input type="submit" name="submit" class="form_submit" id="submit" value="CADASTRAR" />
+						<input type="submit" name="submit" class="form_submit" id="submit" value="SALVAR" />
 					</form>
 					<!--
 					<div class="signup_social">
@@ -346,7 +343,8 @@
     <div class="content-block-login">
       <h4>RECUPERAR SENHA</h4>
       <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
-            <div class="loginform">
+            <!--<div class="loginform">-->
+			<div class="mariagataform">
             <form id="LoginForm" method="post">
             <input type="text" name="Email" value="" class="form_input required" placeholder="email" />
             <input type="submit" name="submit" class="form_submit" id="submit" value="ENVIAR POR EMAIL" />
