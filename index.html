@@ -43,8 +43,8 @@
 						<li><a href="#" data-popup=".popup-agendar1" class="open-popup close-panel"><img src="images/icons/white/blog.png" alt="" title="" /><span>Agendar</span></a></li>
 						<li><a href="features.html" class="close-panel"><img src="images/icons/white/heart.png" alt="" title="" /><span>Meus Agendamentos</span><strong class="green">12</strong></a></li>
 						<li><a href="#" data-popup=".popup-signup" class="open-popup close-panel"><img src="images/icons/white/user.png" alt="" title="" /><span>Meu Cadastro</span></a></li>
-						<li><a href="index.html" class="close-panel"><img src="images/icons/white/call.png" alt="" title="" /><span>Ligar para Maria Gata</span></a></li>
-						<li><a href="index.html" class="close-panel"><img src="images/icons/white/map.png" alt="" title="" /><span>Localização</span></a></li>
+						<li><a href="#" id="btnWhatsapp"><img src="images/icons/white/call.png" alt="" title="" /><span>Agende pelo Whatsapp</span></a></li>
+						<li><a href="index.html" ><img src="images/icons/white/map.png" alt="" title="" /><span>Localização</span></a></li>
                     </ul>
                 </nav>
           </div>
@@ -70,7 +70,7 @@
 					<li><a href="#" data-popup=".popup-agendar1" class="open-popup close-panel"><img src="images/icons/white/blog.png" alt="Agendar Visita" title="Agendar Visita" /></a></li>
 					<li><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/heart.png" alt="Meus Agendamentos" title="Meus Agendamentos" /></a></li>
 					<li class="menuicon"><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>			  
-					<li><a href="#"><img src="images/icons/white/call.png" alt="Agende pelo WhatsApp" title="Agende pelo WhatsApp" /></a></li>
+					<li><a href="#" id="btnWhatsapp"><img src="images/icons/white/call.png" alt="Agende pelo WhatsApp" title="Agende pelo WhatsApp" /></a></li>
 					<li><a href="#"><img src="images/icons/white/map.png" alt="Endereço Maria Gata" title="Endereço Maria Gata" /></a></li>
 				</ul>
 			</div>  
@@ -414,7 +414,8 @@
 			function onDeviceReady() {
 			
 			}
-			//function onDeviceReady() {
+			
+			function onDeviceReady() {
 				
 				//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 				//cordova.plugins.notification.local.schedule({
@@ -423,6 +424,11 @@
 				//});			
 				
 				navigator.vibrate(3000);
+				
+				$("#btnWhatsapp").click(function() {
+					cordova.plugins.Whatsapp.send("7188791014");
+				}); //Fim click btnWhatsapp
+				
 				
 				$("#btnCadastrar").click(function() {
 					
@@ -514,7 +520,7 @@
 					event.preventDefault();
 				}); //Fim form submit
 				
-			//} // Fim onDeviceReady()
+			} // Fim onDeviceReady()
 						
 		}); //Fim document.ready()
 		
