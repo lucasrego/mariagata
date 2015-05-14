@@ -86,9 +86,11 @@ background-color: #171717;
 /*===============================================*/	
 .panel {
 background:#606060;
+/* background:#f65821; */
 }
 .user-nav ul li, ul.popular_posts li{
-border-bottom:1px #797878 solid;
+/*border-bottom:1px #797878 solid;*/
+border-bottom:1px #EA0059 solid;
 }
 /* MENU OPENER ICON */
 ul.toolbar_icons li.menuicon{

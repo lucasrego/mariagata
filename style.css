@@ -283,8 +283,11 @@ background-color:#837f07;
 strong.blue{
 background-color:#077c83;
 }
+
+/* LINK MENU ESQUERDA */
 .user-nav ul li a{
 color:#fff;
+/*color:#EA0059;*/
 font-size:14px;
 font-weight:300;
 }
@@ -356,8 +359,10 @@ float:left;
 padding:0 0 0 5%;
 display:inline-block;
 }
+/* Linha menu esquerda */
 ul.popular_posts li a{
-color:#FFFFFF;
+/*color:#FFFFFF; */
+color:#EA0059;
 }
 
 /*===============================================*/
