@@ -37,6 +37,12 @@ background: #505050;
 .contactform input.form_submit, .loginform input.form_submit, .commentform input.form_submit{ 
 background-color:#505050;
 }
+
+.agendarform input.form_submit{ 
+background-color:#FF0057;
+}
+
+
 /*===============================================*/
 /* HOME BG AND PAGES HEADER BG */
 /*===============================================*/	
