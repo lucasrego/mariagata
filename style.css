@@ -562,14 +562,14 @@ margin:10px 0 20px 0;
 }
 h2.page_title{
 width:90%;
-padding:10px 5%;
+padding:10px 5% 20px 0px;
 font-size:24px;
 font-weight:300;
 margin:0;
 display:inline-block;
 letter-spacing:-0.5px;
-background-color:#ececec;
-color:#222222;
+background-color:#EA0059;
+color:#FFFFFF;
 }
 h2.page_subtitle{
 font-size:22px;
@@ -1315,7 +1315,7 @@ font-weight:normal;
 text-align:center;
 cursor:pointer; 
 font-size:18px;
-color:#DB0053;
+color:#EA0059;
 -webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;
 border: none;
 cursor:pointer;
