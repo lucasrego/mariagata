@@ -1184,6 +1184,12 @@ width:93%;
 margin:0 0 5px 0;
 border:1px solid #ddd;
 }
+.contactform select.form_input{
+padding:3%; 
+width:93%; 
+margin:0 0 5px 0;
+border:1px solid #ddd;
+}
 .contactform textarea.form_textarea{
 padding:3%; 
 width:93%; 
@@ -1192,6 +1198,19 @@ margin:0 0 5px 0;
 border:1px solid #ddd;
 }
 .contactform input.form_submit{ 
+width:100%;
+padding:4% 0 4% 0; 
+margin:10px 0 0 0; 
+font-weight:normal;
+text-align:center;
+cursor:pointer; 
+font-size:20px;
+color:#FFFFFF;
+-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;
+border: none;
+cursor:pointer;
+}
+.contactform select.form_submit{ 
 width:100%;
 padding:4% 0 4% 0; 
 margin:10px 0 0 0; 
