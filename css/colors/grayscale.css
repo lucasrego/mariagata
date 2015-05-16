@@ -79,7 +79,8 @@ background-color:#EA0059;
 background-color:#EA0059;
 }
 .toolbar:before {
-background-color: #171717;
+/*background-color: #171717;*/
+background-color:#CD0046;
 }
 /*===============================================*/
 /* LEFT AND RIGHT SLIDE PANEL */
@@ -94,7 +95,8 @@ border-bottom:1px #EA0059 solid;
 }
 /* MENU OPENER ICON */
 ul.toolbar_icons li.menuicon{
-background-color:#606060;
+/*background-color:#606060;*/
+background-color:#99063E;
 }
 
 /* PANEL CLOSE BUTTON */
