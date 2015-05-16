@@ -28,10 +28,10 @@ $$(document).on('pageInit', function (e) {
 		$(".videocontainer").fitVids();
 		
 		$("#ContactForm").validate({
-		submitHandler: function(form) {
-		ajaxContact(form);
-		return false;
-		}
+			submitHandler: function(form) {
+				ajaxContact(form);
+				return false;
+			}
 		});
 		
 
