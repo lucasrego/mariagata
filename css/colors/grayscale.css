@@ -38,9 +38,6 @@ background: #505050;
 background-color:#505050;
 }
 
-.agendarform input.form_submit{ 
-background-color:#FF0057;
-}
 
 
 /*===============================================*/
@@ -78,8 +75,9 @@ color:#d7d7d7;
 background: #171717;
 }
 .popup-login, .popup-signup, .popup-forgot{
+background-color:#FFFFFF;
 /*background-color:#263239;*/
-background-color:#EA0059;
+/*background-color:#EA0059;*/
 }
 .popup-agendar1, .popup-agendar2, .popup-agendar3{
 background-color:#EA0059;

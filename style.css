@@ -745,7 +745,7 @@ padding:0 0 10px 0;
 margin:0px;
 }
 .popup p{
-color:#FFFFFF;
+color:#4F4F4F;
 text-align:center;
 padding:0px 0 20px 0;
 margin:0px;
@@ -755,7 +755,7 @@ font-size:14px;
 padding-top:40px;
 }
 .popup-login h4, .popup-signup h4, .popup-forgot h4 {
-color:#FFFFFF;
+color:#4F4F4F;
 /*font-size:18px;*/
 font-size:16px;
 font-weight:700;
@@ -1295,17 +1295,17 @@ font-weight:400;
 padding:10px 3%; 
 width:93%; 
 margin:0 0 15px 0;
-border:1px solid #FFFFFF;
-background-color:#6E6E6E;
-color:#FFFFFF;
+border:1px solid #EA0059;
+background-color:#FFFFFF;
+color:#EA0059;
 }
 .mariagataform select.form_input{
 padding:10px 3%; 
-width:100%; 
+width:93%; 
 margin:0 0 15px 0;
-border:1px solid #FFFFFF;
-background-color:#6E6E6E;
-color:#FFFFFF;
+border:1px solid #EA0059;
+background-color:#FFFFFF;
+color:#EA0059;
 }
 .mariagataform input.form_submit{ 
 width:100%;
@@ -1315,7 +1315,7 @@ font-weight:normal;
 text-align:center;
 cursor:pointer; 
 font-size:18px;
-color:#5F5F5F;
+color:#DB0053;
 -webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;
 border: none;
 cursor:pointer;
@@ -1325,8 +1325,8 @@ width:100%;
 text-align:right;
 }
 .forgot_pass a{
-color:#FFFFFF;
-opacity: 0.5;
+color:#4F4F4F;
+/*opacity: 0.5;*/
 }
 .signup_bottom{
 width:100%;
@@ -1334,11 +1334,11 @@ text-align:center;
 padding:30px 0 0 0;
 }
 .signup_bottom p{
-opacity: 0.5;
+/*opacity: 0.5;*/
 padding:0px;
 }
 .signup_bottom a{
-color:#FFFFFF;
+color:#EA0059;
 font-weight:700;
 }
 .signup_social{
