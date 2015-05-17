@@ -79,6 +79,9 @@ padding:0px;
 margin:0px;
 line-height:20px;
 }
+.espacamento{
+padding:8px;
+}
 blockquote{
 padding:0 0 15px 0;
 margin:5px 0 15px 0;
@@ -562,7 +565,7 @@ margin:10px 0 20px 0;
 }
 h2.page_title{
 width:90%;
-padding:10px 5% 20px 0px;
+padding:10px 5%;
 font-size:24px;
 font-weight:300;
 margin:0;
@@ -755,7 +758,8 @@ font-size:14px;
 padding-top:40px;
 }
 .popup-login h4, .popup-signup h4, .popup-forgot h4 {
-color:#4F4F4F;
+/*color:#4F4F4F;*/
+color:#8C8C8C;
 /*font-size:18px;*/
 font-size:16px;
 font-weight:700;
@@ -764,7 +768,7 @@ padding:0 0 10px 0;
 margin:0px;
 }
 .popup-agendar1 h4, .popup-agendar2 h4, .popup-agendar3 h4 {
-color:#FFFFFF;
+color:#4F4F4F;
 font-size:16px;
 font-weight:700;
 text-align:center;
@@ -998,7 +1002,7 @@ padding:0px;
 color:#333333;
 }
 
-
+/* Comentado, pois dá conflito com CSS do framework7
 .list-block {
 margin:0px 0;
 }
@@ -1014,6 +1018,8 @@ margin:0 0 0 20px;
 color: #fff;
 text-align:center;
 }
+*/
+
 .post_thumb{
 width:100%;
 }
@@ -1282,6 +1288,13 @@ cursor:pointer;
 .mariagataform{
 width:90%;
 padding:0 0 15px 5%;
+}
+.mariagataform label{
+width:100%;
+padding:5px 0 3px 0; 
+display:block; 
+font-size:16px;
+font-weight:700;
 }
 .mariagataform label.error{
 padding:0 0 10px 0; 

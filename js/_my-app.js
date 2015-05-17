@@ -23,33 +23,6 @@ var mainView = myApp.addView('.view-main', {
 });
 
 
-myApp.onPageInit('agendar', function (page) {
-	
-	//Seta a data de hoje no campo Data
-	//var data_hoje = new Date();
-	//mes = ("0" + (data_hoje.getMonth() + 1)).slice(-2)
-	//data_hoje = data_hoje.getFullYear().toString() + "-" + mes.toString() + "-" + data_hoje.getDate().toString();
-	//$$("#data_agendamento").val(data_hoje);
-	
-	//Preencher próximas datas disponíveis
-	//for (i = 0; i < 15; i++) {
-	//	var d = new Date();
-	//	d.setDate( d.getDate() + i );
-	//	var dias = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
-	//	dia = d.getDay(); //0=dom, 1=seg, 2=ter, 3=qua, 4=qui, 5=sex, 6=sab
-	//	nome_dia = dias[dia];
-	//	mes = d.getMonth() + 1;
-	//	data_id = d.getFullYear() + "/" + mes + "/" + d.getDate();
-	//	data_exibicao = d.getDate() + "/" + mes + "/" + d.getFullYear() + " (" + nome_dia + ")";
-		
-		//Não exibe segunda e domingo
-	//	if ((dia != 0)&&((dia != 1))) {
-	//		$('#agendamento_data').append('<option value=' + data_id + '>' + data_exibicao + '</option>');
-	//	}
-	//}
-	
-});
-
 $$(document).on('pageInit', function (e) {
   		$(".swipebox").swipebox();
 		$(".videocontainer").fitVids();

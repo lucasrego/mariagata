@@ -1,90 +1,69 @@
+
 <div class="pages">
-	<div data-page="agendar" class="page">
-		<div class="page-content">
-    
-			<div class="navbarpages">
-				<div class="nav_left_logo"><a href="index.html"><img src="images/logo.png" alt="" title="" /></a></div>
-				<div class="nav_right_button"><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/menu.png" alt="" title="" /></a></div>
-			</div>
-			<div id="pages_maincontent">
+  <!-- Page, data-page contains page name-->
+  <div data-page="agendar" class="page">
+    <!-- Scrollable page content-->
+    <div class="page-content">
+	<h2 class="page_title">Agende seu Momento</h2>
+			
+      <div class="content-block-title">Selecione a data e os serviços</div>
+	  
+      <div class="list-block">
+        <ul>
+          <li>
+            <div class="item-content">
+              <div class="item-inner"> 
+                <div class="item-title label">Data</div>
+                <div class="item-input">
+                  <input type="date" placeholder="Data" value="" id="data_agendamento" />
+                </div>
+              </div>
+            </div>
+          </li>
+		  <li>
+				<a href="#" class="item-link smart-select" data-page-title="Selecione os Serviços" data-back-text="Voltar">
+				<!-- "multiple" attribute for multiple select-->
+				<select name="Pacotes e Serviços" multiple>
+				  <!-- options grouped within "optgroup" tag-->
+				  <optgroup label="Pacotes Especiais">
+					<option value="honda">Honda</option>
+					<option value="lexus">Lexus</option>
+					<option value="mazda">Mazda</option>
+					<option value="nissan">Nissan</option>
+					<option value="toyota">Toyota</option>
+				  </optgroup>
+				  <optgroup label="Escovaria">
+					<option value="audi">Audi</option>
+					<option value="bmw">BMW</option>
+					<option value="mercedes">Mercedes</option>
+					<option value="vw">Volkswagen</option>
+					<option value="volvo">Volvo</option>
+				  </optgroup>
+				  <optgroup label="Esmalteria">
+					<option value="cadillac">Cadillac</option>
+					<option value="chrysler">Chrysler</option>
+					<option value="dodge">Dodge</option>
+					<option value="ford">Ford</option>
+				  </optgroup>
+				  <optgroup label="Outros">
+					<option value="cadillac">Make</option>
+					<option value="chrysler">Buço</option>
+				  </optgroup>
+				</select>
+				<div class="item-content">
+				  <div class="item-inner">
+					<div class="item-title">Serviços</div>
+				  </div>
+				</div></a>
+			</li>
+        </ul>
+      </div>
       
-				<h2 class="page_title">Agende seu momento</h2>
-				
-				<h2 class="page_subtitle">subtitulo</h2>
-				
-				<div class="page_content"> 
+	  <div class="content-block">
+        <p><a href="#" class="button button-fill color-green button-round">Ver Horários</a></p>
+      </div>
+	  
       
-					<h2 id="Note"></h2>
-					<div class="mariagataform">
-						<form class="cmxform" id="ContactForm" method="post" action="">
-							<label>Quando quer ser atendida?</label>
-							<select class="form_input" id="agendamento_data">
-								<option value=0>Escolha uma data</option>
-							</select>
-							
-							<label>Agora escolha os serviços:</label>
-							<select class="form_input required" id="agendamento_servicos1">
-								<option value="0">Selecione um serviço ou pacote</option>
-								<option value="0">PACOTES ESPECIAIS</option>
-								<option value="1|2|3">&nbsp;&nbsp;Escova + Hidratação + Pé e Mão (15%OFF)</option>
-								<option value="1|4">&nbsp;&nbsp;Escova + Hidratação Loreal (20%OFF)</option>
-								<option value="1|6">&nbsp;&nbsp;Pé e Mão + Spa dos Pés (20%OFF)</option>
-								<option value="0">SERVIÇOS ESMALTERIA</option>
-								<option value="1|2|3">&nbsp;&nbsp;Pé e Mão</option>
-								<option value="1|2|3">&nbsp;&nbsp;Apenas Mão ou Apenas Pé</option>
-								<option value="1|2|3">&nbsp;&nbsp;Spa dos Pés</option>
-								<option value="0">SERVIÇOS ESCOVARIA</option>
-								<option value="1">&nbsp;&nbsp;Escova</option>
-								<option value="2">&nbsp;&nbsp;Hidratação</option>
-								<option value="7">&nbsp;&nbsp;Lavagem</option>								
-							</select>
-							
-							<label>Algum outro? (opcional)</label>
-							<select class="form_input" id="agendamento_servicos2">
-								<option value="0">Selecione um serviço ou pacote</option>
-								<option value="0">PACOTES ESPECIAIS</option>
-								<option value="1|2|3">&nbsp;&nbsp;Escova + Hidratação + Pé e Mão (15%OFF)</option>
-								<option value="1|4">&nbsp;&nbsp;Escova + Hidratação Loreal (20%OFF)</option>
-								<option value="1|6">&nbsp;&nbsp;Pé e Mão + Spa dos Pés (20%OFF)</option>
-								<option value="0">SERVIÇOS ESMALTERIA</option>
-								<option value="1|2|3">&nbsp;&nbsp;Pé e Mão</option>
-								<option value="1|2|3">&nbsp;&nbsp;Apenas Mão ou Apenas Pé</option>
-								<option value="1|2|3">&nbsp;&nbsp;Spa dos Pés</option>
-								<option value="0">SERVIÇOS ESCOVARIA</option>
-								<option value="1">&nbsp;&nbsp;Escova</option>
-								<option value="2">&nbsp;&nbsp;Hidratação</option>
-								<option value="7">&nbsp;&nbsp;Lavagem</option>								
-							</select>
-							
-							<label>Algo mais? (opcional)</label>
-							<select class="form_input" id="agendamento_servicos3">
-								<option value="0">Selecione um serviço ou pacote</option>
-								<option value="0">PACOTES ESPECIAIS</option>
-								<option value="1|2|3">&nbsp;&nbsp;Escova + Hidratação + Pé e Mão (15%OFF)</option>
-								<option value="1|4">&nbsp;&nbsp;Escova + Hidratação Loreal (20%OFF)</option>
-								<option value="1|6">&nbsp;&nbsp;Pé e Mão + Spa dos Pés (20%OFF)</option>
-								<option value="0">SERVIÇOS ESMALTERIA</option>
-								<option value="1|2|3">&nbsp;&nbsp;Pé e Mão</option>
-								<option value="1|2|3">&nbsp;&nbsp;Apenas Mão ou Apenas Pé</option>
-								<option value="1|2|3">&nbsp;&nbsp;Spa dos Pés</option>
-								<option value="0">SERVIÇOS ESCOVARIA</option>
-								<option value="1">&nbsp;&nbsp;Escova</option>
-								<option value="2">&nbsp;&nbsp;Hidratação</option>
-								<option value="7">&nbsp;&nbsp;Lavagem</option>								
-							</select>
-							
-							<input type="submit" name="submit" class="form_submit" id="submit" value="Encontrar Horário" />
-							<input class="" type="hidden" name="to" value="youremail@yourwebsite.com" />
-							<input class="" type="hidden" name="subject" value="Contacf form message" />
-							
-							<label id="loader" style="display:none;"><img src="images/loader.gif" alt="Pesquisando..." id="LoadingGraphic" /></label>
-						</form>
-					</div>
-           
-					<div class="clear"></div>      
-      
-				</div>
-			</div>
-		</div>
-	</div>
+    </div>
+  </div>
 </div>
