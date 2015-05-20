@@ -10,3 +10,7 @@
 - Fazer tela com preços
 - Fazer tela com meu agendamentos
 - Push (pushwoosh)
+- Icons, splash screen
+- Bloquear orientação
+- Cadastrar no Google para publicar
+- Ver cadastro Apple
