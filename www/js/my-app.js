@@ -177,6 +177,8 @@ myApp.onPageInit('agendar', function (page) {
 						if (index != 0) {
 							//Se não for o primeiro registro, fecha o anterior
 							//newPageHorarios += "</p>";
+							
+							//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'
 							if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
 								newPageHorarios += "</div>";
 							}
@@ -205,20 +207,15 @@ myApp.onPageInit('agendar', function (page) {
 						newPageHorarios += "<div class='card-content-inner'>";
 						//newPageHorarios += "<p class='buttons-row theme-pink'>";
 						
+						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
 						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
 							newPageHorarios += "<div class='row'>";
 						}
 						
-							
-						//	<div class="col-25"></div>
-						//	<div class="col-25"></div>
-						//	<div class="col-25"></div>
-						//</div>
-
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " . classeBotao . "'>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "'>" + value.FUHB_Horario + "</a></div>";
 						} else {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " . classeBotao . "' disabled>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "' disabled>" + value.FUHB_Horario + "</a></div>";
 						}
 					} else {
 						
@@ -226,9 +223,9 @@ myApp.onPageInit('agendar', function (page) {
 						
 						//Se o mesmo funcionário, insere apenas um horário novo
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " . classeBotao . "'>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "'>" + value.FUHB_Horario + "</a></div>";
 						} else {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " . classeBotao . "' disabled>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "' disabled>" + value.FUHB_Horario + "</a></div>";
 						}					
 					}
 					
@@ -236,6 +233,7 @@ myApp.onPageInit('agendar', function (page) {
 						//Final itens
 						//newPageHorarios += "</p>";
 						
+						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
 						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
 							newPageHorarios += "</div>";
 						}
