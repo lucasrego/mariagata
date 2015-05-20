@@ -14,3 +14,5 @@
 - Bloquear orientação
 - Cadastrar no Google para publicar
 - Ver cadastro Apple
+- Limpar sujeira de código fonte
+- Revisar config.xml
