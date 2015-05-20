@@ -1,7 +1,7 @@
 - Ajustar botões de horário e fazer lógica para escolher um horário de cada grupo (Escovaria e Esmalteria).
 - Validar data no servidor PHP: Segunda, domingo ou feriado, nao deixa agendar.
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
-- Botão voltar da tela de horário/pprofissionais tem que já trazer os dados preenchidos.
+- Botão voltar da tela de horário/pprofissionais tem que já trazer os dados preenchidos (simular apenas o voltar do celular pode atender).
 - Revisar todas as telas com foco no botão voltar
 - Fazer o concluir agendamento
 - Fazer ciclo do cadastro, login, recuperar senha
