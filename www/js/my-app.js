@@ -176,7 +176,10 @@ myApp.onPageInit('agendar', function (page) {
 						
 						if (index != 0) {
 							//Se não for o primeiro registro, fecha o anterior
-							newPageHorarios += "</p>";	
+							//newPageHorarios += "</p>";
+							if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+								newPageHorarios += "</div>";
+							}
 							newPageHorarios += "</div>";
 							newPageHorarios += "</div>";	  
 							newPageHorarios += "</div>";
@@ -202,17 +205,20 @@ myApp.onPageInit('agendar', function (page) {
 						newPageHorarios += "<div class='card-content-inner'>";
 						//newPageHorarios += "<p class='buttons-row theme-pink'>";
 						
-						//<div class="row">
-						//	<div class="col-25"></div>
+						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+							newPageHorarios += "<div class='row'>";
+						}
+						
+							
 						//	<div class="col-25"></div>
 						//	<div class="col-25"></div>
 						//	<div class="col-25"></div>
 						//</div>
 
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<a href='#' class='button btnHorario " . classeBotao . "'>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " . classeBotao . "'>" + value.FUHB_Horario + "</a></div>";
 						} else {
-							newPageHorarios += "<a href='#' class='button btnHorario " . classeBotao . "' disabled>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " . classeBotao . "' disabled>" + value.FUHB_Horario + "</a></div>";
 						}
 					} else {
 						
@@ -220,15 +226,19 @@ myApp.onPageInit('agendar', function (page) {
 						
 						//Se o mesmo funcionário, insere apenas um horário novo
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<a href='#' class='button btnHorario " . classeBotao . "'>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " . classeBotao . "'>" + value.FUHB_Horario + "</a></div>";
 						} else {
-							newPageHorarios += "<a href='#' class='button btnHorario " . classeBotao . "' disabled>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " . classeBotao . "' disabled>" + value.FUHB_Horario + "</a></div>";
 						}					
 					}
 					
 					if (index == totalItens - 1) {
 						//Final itens
-						//newPageHorarios += "</p>";	
+						//newPageHorarios += "</p>";
+						
+						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+							newPageHorarios += "</div>";
+						}
 						newPageHorarios += "</div>";
 						newPageHorarios += "</div>";	  
 						newPageHorarios += "</div>";
@@ -247,7 +257,7 @@ myApp.onPageInit('agendar', function (page) {
 												'<a href="agendar.html" class="button button-fill color-red button-round">Voltar</a>' +
 											  '</div>' +
 											  '<div class="col-50">' +
-												'<a href="#" id="btnConcluirAgendamento" class="button button-fill color-green button-round">Concluir Agendamento</a>' +
+												'<a href="#" id="btnConcluirAgendamento" class="button button-fill color-green button-round">Agendar</a>' +
 											  '</div>' +
 											'</div>' +										
 										'</div>' +
