@@ -7,9 +7,16 @@ var myApp = new Framework7({
 	swipeBackPage: false,
 	swipeBackPageThreshold: 1,
 	swipePanel: "left",
+	sortable: false,
 	swipePanelCloseOpposite: true,
-	pushState: true,
-    template7Pages: true
+	pushState: false,
+    template7Pages: true,
+	modalTitle: 'Maria Gata',
+	modalButtonOk: 'Ok',
+	modalButtonCancel: 'Cancelar',
+	smartSelectSearchbar: true,
+	smartSelectInPopup: true,
+	hideTabbarOnPageScroll: true
 });
 
 
@@ -139,6 +146,9 @@ myApp.onPageInit('agendar', function (page) {
 				var ultimoFuncionario = "";
 				var totalItens = jsonRetorno.length;
 				var lsHTML = "";
+				var classeBotao = "";
+				var divGrupo = "";
+				var qtdHorariosProfissional = 0;
 				
 				//console.log('totalItens: ' + totalItens);
 				
@@ -152,13 +162,17 @@ myApp.onPageInit('agendar', function (page) {
 					
 					//Obtem e seta a div correspondente ao grupo
 					if (value.GSER_ID == 1) {
-						var divGrupo = $('#cardEsmalteria');
+						divGrupo = $('#cardEsmalteria');
+						classeBotao = "btnEsmalteria";
 					} else {
-						var divGrupo = $('#cardEscovaria');
+						divGrupo = $('#cardEscovaria');
+						classeBotao = "btnEscovaria";
 					}
 					
 					//Se novo funcionário
 					if (ultimoFuncionario != value.FUNC_ID) {
+						
+						qtdHorariosProfissional = 1;
 						
 						if (index != 0) {
 							//Se não for o primeiro registro, fecha o anterior
@@ -171,9 +185,9 @@ myApp.onPageInit('agendar', function (page) {
 						//Se mudou de grupo, insere cabeçalho do grupo:
 						if (ultimoGrupo != value.GSER_ID) {					
 							if (value.GSER_ID == "1") {
-								newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";
+								newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";								
 							} else {
-								newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";
+								newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";								
 							}
 						}	
 						
@@ -186,24 +200,35 @@ myApp.onPageInit('agendar', function (page) {
 						newPageHorarios += "</div>";
 						newPageHorarios += "<div class='card-content'>";
 						newPageHorarios += "<div class='card-content-inner'>";
-						newPageHorarios += "<p class='buttons-row theme-pink'>";
+						//newPageHorarios += "<p class='buttons-row theme-pink'>";
+						
+						//<div class="row">
+						//	<div class="col-25"></div>
+						//	<div class="col-25"></div>
+						//	<div class="col-25"></div>
+						//	<div class="col-25"></div>
+						//</div>
+
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<a href='#' class='button'>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<a href='#' class='button btnHorario " . classeBotao . "'>" + value.FUHB_Horario + "</a>";
 						} else {
-							newPageHorarios += "<a href='#' class='button' disabled>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<a href='#' class='button btnHorario " . classeBotao . "' disabled>" + value.FUHB_Horario + "</a>";
 						}
 					} else {
+						
+						qtdHorariosProfissional = qtdHorariosProfissional + 1;
+						
 						//Se o mesmo funcionário, insere apenas um horário novo
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<a href='#' class='button'>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<a href='#' class='button btnHorario " . classeBotao . "'>" + value.FUHB_Horario + "</a>";
 						} else {
-							newPageHorarios += "<a href='#' class='button' disabled>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<a href='#' class='button btnHorario " . classeBotao . "' disabled>" + value.FUHB_Horario + "</a>";
 						}					
 					}
 					
 					if (index == totalItens - 1) {
 						//Final itens
-						newPageHorarios += "</p>";	
+						//newPageHorarios += "</p>";	
 						newPageHorarios += "</div>";
 						newPageHorarios += "</div>";	  
 						newPageHorarios += "</div>";

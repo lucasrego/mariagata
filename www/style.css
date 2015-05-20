@@ -162,6 +162,12 @@ font-size: 14px;
 font-family: inherit;
 cursor: pointer;
 }
+.btnEsmalteria{
+color: #0000FF;
+}
+.btnEscovaria {
+color: #FF00FF;
+}
 .button.active {
 color: #fff;
 }
