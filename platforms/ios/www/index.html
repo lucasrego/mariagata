@@ -107,7 +107,8 @@
     <div class="popup popup-login">
     <div class="content-block-login">      
       <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
-			<h4>LOGIN</h4>
+			<h4>Se já se cadastrou, faça o LOGIN.</h4>
+			<h4>Caso contrário, clique em CADASTRE AQUI</h4>
             <!--<div class="loginform">-->
 			<div class="mariagataform">
 				<form id="frmLogin" method="post">
@@ -129,7 +130,7 @@
     <div class="popup popup-signup">
 		<div class="content-block-login">
 		    <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
-				<h4>CADASTRO</h4>
+				<h4>CADASTRE-SE NA MARIA GATA</h4>
 				<!--<div class="loginform">-->
 				<div class="mariagataform">
 					<!--<form id="LoginForm" method="post">-->
@@ -380,7 +381,6 @@
 <script type="text/javascript" src="js/my-app.js"></script>
 <script type="text/javascript" src="js/jquery.swipebox.js"></script>
 <script type="text/javascript" src="js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="js/email.js"></script>
 
 <script type="text/javascript" src="phonegap.js"></script>
 
@@ -392,12 +392,50 @@
 			//document.addEventListener('pagebeforecreate', function(event) {
 			//});
 			
-			
 
 			// Wait for Cordova to load
 			document.addEventListener("deviceready", onDeviceReady, false);
 			
 			function onDeviceReady() {
+				
+				//Pushwoosh
+				function initPushwoosh() {
+					var pushNotification = cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
+					
+					//set push notifications handler
+					document.addEventListener('push-notification', function(event) {
+						var title = event.notification.title;
+						var userData = event.notification.userdata;
+												 
+						if(typeof(userData) != "undefined") {
+							console.warn('user data: ' + JSON.stringify(userData));
+						}
+													 
+						//alert(title);
+						console("Pushwoosh addEventListener");
+						cordova.plugins.notification.local.schedule({
+							title: "Lembrete Maria Gata",
+							message: title
+						});
+						
+					});
+				 
+					//initialize Pushwoosh with projectid: "GOOGLE_PROJECT_NUMBER", pw_appid : "PUSHWOOSH_APP_ID". This will trigger all pending push notifications on start.
+					pushNotification.onDeviceReady({ projectid: "367258443335", pw_appid : "45AA4-F6CC1" });
+				 
+					//register for pushes
+					pushNotification.registerDevice(
+						function(status) {
+							var pushToken = status;
+							console.warn('push token: ' + pushToken);
+						},
+						function(status) {
+							console.warn(JSON.stringify(['failed to register ', status]));
+						}
+					);
+				} 
+				initPushwoosh();
+				//Fim Pushwoosh
 				
 				//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 				//cordova.plugins.notification.local.schedule({
@@ -405,7 +443,7 @@
 				//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 				//});			
 				
-				//navigator.vibrate(3000); 
+				navigator.vibrate(3000); 
 								
 				
 				
