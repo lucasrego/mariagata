@@ -170,6 +170,7 @@ myApp.onPageInit('agendar', function (page) {
 					}
 					
 					//Se novo funcionário
+					//vazio - 2, 2-2..., 2-1, 1-1, 1-3, 3-3...
 					if (ultimoFuncionario != value.FUNC_ID) {
 						
 						qtdHorariosProfissional = 1;
@@ -179,12 +180,14 @@ myApp.onPageInit('agendar', function (page) {
 							//newPageHorarios += "</p>";
 							
 							//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'
-							if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+							//if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+							if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 								newPageHorarios += "</div>";
 							}
 							newPageHorarios += "</div>";
 							newPageHorarios += "</div>";	  
 							newPageHorarios += "</div>";
+							//newPageHorarios += "</div>";
 						}
 						
 						//Se mudou de grupo, insere cabeçalho do grupo:
@@ -208,7 +211,7 @@ myApp.onPageInit('agendar', function (page) {
 						//newPageHorarios += "<p class='buttons-row theme-pink'>";
 						
 						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
-						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+						if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 							newPageHorarios += "<div class='row'>";
 						}
 						
@@ -220,6 +223,7 @@ myApp.onPageInit('agendar', function (page) {
 					} else {
 						
 						qtdHorariosProfissional = qtdHorariosProfissional + 1;
+						
 						
 						//Se o mesmo funcionário, insere apenas um horário novo
 						if (value.FUHB_HorarioBloqueado == "N") {
@@ -234,7 +238,7 @@ myApp.onPageInit('agendar', function (page) {
 						//newPageHorarios += "</p>";
 						
 						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
-						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+						if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 							newPageHorarios += "</div>";
 						}
 						newPageHorarios += "</div>";

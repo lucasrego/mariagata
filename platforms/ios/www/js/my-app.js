@@ -7,9 +7,16 @@ var myApp = new Framework7({
 	swipeBackPage: false,
 	swipeBackPageThreshold: 1,
 	swipePanel: "left",
+	sortable: false,
 	swipePanelCloseOpposite: true,
-	pushState: true,
-    template7Pages: true
+	pushState: false,
+    template7Pages: true,
+	modalTitle: 'Maria Gata',
+	modalButtonOk: 'Ok',
+	modalButtonCancel: 'Cancelar',
+	smartSelectSearchbar: true,
+	smartSelectInPopup: true,
+	hideTabbarOnPageScroll: true
 });
 
 
@@ -139,6 +146,9 @@ myApp.onPageInit('agendar', function (page) {
 				var ultimoFuncionario = "";
 				var totalItens = jsonRetorno.length;
 				var lsHTML = "";
+				var classeBotao = "";
+				var divGrupo = "";
+				var qtdHorariosProfissional = 0;
 				
 				//console.log('totalItens: ' + totalItens);
 				
@@ -152,17 +162,26 @@ myApp.onPageInit('agendar', function (page) {
 					
 					//Obtem e seta a div correspondente ao grupo
 					if (value.GSER_ID == 1) {
-						var divGrupo = $('#cardEsmalteria');
+						divGrupo = $('#cardEsmalteria');
+						classeBotao = "btnEsmalteria";
 					} else {
-						var divGrupo = $('#cardEscovaria');
+						divGrupo = $('#cardEscovaria');
+						classeBotao = "btnEscovaria";
 					}
 					
 					//Se novo funcionário
 					if (ultimoFuncionario != value.FUNC_ID) {
 						
+						qtdHorariosProfissional = 1;
+						
 						if (index != 0) {
 							//Se não for o primeiro registro, fecha o anterior
-							newPageHorarios += "</p>";	
+							//newPageHorarios += "</p>";
+							
+							//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'
+							if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+								newPageHorarios += "</div>";
+							}
 							newPageHorarios += "</div>";
 							newPageHorarios += "</div>";	  
 							newPageHorarios += "</div>";
@@ -171,9 +190,9 @@ myApp.onPageInit('agendar', function (page) {
 						//Se mudou de grupo, insere cabeçalho do grupo:
 						if (ultimoGrupo != value.GSER_ID) {					
 							if (value.GSER_ID == "1") {
-								newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";
+								newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";								
 							} else {
-								newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";
+								newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";								
 							}
 						}	
 						
@@ -186,24 +205,38 @@ myApp.onPageInit('agendar', function (page) {
 						newPageHorarios += "</div>";
 						newPageHorarios += "<div class='card-content'>";
 						newPageHorarios += "<div class='card-content-inner'>";
-						newPageHorarios += "<p class='buttons-row theme-pink'>";
+						//newPageHorarios += "<p class='buttons-row theme-pink'>";
+						
+						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
+						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+							newPageHorarios += "<div class='row'>";
+						}
+						
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<a href='#' class='button'>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "'>" + value.FUHB_Horario + "</a></div>";
 						} else {
-							newPageHorarios += "<a href='#' class='button' disabled>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "' disabled>" + value.FUHB_Horario + "</a></div>";
 						}
 					} else {
+						
+						qtdHorariosProfissional = qtdHorariosProfissional + 1;
+						
 						//Se o mesmo funcionário, insere apenas um horário novo
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<a href='#' class='button'>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "'>" + value.FUHB_Horario + "</a></div>";
 						} else {
-							newPageHorarios += "<a href='#' class='button' disabled>" + value.FUHB_Horario + "</a>";
+							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "' disabled>" + value.FUHB_Horario + "</a></div>";
 						}					
 					}
 					
 					if (index == totalItens - 1) {
 						//Final itens
-						newPageHorarios += "</p>";	
+						//newPageHorarios += "</p>";
+						
+						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
+						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+							newPageHorarios += "</div>";
+						}
 						newPageHorarios += "</div>";
 						newPageHorarios += "</div>";	  
 						newPageHorarios += "</div>";
@@ -222,7 +255,7 @@ myApp.onPageInit('agendar', function (page) {
 												'<a href="agendar.html" class="button button-fill color-red button-round">Voltar</a>' +
 											  '</div>' +
 											  '<div class="col-50">' +
-												'<a href="#" id="btnConcluirAgendamento" class="button button-fill color-green button-round">Concluir Agendamento</a>' +
+												'<a href="#" id="btnConcluirAgendamento" class="button button-fill color-green button-round">Agendar</a>' +
 											  '</div>' +
 											'</div>' +										
 										'</div>' +
