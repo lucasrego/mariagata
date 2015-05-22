@@ -14,8 +14,8 @@ var myApp = new Framework7({
 	modalTitle: 'Maria Gata',
 	modalButtonOk: 'Ok',
 	modalButtonCancel: 'Cancelar',
-	smartSelectSearchbar: true,
-	smartSelectInPopup: true,
+	//smartSelectSearchbar: true,
+	//smartSelectInPopup: true,
 	hideTabbarOnPageScroll: true
 });
 
