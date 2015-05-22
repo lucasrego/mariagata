@@ -30,7 +30,36 @@ var mainView = myApp.addView('.view-main', {
 });
 
 
+
+
 myApp.onPageInit('agendar', function (page) {
+	
+	function checkConnection() {
+		var networkState = navigator.connection.type;
+ 
+		var states = {};
+		states[Connection.UNKNOWN]  = 'Unknown connection';
+		states[Connection.ETHERNET] = 'Ethernet connection';
+		states[Connection.WIFI]     = 'WiFi connection';
+		states[Connection.CELL_2G]  = 'Cell 2G connection';
+		states[Connection.CELL_3G]  = 'Cell 3G connection';
+		states[Connection.CELL_4G]  = 'Cell 4G connection';
+		states[Connection.CELL]     = 'Cell generic connection';
+		states[Connection.NONE]     = 'No network connection';
+		
+		if (networkState == Connection.NONE) {
+			myApp.alert('Ops! No momento não identificamos internet no seu aparelho. Para agendar precisamos dela! ;)', function () {
+				//Volta para a tela inicial
+				mainView.router.load({
+					pageName: "index"
+				});
+			});
+		}
+		
+	}
+	
+	//Verifica internet
+	checkConnection();
 	
 	//console.log("onPageInit agendar");
 	
@@ -43,7 +72,7 @@ myApp.onPageInit('agendar', function (page) {
 			filial: '1'
 		},
 		beforeSend: function( xhr ) {
-			myApp.showPreloader('Obtendo serviços...');
+			myApp.showPreloader('Consultando serviços disponíveis...');
 			//Se precisar alterar xhr: xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
 		},
 		context: document.body
@@ -147,8 +176,11 @@ myApp.onPageInit('agendar', function (page) {
 				var totalItens = jsonRetorno.length;
 				var lsHTML = "";
 				var classeBotao = "";
+				var idBotao = "";
+				var classeBotaoDisponivel = "";
 				var divGrupo = "";
 				var qtdHorariosProfissional = 0;
+				var horario = "";
 				
 				//console.log('totalItens: ' + totalItens);
 				
@@ -160,14 +192,21 @@ myApp.onPageInit('agendar', function (page) {
 				$.each(jsonRetorno, function( index, value ) {
 					//{"FUNC_ID":"1","FUNC_Nome":"Tati","FUHB_Horario":"09:00:00","FUHB_HorarioBloqueado":"N","GSER_ID":"1",", FUNC_Especialidade":"Manicure e Art Designer"}
 					
+					//Transforma de 09:30:00 para 09:30
+					horario = value.FUHB_Horario.substring(0,(value.FUHB_Horario.length - 3));
+										
 					//Obtem e seta a div correspondente ao grupo
 					if (value.GSER_ID == 1) {
 						divGrupo = $('#cardEsmalteria');
 						classeBotao = "btnEsmalteria";
+						classeBotaoDisponivel = "btnEsmalteriaDisponivel";
 					} else {
 						divGrupo = $('#cardEscovaria');
 						classeBotao = "btnEscovaria";
+						classeBotaoDisponivel = "btnEscovariaDisponivel";
 					}
+					
+					idBotao = value.FUNC_ID + "|" + horario;
 					
 					//Se novo funcionário
 					//vazio - 2, 2-2..., 2-1, 1-1, 1-3, 3-3...
@@ -179,7 +218,7 @@ myApp.onPageInit('agendar', function (page) {
 							//Se não for o primeiro registro, fecha o anterior
 							//newPageHorarios += "</p>";
 							
-							//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'
+							//Os botões serão agrupados 4 por linha (25%). A cada grupo de 4, fecha e reabre a DIV class='row'
 							//if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
 							if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 								newPageHorarios += "</div>";
@@ -210,15 +249,15 @@ myApp.onPageInit('agendar', function (page) {
 						newPageHorarios += "<div class='card-content-inner'>";
 						//newPageHorarios += "<p class='buttons-row theme-pink'>";
 						
-						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
+						//Os botões serão agrupados 4 por linha (25%). A cada grupo de 4, fecha e reabre a DIV class='row'							
 						if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 							newPageHorarios += "<div class='row'>";
 						}
 						
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "'>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' id='" + idBotao + "' class='button " + classeBotaoDisponivel + " " + classeBotao + "'>" + horario + "</a></div>";
 						} else {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "' disabled>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' id='" + idBotao + "' class='button " + classeBotao + "' disabled>" + horario + "</a></div>";
 						}
 					} else {
 						
@@ -227,23 +266,22 @@ myApp.onPageInit('agendar', function (page) {
 						
 						//Se o mesmo funcionário, insere apenas um horário novo
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "'>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' id='" + idBotao + "' class='button " + classeBotaoDisponivel + " " + classeBotao + "'>" + horario + "</a></div>";
 						} else {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "' disabled>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' id='" + idBotao + "' class='button btnHorario " + classeBotao + "' disabled>" + horario + "</a></div>";
 						}					
 					}
 					
 					if (index == totalItens - 1) {
-						//Final itens
-						//newPageHorarios += "</p>";
+						//Último item
 						
-						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
+						//Os botões serão agrupados 4 por linha (25%). A cada grupo de 4, fecha e reabre a DIV class='row'							
 						if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 							newPageHorarios += "</div>";
 						}
 						newPageHorarios += "</div>";
 						newPageHorarios += "</div>";	  
-						newPageHorarios += "</div>";
+						newPageHorarios += "</div>";						
 					}
 					
 					//divGrupo.append(lsHTML);
@@ -253,7 +291,8 @@ myApp.onPageInit('agendar', function (page) {
 					
 				});
 				
-				newPageHorarios += 	'<div class="content-block">' +
+				newPageHorarios += 	'</div>' +
+									'<div class="content-block">' +
 										'<div class="row">' +
 											  '<div class="col-50">' +
 												'<a href="agendar.html" class="button button-fill color-red button-round">Voltar</a>' +
@@ -285,6 +324,24 @@ myApp.onPageInit('agendar', function (page) {
 				
 	});
 	
+	
+	$$(document).on('click', '.disabled', function () {
+		//Exibe mensagem de horário indisponível
+		myApp.alert("Horário não disponível!", 'Maria Gata');
+	});
+	
+	$$(document).on('click', '.btnEsmalteriaDisponivel', function () {
+		//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
+		//myApp.alert(this.id, 'Maria Gata');
+		//this.addClass("btnSelecionado");
+		this.removeClass( " btnEsmalteria btnEscovaria " ).addClass( "btnSelecionado" );
+	});
+	
+	$$(document).on('click', '.btnEscovariaDisponivel', function () {
+		//Limpa a classe dos botões btnEsmalteria. Se não estiver disabled, aplica css do botão selecionado
+		//myApp.alert(this.id, 'Maria Gata');
+		this.removeClass( " btnEsmalteria btnEscovaria " ).addClass( "btnSelecionado" );
+	});
 	
 	$$(document).on('click', '#btnConcluirAgendamento', function () {
 		//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
