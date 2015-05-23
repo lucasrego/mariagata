@@ -117,13 +117,22 @@ myApp.onPageInit('agendar', function (page) {
 	filial = "";
 	servicos = "";
 	data = "";
+	servicosnome = "";
 	
 	//Evento de clique no botão de pesquisar horários
 	$('#btnVerHorarios').click(function () {
 		
 		filial = $('#cmbFilial').val();
 		data = $('#data_agendamento').val();
-		servicos = $('#cmbListaServicos').val().toString();
+		
+		$('#cmbListaServicos').find('option:selected').each(function(index, value){
+			servicos += this.value;
+			servicosnome += this.text;
+			if (index != $('#cmbListaServicos option:selected').length - 1) {
+				servicosnome += ", ";
+				servicos += "|";
+			}
+	   })
 		
 		if (filial != 1) {
 			event.preventDefault();
@@ -139,6 +148,8 @@ myApp.onPageInit('agendar', function (page) {
 			event.preventDefault();
 			myApp.alert('Nenhum pacote ou serviço selecionado.', 'Maria Gata');
 			return false;			
+		} else {
+			servicos = servicos.toString();
 		}
 		
 		//Aciona a página de horários e profissionais
@@ -214,7 +225,7 @@ myApp.onPageInit('agendar', function (page) {
 						temEscovaria = true;						
 					}
 					
-					idBotao = value.FUNC_ID + "|" + horario;
+					idBotao = value.FUNC_Nome + "|" + value.FUNC_ID + "|" + horario;
 					
 					//Se novo funcionário
 					//vazio - 2, 2-2..., 2-1, 1-1, 1-3, 3-3...
@@ -313,9 +324,9 @@ myApp.onPageInit('agendar', function (page) {
 									'</div>' +
 								'</div>' +
 							'</div>';
-							'<input type="hidden" id="filial" value=' + filial + ' />';
-							'<input type="hidden" id="servicos" value=' + servicos + ' />';
-							'<input type="hidden" id="data" value=' + data + ' />';
+							//'<input type="hidden" id="filial" value=' + filial + ' />';
+							//'<input type="hidden" id="servicos" value=' + servicos + ' />';
+							//'<input type="hidden" id="data" value=' + data + ' />';
 
 				mainView.router.load({
 					content: newPageHorarios,
@@ -359,9 +370,11 @@ myApp.onPageInit('agendar', function (page) {
 	$$(document).on('click', '#btnConcluirAgendamento', function (e) {
 		//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
 		
-		var profissionalEsmalteria = "";
+		var IdProfissionalEsmalteria = "";
+		var nomeProfissionalEsmalteria = "";
 		var horarioEsmalteria = "";
-		var profissionalEscovaria = "";
+		var IdProfissionalEscovaria = "";
+		var nomeProfissionalEscovaria = "";
 		var horarioEscovaria = "";
 		var msgNaoSelecionado = "";
 		
@@ -370,8 +383,9 @@ myApp.onPageInit('agendar', function (page) {
 			if (idSelecionadoEsmalteria === undefined) {
 				msgNaoSelecionado = "Selecione um horário para a Esmalteria.";
 			} else {
-				profissionalEsmalteria = idSelecionadoEsmalteria.split("|")[0];
-				horarioEsmalteria = idSelecionadoEsmalteria.split("|")[1];
+				nomeProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[0];
+				IdProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[1];
+				horarioEsmalteria = idSelecionadoEsmalteria.split("|")[2];
 			}			
 		}
 		if (temEscovaria) {
@@ -379,8 +393,9 @@ myApp.onPageInit('agendar', function (page) {
 			if (idSelecionadoEscovaria === undefined) {
 				msgNaoSelecionado = "Selecione um horário para a Escovaria.";
 			} else {
-				profissionalEscovaria = idSelecionadoEscovaria.split("|")[0];
-				horarioEscovaria = idSelecionadoEscovaria.split("|")[1];
+				nomeProfissionalEscovaria = idSelecionadoEscovaria.split("|")[0];
+				IdProfissionalEscovaria = idSelecionadoEscovaria.split("|")[1];
+				horarioEscovaria = idSelecionadoEscovaria.split("|")[2];
 			}
 		}
 		
@@ -389,9 +404,30 @@ myApp.onPageInit('agendar', function (page) {
 			return false;
 		}
 		
+		data = data.split("-")[2] + "/" + data.split("-")[1] + "/" + data.split("-")[0];
+		
+		var msgEsmalteria = "";
+		if (temEsmalteria) {
+			msgEsmalteria = '<p>Esmalteria: ' + nomeProfissionalEsmalteria + '(' + horarioEsmalteria + 'h)</p>';
+		}
+		
+		var msgEscovaria = "";
+		if (temEscovaria) {
+			msgEscovaria = '<p>Escovaria: ' + nomeProfissionalEscovaria + '(' + horarioEscovaria + 'h)</p>';
+		}
+		
+		var dadosAgendamento += '<span>' +
+									'<p>Unidade: Maria Gata Pituba</p>' +
+									'<p>Serviços: ' + servicosnome + '</p>' +																				
+									'<p>Quando: ' + data + '</p>' +
+									msgEsmalteria +
+									msgEscovaria +
+								'</span>';
+
+							
 		myApp.modal({
 			title:  'Revise o agendamento',
-			text: '<span><p>Unidade: Maria Gata Pituba</p><p>Quando: ' + data + '</p><span>',
+			text: dadosAgendamento,
 			buttons: [
 			  {
 				text: 'Vou revisar'
@@ -407,7 +443,7 @@ myApp.onPageInit('agendar', function (page) {
 		});
 		
 		//myApp.popup('.popup-login');
-		//myApp.alert('filial/servicos/data: ' + filial + "/" + servicos + "/" + data + '. esmalteria: ' + profissionalEsmalteria + "-" + horarioEsmalteria + ' escovaria: ' + profissionalEscovaria + "-" + horarioEscovaria);
+		//myApp.alert('filial/servicos/data: ' + filial + "/" + servicos + "/" + data + '. esmalteria: ' + IdIdProfissionalEsmalteria + "-" + horarioEsmalteria + ' escovaria: ' + profissionalEscovaria + "-" + horarioEscovaria);
 	});
 		
 	

@@ -163,13 +163,16 @@ font-family: inherit;
 cursor: pointer;
 }
 .btnEsmalteria{
-color: #0000FF;
+background-color:#FF0066;
 }
 .btnEscovaria {
-color: #FF00FF;
+background-color:#FF0066;
+}
+.btnSelecionado {
+background-color:#00FF00;
 }
 .button.active {
-color: #fff;
+/*color: #fff;*/
 }
 /*===============================================*/
 /* 4. LEFT AND RIGHT SLIDE PANELS */
