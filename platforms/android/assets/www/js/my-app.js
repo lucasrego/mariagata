@@ -14,8 +14,8 @@ var myApp = new Framework7({
 	modalTitle: 'Maria Gata',
 	modalButtonOk: 'Ok',
 	modalButtonCancel: 'Cancelar',
-	smartSelectSearchbar: true,
-	smartSelectInPopup: true,
+	//smartSelectSearchbar: true,
+	//smartSelectInPopup: true,
 	hideTabbarOnPageScroll: true
 });
 
@@ -30,7 +30,36 @@ var mainView = myApp.addView('.view-main', {
 });
 
 
+
+
 myApp.onPageInit('agendar', function (page) {
+	
+	function checkConnection() {
+		var networkState = navigator.connection.type;
+ 
+		var states = {};
+		states[Connection.UNKNOWN]  = 'Unknown connection';
+		states[Connection.ETHERNET] = 'Ethernet connection';
+		states[Connection.WIFI]     = 'WiFi connection';
+		states[Connection.CELL_2G]  = 'Cell 2G connection';
+		states[Connection.CELL_3G]  = 'Cell 3G connection';
+		states[Connection.CELL_4G]  = 'Cell 4G connection';
+		states[Connection.CELL]     = 'Cell generic connection';
+		states[Connection.NONE]     = 'No network connection';
+		
+		if (networkState == Connection.NONE) {
+			myApp.alert('Ops! No momento não identificamos internet no seu aparelho. Para agendar precisamos dela! ;)', function () {
+				//Volta para a tela inicial
+				mainView.router.load({
+					pageName: "index"
+				});
+			});
+		}
+		
+	}
+	
+	//Verifica internet
+	//checkConnection();
 	
 	//console.log("onPageInit agendar");
 	
@@ -43,7 +72,7 @@ myApp.onPageInit('agendar', function (page) {
 			filial: '1'
 		},
 		beforeSend: function( xhr ) {
-			myApp.showPreloader('Obtendo serviços...');
+			myApp.showPreloader('Consultando serviços disponíveis...');
 			//Se precisar alterar xhr: xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
 		},
 		context: document.body
@@ -85,12 +114,16 @@ myApp.onPageInit('agendar', function (page) {
 		}	
 	});
 	
+	filial = "";
+	servicos = "";
+	data = "";
+	
 	//Evento de clique no botão de pesquisar horários
 	$('#btnVerHorarios').click(function () {
 		
-		var filial = $('#cmbFilial').val();
-		var data = $('#data_agendamento').val();
-		var servicos = $('#cmbListaServicos').val().toString();
+		filial = $('#cmbFilial').val();
+		data = $('#data_agendamento').val();
+		servicos = $('#cmbListaServicos').val().toString();
 		
 		if (filial != 1) {
 			event.preventDefault();
@@ -112,6 +145,10 @@ myApp.onPageInit('agendar', function (page) {
 		//mainView.router.loadPage("horarios.html?filial=" + $('#cmbFilial').val() + "&data=" + $('#data_agendamento').val() + "&servicos=" + $('#cmbListaServicos').val());
 		
 		//Consultar disponibilidade de profissionais e os horário livres
+		
+		temEscovaria = false;
+		temEsmalteria = false;
+		
 		$.ajax({
 			url: "http://mariagata.com.br/sistema/mariagata.php",
 			type: 'POST',
@@ -142,34 +179,45 @@ myApp.onPageInit('agendar', function (page) {
 			//Se o JSON não tiver a opção resultado é porque 1 ou mais condomínios foram retornados
 			if (typeof jsonRetorno.resultado === "undefined") {
 				
+				var newPageHorarios = 	'<div class="pages">' +
+											'<div data-page="horarios" class="page">' +
+												'<div class="page-content">' +
+													'<h2 class="page_title">Profissionais e Horários</h2>';
+				
 				var ultimoGrupo = "";
 				var ultimoFuncionario = "";
 				var totalItens = jsonRetorno.length;
 				var lsHTML = "";
 				var classeBotao = "";
+				var idBotao = "";
+				var classeBotaoDisponivel = "";
 				var divGrupo = "";
 				var qtdHorariosProfissional = 0;
+				var horario = "";
 				
-				//console.log('totalItens: ' + totalItens);
-				
-				var newPageHorarios = 	'<div class="pages">' +
-											'<div data-page="horarios" class="page">' +
-												'<div class="page-content">' +
-													'<h2 class="page_title">Profissionais e Horários</h2>';
-
 				$.each(jsonRetorno, function( index, value ) {
 					//{"FUNC_ID":"1","FUNC_Nome":"Tati","FUHB_Horario":"09:00:00","FUHB_HorarioBloqueado":"N","GSER_ID":"1",", FUNC_Especialidade":"Manicure e Art Designer"}
 					
+					//Transforma de 09:30:00 para 09:30
+					horario = value.FUHB_Horario.substring(0,(value.FUHB_Horario.length - 3));
+										
 					//Obtem e seta a div correspondente ao grupo
 					if (value.GSER_ID == 1) {
 						divGrupo = $('#cardEsmalteria');
 						classeBotao = "btnEsmalteria";
+						classeBotaoDisponivel = "btnEsmalteriaDisponivel";
+						temEsmalteria = true;						
 					} else {
 						divGrupo = $('#cardEscovaria');
 						classeBotao = "btnEscovaria";
+						classeBotaoDisponivel = "btnEscovariaDisponivel";
+						temEscovaria = true;						
 					}
 					
+					idBotao = value.FUNC_ID + "|" + horario;
+					
 					//Se novo funcionário
+					//vazio - 2, 2-2..., 2-1, 1-1, 1-3, 3-3...
 					if (ultimoFuncionario != value.FUNC_ID) {
 						
 						qtdHorariosProfissional = 1;
@@ -178,13 +226,15 @@ myApp.onPageInit('agendar', function (page) {
 							//Se não for o primeiro registro, fecha o anterior
 							//newPageHorarios += "</p>";
 							
-							//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'
-							if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+							//Os botões serão agrupados 4 por linha (25%). A cada grupo de 4, fecha e reabre a DIV class='row'
+							//if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+							if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 								newPageHorarios += "</div>";
 							}
 							newPageHorarios += "</div>";
 							newPageHorarios += "</div>";	  
 							newPageHorarios += "</div>";
+							//newPageHorarios += "</div>";
 						}
 						
 						//Se mudou de grupo, insere cabeçalho do grupo:
@@ -207,39 +257,39 @@ myApp.onPageInit('agendar', function (page) {
 						newPageHorarios += "<div class='card-content-inner'>";
 						//newPageHorarios += "<p class='buttons-row theme-pink'>";
 						
-						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
-						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+						//Os botões serão agrupados 4 por linha (25%). A cada grupo de 4, fecha e reabre a DIV class='row'							
+						if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 							newPageHorarios += "<div class='row'>";
 						}
 						
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "'>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' id='" + idBotao + "' class='button " + classeBotaoDisponivel + " " + classeBotao + "'>" + horario + "</a></div>";
 						} else {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "' disabled>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' id='" + idBotao + "' class='button " + classeBotao + "' disabled>" + horario + "</a></div>";
 						}
 					} else {
 						
 						qtdHorariosProfissional = qtdHorariosProfissional + 1;
 						
+						
 						//Se o mesmo funcionário, insere apenas um horário novo
 						if (value.FUHB_HorarioBloqueado == "N") {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "'>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' id='" + idBotao + "' class='button " + classeBotaoDisponivel + " " + classeBotao + "'>" + horario + "</a></div>";
 						} else {
-							newPageHorarios += "<div class='col-25'><a href='#' class='button btnHorario " + classeBotao + "' disabled>" + value.FUHB_Horario + "</a></div>";
+							newPageHorarios += "<div class='col-25'><a href='#' id='" + idBotao + "' class='button btnHorario " + classeBotao + "' disabled>" + horario + "</a></div>";
 						}					
 					}
 					
 					if (index == totalItens - 1) {
-						//Final itens
-						//newPageHorarios += "</p>";
+						//Último item
 						
-						//Os botões serão agrupados 4 por linha (25%). A cada múltiplo de 4, fecha e reabre a DIV class='row'							
-						if ((index == 0)||(index == 4)||(index == 8)||(index == 12)||(index == 16)||(index == 20)||(index == 24)||(index == 28)||(index == 32)) {
+						//Os botões serão agrupados 4 por linha (25%). A cada grupo de 4, fecha e reabre a DIV class='row'							
+						if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 							newPageHorarios += "</div>";
 						}
 						newPageHorarios += "</div>";
 						newPageHorarios += "</div>";	  
-						newPageHorarios += "</div>";
+						newPageHorarios += "</div>";						
 					}
 					
 					//divGrupo.append(lsHTML);
@@ -249,10 +299,11 @@ myApp.onPageInit('agendar', function (page) {
 					
 				});
 				
-				newPageHorarios += 	'<div class="content-block">' +
+				newPageHorarios += 	'</div>' +
+									'<div class="content-block">' +
 										'<div class="row">' +
 											  '<div class="col-50">' +
-												'<a href="agendar.html" class="button button-fill color-red button-round">Voltar</a>' +
+												'<a href="agendar.html" class="button button-fill color-red button-round">Nova Pesquisa</a>' +
 											  '</div>' +
 											  '<div class="col-50">' +
 												'<a href="#" id="btnConcluirAgendamento" class="button button-fill color-green button-round">Agendar</a>' +
@@ -262,6 +313,9 @@ myApp.onPageInit('agendar', function (page) {
 									'</div>' +
 								'</div>' +
 							'</div>';
+							'<input type="hidden" id="filial" value=' + filial + ' />';
+							'<input type="hidden" id="servicos" value=' + servicos + ' />';
+							'<input type="hidden" id="data" value=' + data + ' />';
 
 				mainView.router.load({
 					content: newPageHorarios,
@@ -282,9 +336,78 @@ myApp.onPageInit('agendar', function (page) {
 	});
 	
 	
-	$$(document).on('click', '#btnConcluirAgendamento', function () {
+	$$(document).on('click', '.disabled', function () {
+		//Exibe mensagem de horário indisponível
+		myApp.alert("Horário não disponível!", 'Maria Gata');
+	});
+	
+	$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
+		//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
+		//myApp.alert(this.id, 'Maria Gata');
+		//this.addClass("btnSelecionado");
+		$('.btnEsmalteriaDisponivel').removeClass("btnSelecionado").addClass( "btnEsmalteria" );
+		$(e.target).removeClass( "btnEsmalteria" ).addClass( "btnSelecionado" );
+	});
+	
+	$$(document).on('click', '.btnEscovariaDisponivel', function (e) {
+		//Limpa a classe dos botões btnEsmalteria. Se não estiver disabled, aplica css do botão selecionado
+		//myApp.alert(this.id, 'Maria Gata');
+		$('.btnEscovariaDisponivel').removeClass("btnSelecionado").addClass( "btnEscovaria" );
+		$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
+	});
+	
+	$$(document).on('click', '#btnConcluirAgendamento', function (e) {
 		//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
-	   myApp.popup('.popup-login');
+		
+		var profissionalEsmalteria = "";
+		var horarioEsmalteria = "";
+		var profissionalEscovaria = "";
+		var horarioEscovaria = "";
+		var msgNaoSelecionado = "";
+		
+		if (temEsmalteria) {
+			var idSelecionadoEsmalteria = $('.btnEsmalteriaDisponivel.btnSelecionado').attr('id');
+			if (idSelecionadoEsmalteria === undefined) {
+				msgNaoSelecionado = "Selecione um horário para a Esmalteria.";
+			} else {
+				profissionalEsmalteria = idSelecionadoEsmalteria.split("|")[0];
+				horarioEsmalteria = idSelecionadoEsmalteria.split("|")[1];
+			}			
+		}
+		if (temEscovaria) {
+			var idSelecionadoEscovaria = $('.btnEscovariaDisponivel.btnSelecionado').attr('id');
+			if (idSelecionadoEscovaria === undefined) {
+				msgNaoSelecionado = "Selecione um horário para a Escovaria.";
+			} else {
+				profissionalEscovaria = idSelecionadoEscovaria.split("|")[0];
+				horarioEscovaria = idSelecionadoEscovaria.split("|")[1];
+			}
+		}
+		
+		if (msgNaoSelecionado != "") {
+			myApp.alert(msgNaoSelecionado);
+			return false;
+		}
+		
+		myApp.modal({
+			title:  'Revise o agendamento',
+			text: '<span><p>Unidade: Maria Gata Pituba</p><p>Quando: ' + data + '</p><span>',
+			buttons: [
+			  {
+				text: 'Vou revisar'
+			  },
+			  {
+				text: 'Pode agendar',
+				bold: true,
+				onClick: function() {
+				  myApp.alert('Agendando...')
+				}
+			  }
+			]
+		});
+		
+		//myApp.popup('.popup-login');
+		//myApp.alert('filial/servicos/data: ' + filial + "/" + servicos + "/" + data + '. esmalteria: ' + profissionalEsmalteria + "-" + horarioEsmalteria + ' escovaria: ' + profissionalEscovaria + "-" + horarioEscovaria);
 	});
 		
 	

@@ -15,8 +15,10 @@ a.button_full, a.button_small, .call_button a{
 background-color:#505050; 
 }
 .button {
-border: 1px solid #505050;
-color: #505050;
+/*border: 1px solid #505050;
+color: #505050;*/
+border: 1px solid #FFFFFF;
+color: #FFFFFF;
 }
 .button.active {
 background: #505050;
