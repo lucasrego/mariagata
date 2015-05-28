@@ -91,7 +91,10 @@ myApp.onPageInit('agendar', function (page) {
 		
 		//Se o JSON não tiver a opção resultado é porque 1 ou mais condomínios foram retornados
 		if (typeof jsonRetorno.resultado === "undefined") {
-		
+			
+			//Limpa o option padrão. Caso não tenha o padrão, os itens selecionados não ficam visíveis ao voltar na tela.
+			$('#cmbListaServicos option[value="0"]').remove();
+			
 			//adiciona os serviços e pacotes
 			$.each(jsonRetorno, function( index, value ) {
 				if (value.SERV_Tipo == "PA") {
@@ -113,7 +116,7 @@ myApp.onPageInit('agendar', function (page) {
 			}			
 		}	
 	});
-	
+		
 	filial = "";
 	servicos = "";
 	data = "";
@@ -398,7 +401,6 @@ myApp.onPageInit('agendar', function (page) {
 		
 		if (msgNaoSelecionado != "") {
 			myApp.alert(msgNaoSelecionado);
-			return false;
 		} else {
 			
 			var dataExibicao = data.split("-")[2] + "/" + data.split("-")[1] + "/" + data.split("-")[0];
@@ -469,7 +471,7 @@ myApp.onPageInit('agendar', function (page) {
 							var jsonRetorno = jQuery.parseJSON(ret);
 								
 							if (jsonRetorno.resultado == 'SUCESSO') {			
-								myApp.alert(jsonRetorno.mensagem, 'Maria Gata');				
+								myApp.alert(jsonRetorno.mensagem, 'Parabéns!');				
 							} else {
 								myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
 							}			

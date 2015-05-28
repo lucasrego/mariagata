@@ -324,9 +324,6 @@ myApp.onPageInit('agendar', function (page) {
 									'</div>' +
 								'</div>' +
 							'</div>';
-							//'<input type="hidden" id="filial" value=' + filial + ' />';
-							//'<input type="hidden" id="servicos" value=' + servicos + ' />';
-							//'<input type="hidden" id="data" value=' + data + ' />';
 
 				mainView.router.load({
 					content: newPageHorarios,
@@ -470,17 +467,13 @@ myApp.onPageInit('agendar', function (page) {
 
 							//Teste se o objeto retornao é JSON, ou seja, existem dados
 							var jsonRetorno = jQuery.parseJSON(ret);
+								
+							if (jsonRetorno.resultado == 'SUCESSO') {			
+								myApp.alert(jsonRetorno.mensagem, 'Maria Gata');				
+							} else {
+								myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+							}			
 							
-							//Se o JSON não tiver a opção resultado é porque 1 ou mais condomínios foram retornados
-							if (typeof jsonRetorno.resultado === "undefined") {
-								myApp.alert("Sucesso!", 'Maria Gata');
-							} else {		
-								if (jsonRetorno.resultado == 'NAOENCONTRADO') {			
-									myApp.alert(jsonRetorno.mensagem, 'Maria Gata');				
-								} else {
-									myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
-								}			
-							}	
 						});	
 					}
 				  }

@@ -1,4 +1,4 @@
-- Fazer o concluir agendamento
+- Falta concluir agendamento: Ja esta salvando no banco. Falta ajustar horario final e corrigir exibicao mensagem final
 - Validar data no servidor PHP: Segunda, domingo ou feriado, nao deixa agendar.
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
 - Botão voltar da tela de horário/profissionais tem que já trazer os dados preenchidos (simular apenas o voltar do celular pode atender).
