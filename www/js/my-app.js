@@ -11,9 +11,9 @@ var myApp = new Framework7({
 	swipePanelCloseOpposite: true,
 	pushState: false,
     template7Pages: true,
-	modalTitle: 'Maria Gata',
-	modalButtonOk: 'Ok',
-	modalButtonCancel: 'Cancelar',
+	//modalTitle: 'Maria Gata',
+	//modalButtonOk: 'Ok',
+	//modalButtonCancel: 'Cancelar',
 	//smartSelectSearchbar: true,
 	//smartSelectInPopup: true,
 	hideTabbarOnPageScroll: true

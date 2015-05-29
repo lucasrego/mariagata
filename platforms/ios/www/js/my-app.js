@@ -471,7 +471,11 @@ myApp.onPageInit('agendar', function (page) {
 							var jsonRetorno = jQuery.parseJSON(ret);
 								
 							if (jsonRetorno.resultado == 'SUCESSO') {			
-								myApp.alert(jsonRetorno.mensagem, 'Parabéns!');				
+								myApp.alert(jsonRetorno.mensagem, 'Parabéns!');
+								//Volta para a tela inicial
+								mainView.router.load({
+									pageName: "index"
+								});
 							} else {
 								myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
 							}			
