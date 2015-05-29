@@ -1,5 +1,6 @@
-- Falta concluir agendamento: Ja esta salvando no banco. Falta ajustar horario final e corrigir exibicao mensagem final
-- Validar data no servidor PHP: Segunda, domingo ou feriado, nao deixa agendar.
+- Falta concluir agendamento no PHP: Ja esta salvando no banco. Inserir Calendar, Cadastrar usuário, Identificar Usuário pelo CPF
+- Ao buscar profissionais e horários: Inibir horários já utilizados
+- No inicio da busca de profissionais e horários: Validar data no servidor PHP: Segunda, domingo ou feriado, nao deixa agendar.
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
 - Botão voltar da tela de horário/profissionais tem que já trazer os dados preenchidos (simular apenas o voltar do celular pode atender).
 - Revisar todas as telas com foco no botão voltar
