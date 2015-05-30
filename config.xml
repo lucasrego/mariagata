@@ -41,11 +41,9 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
-    <!--
-	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
+    <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
     <gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.6" />
-    -->
-	<gap:plugin name="mobi.moica.whatsapp" version="0.0.1" />
+    <gap:plugin name="mobi.moica.whatsapp" version="0.0.1" />
     <gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.4.2" />
     <icon src="www/icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
