@@ -177,6 +177,7 @@
 					var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
 					alert("depois openDatabase");
 					db.transaction(function(tx) {
+						tx.executeSql('DROP TABLE IF EXISTS usuario');
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
 							

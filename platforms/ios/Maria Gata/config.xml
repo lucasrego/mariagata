@@ -17,6 +17,13 @@
     <feature name="SQLitePlugin">
         <param name="ios-package" value="SQLitePlugin" />
     </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
+    <feature name="LocalNotification">
+        <param name="ios-package" onload="true" value="APPLocalNotification" />
+        <param name="onload" value="true" />
+    </feature>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <name>Maria Gata</name>
@@ -64,7 +71,7 @@
     <gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.6" />
     <gap:plugin name="mobi.moica.whatsapp" version="0.0.1" />
     <gap:plugin name="com.pushwoosh.plugins.pushwoosh" version="3.4.2" />
-    <icon src="icon.png" />
+    <icon src="www/icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
     <icon gap:platform="android" gap:qualifier="hdpi" src="www/res/icon/android/icon-72-hdpi.png" />
@@ -97,11 +104,4 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <feature name="Device">
-        <param name="ios-package" value="CDVDevice" />
-    </feature>
-    <feature name="LocalNotification">
-        <param name="ios-package" onload="true" value="APPLocalNotification" />
-        <param name="onload" value="true" />
-    </feature>
 </widget>
