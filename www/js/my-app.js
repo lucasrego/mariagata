@@ -417,10 +417,18 @@ myApp.onPageInit('agendar', function (page) {
 });
 
 // Wait for Cordova to load
-document.addEventListener("deviceready", onDeviceReady, false);
+//document.addEventListener("deviceready", onDeviceReady, false);
 
-function onDeviceReady() {
-				
+//function onDeviceReady() {
+	
+	alert("alert ondeviceready");
+	//navigator.vibrate(1000);
+
+	//cordova.plugins.notification.local.schedule({
+	//	title: "Evento:",
+	//	message: "onDeviceReady"
+	//});
+		
 	$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
 		//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
 		$('.btnEsmalteriaDisponivel').removeClass("btnSelecionado").addClass( "btnEsmalteria" );
@@ -437,7 +445,7 @@ function onDeviceReady() {
 		
 		//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
 		
-		navigator.vibrate(3000); 
+		navigator.vibrate(3000);
 		
 		cordova.plugins.notification.local.schedule({
 			title: "CPF teste:",
@@ -597,9 +605,9 @@ function onDeviceReady() {
 					
 		} //Fim if/else msgNaoSelecionado != ""
 		
-	}); Fim .click
+	}); //Fim .click
 	
-}); //OnDeviceReady		
+//} //Fim document.ready()
 	
 $$(document).on('pageInit', function (e) {
 	
