@@ -133,17 +133,11 @@
 <script type="text/javascript" src="js/my-app.js"></script>
 <script type="text/javascript" src="js/jquery.fitvids.js"></script>
 
-<script type="text/javascript" charset="utf-8" src="js/SQLitePlugin.js"></script>
-
 
 	<script>
 		
 		$( document ).ready(function() {
 			
-			//document.addEventListener('pagebeforecreate', function(event) {
-			//});
-			
-			// Wait for Cordova to load
 			document.addEventListener("deviceready", onDeviceReady, false);
 			
 			function onDeviceReady() {
@@ -177,30 +171,29 @@
 					
 					navigator.vibrate(1000);
 					
-					console.log("antes openDatabase11");
+					console.log("antes openDatabase00");
 					var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
-					console.log("depois openDatabase22");
+					console.log("depois openDatabase000");
 					
 					db.transaction(function(tx) {
-						console.log("1");
-						tx.executeSql('DROP TABLE IF EXISTS usuario');
-						console.log("2");
+						//tx.executeSql('DROP TABLE IF EXISTS usuario');
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
 						console.log("3");
 						
-						tx.executeSql("INSERT INTO usuario (cpf, nome, email, celular) VALUES (?,?,?,?)", ["80941818500", "Lucas","lucasrego@gmail.com","7188145976"], function(tx, res) {
-							alert("insertId: " + res.insertId + " -- should be valid");
-						}, function(e) {
-							alert("ERROR 1: " + e.message);
-						});
-					});
-					
+						//tx.executeSql("INSERT INTO usuario (cpf, nome, email, celular) VALUES (?,?,?,?)", ["80941818500", "Lucas","lucasrego@gmail.com","7188145976"], function(tx, res) {
+						//	alert("insertId: " + res.insertId + " -- should be valid");
+						//}, function(e) {
+						//	alert("ERROR 1: " + e.message);
+						//});
+					});					
 					
 					db.transaction(function(tx) {
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
 							//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
 							//alert("res.rows.item(0).data_num: " + res.rows.item(0).data_num + " -- should be 100");
-						
+							
+							alert("cpf no bd: " + res.rows.item(0).cpf);
+							
 							if (res.rows.item(0).cpf == "") {
 								alert("antes popup");
 								myApp.popup('.popup-signup');
