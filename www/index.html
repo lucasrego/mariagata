@@ -133,6 +133,9 @@
 <script type="text/javascript" src="js/my-app.js"></script>
 <script type="text/javascript" src="js/jquery.fitvids.js"></script>
 
+<script type="text/javascript" charset="utf-8" src="js/SQLitePlugin.js"></script>
+
+
 	<script>
 		
 		$( document ).ready(function() {
@@ -149,7 +152,8 @@
 				//cordova.plugins.notification.local.schedule({
 				//	title: "Lembrete Maria Gata",
 				//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
-				//});			
+				//});
+				
 				alert("onDeviceReady index");
 				navigator.vibrate(3000); 
 				
@@ -173,17 +177,21 @@
 					
 					navigator.vibrate(1000);
 					
-					alert("antes openDatabase");
+					console.log("antes openDatabase");
 					var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
-					alert("depois openDatabase");
+					console.log("depois openDatabase");
 					db.transaction(function(tx) {
+						console.log("antes drop");
 						tx.executeSql('DROP TABLE IF EXISTS usuario');
+						console.log("depois drop e antes create table");
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
+						console.log("depois create");
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
 							
-							alert("res: " + res);
+							console.log("depois select");
+							alert("res.cpf: " + res.rows.item(0).cpf);
 							
-							if (res === "undefined") {
+							if (res.rows.item(0).cpf == "") {
 								alert("antes popup");
 								myApp.popup('.popup-signup');
 								return false;
