@@ -30,6 +30,69 @@ var mainView = myApp.addView('.view-main', {
 });
 
 
+myApp.onPageInit('agendamentos', function (page) {
+	
+		//Obter servicos filial
+	$.ajax({
+		url: "http://mariagata.com.br/sistema/mariagata.php",
+		type: 'POST',
+		data: {
+			a: 'obteragendamentoscliente',
+			cpf: '80941818500'
+		},
+		beforeSend: function( xhr ) {
+			myApp.showPreloader('Consultando serviços disponíveis...');
+			//Se precisar alterar xhr: xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+		},
+		context: document.body
+		
+	})
+	.always(function() {		
+		myApp.hidePreloader(); 			
+	})
+	.fail(function(jqXHR, textStatus, errorThrown) {
+		myApp.alert('Desculpe! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
+	})
+	.done(function(ret) {
+		
+		//Teste se o objeto retornao é JSON, ou seja, existem dados
+		var jsonRetorno = jQuery.parseJSON(ret);
+		
+		//Se o JSON não tiver a opção resultado é porque 1 ou mais condomínios foram retornados
+		if (typeof jsonRetorno.resultado === "undefined") {
+			
+			var lsHTML = "";
+			lsHTML += '<div class="list-block"><ul>';
+					
+			//adiciona os serviços e pacotes
+			$.each(jsonRetorno, function( index, value ) {
+
+				lsHTML += '<li>';
+					lsHTML += '<a href="#" class="item-link item-content">';
+						lsHTML += '<div class="item-inner">';
+						lsHTML += '<div class="item-title">' + value.AGEN_Data + '</div>';
+						lsHTML += '<div class="item-after">' + value.AGEN_ID + '</div>';
+						lsHTML += '</div>';
+					lsHTML += '</a>';
+				lsHTML += '</li>';
+								
+			});
+			
+			lsHTML += '</ul><div class="list-block-label">List block label text goes here</div></div>';	
+			
+			$("#listaAgendamentos").append(lsHTML);
+			
+		} else {			
+			if (jsonRetorno.resultado == 'NAOENCONTRADO') {			
+				myApp.alert(jsonRetorno.mensagem, 'Maria Gata');				
+			} else {
+				myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+			}			
+		}	
+	}); //Fim ajax
+
+}); //Fim onPageInit agendamentos
+
 
 
 myApp.onPageInit('agendar', function (page) {
@@ -50,9 +113,9 @@ myApp.onPageInit('agendar', function (page) {
 		if (networkState == Connection.NONE) {
 			myApp.alert('Ops! No momento não identificamos internet no seu aparelho. Para agendar precisamos dela! ;)', function () {
 				//Volta para a tela inicial
-				mainView.router.load({
-					pageName: "index"
-				});
+				//mainView.router.load({
+				//	pageName: "index"
+				//});
 			});
 		}
 		
@@ -128,12 +191,13 @@ myApp.onPageInit('agendar', function (page) {
 		filial = $('#cmbFilial').val();
 		data = $('#data_agendamento').val();
 		
+		servicos = "";
 		$('#cmbListaServicos').find('option:selected').each(function(index, value){
 			servicos += this.value;
 			servicosnome += this.text;
 			if (index != $('#cmbListaServicos option:selected').length - 1) {
 				servicosnome += ", ";
-				servicos += "|";
+				servicos += ",";
 			}
 	   })
 		
@@ -145,7 +209,7 @@ myApp.onPageInit('agendar', function (page) {
 		if (data == "") {
 			event.preventDefault();
 			myApp.alert('Escolha a data do agendamento.', 'Maria Gata');
-			return false;			
+			return false;
 		}
 		if (servicos == "") {
 			event.preventDefault();
@@ -162,6 +226,8 @@ myApp.onPageInit('agendar', function (page) {
 		
 		temEscovaria = false;
 		temEsmalteria = false;
+		
+		//alert(servicos + " - " + data + " - " + filial); 
 		
 		$.ajax({
 			url: "http://mariagata.com.br/sistema/mariagata.php",
@@ -283,8 +349,7 @@ myApp.onPageInit('agendar', function (page) {
 						}
 					} else {
 						
-						qtdHorariosProfissional = qtdHorariosProfissional + 1;
-						
+						qtdHorariosProfissional = qtdHorariosProfissional + 1;						
 						
 						//Se o mesmo funcionário, insere apenas um horário novo
 						if (value.FUHB_HorarioBloqueado == "N") {
@@ -347,152 +412,6 @@ myApp.onPageInit('agendar', function (page) {
 	});
 	
 	
-	$$(document).on('click', '.disabled', function () {
-		//Exibe mensagem de horário indisponível
-		myApp.alert("Horário não disponível!", 'Maria Gata');
-	});
-	
-	$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
-		//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
-		//myApp.alert(this.id, 'Maria Gata');
-		//this.addClass("btnSelecionado");
-		$('.btnEsmalteriaDisponivel').removeClass("btnSelecionado").addClass( "btnEsmalteria" );
-		$(e.target).removeClass( "btnEsmalteria" ).addClass( "btnSelecionado" );
-	});
-	
-	$$(document).on('click', '.btnEscovariaDisponivel', function (e) {
-		//Limpa a classe dos botões btnEsmalteria. Se não estiver disabled, aplica css do botão selecionado
-		//myApp.alert(this.id, 'Maria Gata');
-		$('.btnEscovariaDisponivel').removeClass("btnSelecionado").addClass( "btnEscovaria" );
-		$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
-	});
-	
-	$$(document).on('click', '#btnConcluirAgendamento', function (e) {
-		//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
-		
-		var IdProfissionalEsmalteria = "";
-		var nomeProfissionalEsmalteria = "";
-		var horarioEsmalteria = "";
-		var IdProfissionalEscovaria = "";
-		var nomeProfissionalEscovaria = "";
-		var horarioEscovaria = "";
-		var msgNaoSelecionado = "";
-		
-		if (temEsmalteria) {
-			var idSelecionadoEsmalteria = $('.btnEsmalteriaDisponivel.btnSelecionado').attr('id');
-			if (idSelecionadoEsmalteria === undefined) {
-				msgNaoSelecionado = "Selecione um horário para a Esmalteria.";
-			} else {
-				nomeProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[0];
-				IdProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[1];
-				horarioEsmalteria = idSelecionadoEsmalteria.split("|")[2];
-			}			
-		}
-		if (temEscovaria) {
-			var idSelecionadoEscovaria = $('.btnEscovariaDisponivel.btnSelecionado').attr('id');
-			if (idSelecionadoEscovaria === undefined) {
-				msgNaoSelecionado = "Selecione um horário para a Escovaria.";
-			} else {
-				nomeProfissionalEscovaria = idSelecionadoEscovaria.split("|")[0];
-				IdProfissionalEscovaria = idSelecionadoEscovaria.split("|")[1];
-				horarioEscovaria = idSelecionadoEscovaria.split("|")[2];
-			}
-		}
-		
-		if (msgNaoSelecionado != "") {
-			myApp.alert(msgNaoSelecionado);
-		} else {
-			
-			var dataExibicao = data.split("-")[2] + "/" + data.split("-")[1] + "/" + data.split("-")[0];
-			
-			var msgEsmalteria = "";
-			if (temEsmalteria) {
-				msgEsmalteria = '<p>Esmalteria: ' + nomeProfissionalEsmalteria + ' (' + horarioEsmalteria + 'h)</p>';
-			}
-			
-			var msgEscovaria = "";
-			if (temEscovaria) {
-				msgEscovaria = '<p>Escovaria: ' + nomeProfissionalEscovaria + ' (' + horarioEscovaria + 'h)</p>';
-			}
-			
-			var dadosAgendamento = '<span>' +
-										'<p>Unidade: Maria Gata Pituba</p>' +
-										'<p>Serviços: ' + servicosnome + '</p>' +																				
-										'<p>Quando: ' + dataExibicao + '</p>' +
-										msgEsmalteria +
-										msgEscovaria +
-									'</span>';
-
-								
-			myApp.modal({
-				title:  'Revise o agendamento',
-				text: dadosAgendamento,
-				buttons: [
-				  {
-					text: 'Vou revisar'
-				  },
-				  {
-					text: 'Pode agendar',
-					bold: true,
-					onClick: function() {
-						
-						//Requisição para agendar 
-						$.ajax({
-							url: "http://mariagata.com.br/sistema/mariagata.php",
-							type: 'POST',
-							data: {
-								a: 'confirmaragendamento',
-								nome: 'Lucas 2',
-								email: 'lucasrego@gmail.com',
-								celular: '7188145976',
-								filial: filial,
-								data: data,
-								servicos: servicos,
-								funcionarioEsmalteria: IdProfissionalEsmalteria,
-								horarioEsmalteria: horarioEsmalteria,
-								funcionarioEscovaria: IdProfissionalEscovaria,
-								horarioEscovaria: horarioEscovaria
-							},
-							beforeSend: function( xhr ) {
-								myApp.showPreloader('Confirmando Agendamento...');
-							},
-							context: document.body
-							
-						})
-						.always(function() {		
-							myApp.hidePreloader();
-						})
-						.fail(function(jqXHR, textStatus, errorThrown) {
-							myApp.alert('Desculpe!! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
-						})
-						.done(function(ret) {
-
-							//Teste se o objeto retornao é JSON, ou seja, existem dados
-							var jsonRetorno = jQuery.parseJSON(ret);
-								
-							if (jsonRetorno.resultado == 'SUCESSO') {			
-								myApp.alert(jsonRetorno.mensagem, 'Parabéns!');
-								//Volta para a tela inicial
-								mainView.router.load({
-									pageName: "index"
-								});
-							} else {
-								myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
-							}			
-							
-						});	
-					}
-				  }
-				]
-			});
-			
-			//myApp.popup('.popup-login');
-		
-		} //Fim if/else msgNaoSelecionado != ""
-		
-	});
-		
-	
 	//Seta a data de hoje no campo Data
 	//var data_hoje = new Date();
 	//mes = ("0" + (data_hoje.getMonth() + 1)).slice(-2)
@@ -518,6 +437,154 @@ myApp.onPageInit('agendar', function (page) {
 	
 });
 
+
+$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
+	//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
+	//myApp.alert(this.id, 'Maria Gata');
+	//this.addClass("btnSelecionado");
+	$('.btnEsmalteriaDisponivel').removeClass("btnSelecionado").addClass( "btnEsmalteria" );
+	$(e.target).removeClass( "btnEsmalteria" ).addClass( "btnSelecionado" );
+});
+
+$$(document).on('click', '.btnEscovariaDisponivel', function (e) {
+	//Limpa a classe dos botões btnEsmalteria. Se não estiver disabled, aplica css do botão selecionado
+	//myApp.alert(this.id, 'Maria Gata');
+	$('.btnEscovariaDisponivel').removeClass("btnSelecionado").addClass( "btnEscovaria" );
+	$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
+});
+
+$$(document).on('click', '#btnConcluirAgendamento', function (e) {
+	//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
+	
+	var IdProfissionalEsmalteria = "";
+	var nomeProfissionalEsmalteria = "";
+	var horarioEsmalteria = "";
+	var IdProfissionalEscovaria = "";
+	var nomeProfissionalEscovaria = "";
+	var horarioEscovaria = "";
+	var msgNaoSelecionado = "";
+	var idSelecionadoEsmalteria = "";
+	var idSelecionadoEscovaria = "";
+	
+	if (temEsmalteria) {
+		idSelecionadoEsmalteria = $('.btnEsmalteriaDisponivel.btnSelecionado').attr('id');
+		if (idSelecionadoEsmalteria === undefined) {
+			msgNaoSelecionado = "Selecione um profissional e horário para a Esmalteria.";
+		} else {
+			nomeProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[0];
+			IdProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[1];
+			horarioEsmalteria = idSelecionadoEsmalteria.split("|")[2];
+		}			
+	}
+	if (temEscovaria) {
+		idSelecionadoEscovaria = $('.btnEscovariaDisponivel.btnSelecionado').attr('id');
+		if (idSelecionadoEscovaria === undefined) {
+			if ((temEsmalteria)&&((idSelecionadoEsmalteria === undefined)||(idSelecionadoEsmalteria == ""))) {
+				msgNaoSelecionado = "Selecione profissionais e horários para a Esmalteria e Escovaria.";
+			} else {
+				msgNaoSelecionado = "Selecione um profissional e horário para a Escovaria.";
+			}
+		} else {
+			nomeProfissionalEscovaria = idSelecionadoEscovaria.split("|")[0];
+			IdProfissionalEscovaria = idSelecionadoEscovaria.split("|")[1];
+			horarioEscovaria = idSelecionadoEscovaria.split("|")[2];
+		}
+	}
+	
+	if (msgNaoSelecionado != "") {
+		myApp.alert(msgNaoSelecionado, 'Ops!');
+	} else {
+		
+		var dataExibicao = data.split("-")[2] + "/" + data.split("-")[1] + "/" + data.split("-")[0];
+		
+		var msgEsmalteria = "";
+		if (temEsmalteria) {
+			msgEsmalteria = '<p>Esmalteria: ' + nomeProfissionalEsmalteria + ' (' + horarioEsmalteria + 'h)</p>';
+		}
+		
+		var msgEscovaria = "";
+		if (temEscovaria) {
+			msgEscovaria = '<p>Escovaria: ' + nomeProfissionalEscovaria + ' (' + horarioEscovaria + 'h)</p>';
+		}
+		
+		var dadosAgendamento = '<span>' +
+									'<p>Unidade: Maria Gata Pituba</p>' +
+									'<p>Serviços: ' + servicosnome + '</p>' +																				
+									'<p>Quando: ' + dataExibicao + '</p>' +
+									msgEsmalteria +
+									msgEscovaria +
+								'</span>';
+
+							
+		myApp.modal({
+			title:  'Revise o agendamento',
+			text: dadosAgendamento,
+			buttons: [
+			  {
+				text: 'Vou revisar'
+			  },
+			  {
+				text: 'Pode agendar',
+				bold: true,
+				onClick: function() {
+					
+					//Requisição para agendar 
+					$.ajax({
+						url: "http://mariagata.com.br/sistema/mariagata.php",
+						type: 'POST',
+						data: {
+							a: 'confirmaragendamento',
+							nome: 'Lucas 2',
+							email: 'lucasrego@gmail.com',
+							celular: '7188145976',
+							filial: filial,
+							data: data,
+							servicos: servicos,
+							funcionarioEsmalteria: IdProfissionalEsmalteria,
+							horarioEsmalteria: horarioEsmalteria,
+							funcionarioEscovaria: IdProfissionalEscovaria,
+							horarioEscovaria: horarioEscovaria
+						},
+						beforeSend: function( xhr ) {
+							myApp.showPreloader('Confirmando Agendamento...');
+						},
+						context: document.body
+						
+					})
+					.always(function() {		
+						myApp.hidePreloader();
+					})
+					.fail(function(jqXHR, textStatus, errorThrown) {
+						myApp.alert('Desculpe!! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
+					})
+					.done(function(ret) {
+
+						//Teste se o objeto retornao é JSON, ou seja, existem dados
+						var jsonRetorno = jQuery.parseJSON(ret);
+							
+						if (jsonRetorno.resultado == 'SUCESSO') {			
+							myApp.alert(jsonRetorno.mensagem, 'Parabéns!');
+							//Volta para a tela inicial
+							//mainView.router.load({
+							//	url: "index.html"
+							//});
+						} else {
+							myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+						}			
+						
+					});	
+				}
+			  }
+			]
+		});
+		
+		//myApp.popup('.popup-login');
+	
+	} //Fim if/else msgNaoSelecionado != ""
+	
+});
+	
+	
 $$(document).on('pageInit', function (e) {
 	
 		//console.log('pageInit generico');

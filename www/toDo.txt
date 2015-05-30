@@ -1,7 +1,6 @@
 - ERROS: 
 	- Smart select está selecionando automaticamente o item 2 e gera erros seguintes: msg Ops! Nenhum profissional disponível... (Incluir alert no App para ver itens selecionados)
 	- Após agendamento com sucesso não está voltando para tela inicial (ou direcionar para agendamentos).
-	- Ao concluir agendamento esta exibindo várias mensagem (acontece com horario não selecionado e confirm final de agendamento)
 - Falta concluir agendamento no PHP: Ja esta salvando no banco. Inserir Calendar, Cadastrar usuário, Identificar Usuário pelo CPF
 - No inicio da busca de profissionais e horários: Validar data no servidor PHP: Segunda, domingo ou feriado, nao deixa agendar.
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
