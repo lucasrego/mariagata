@@ -177,9 +177,9 @@
 					
 					navigator.vibrate(1000);
 					
-					console.log("antes openDatabase");
+					console.log("antes openDatabase1");
 					var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
-					console.log("depois openDatabase");
+					console.log("depois openDatabase2");
 					
 					db.transaction(function(tx) {
 						tx.executeSql('DROP TABLE IF EXISTS usuario');
