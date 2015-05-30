@@ -180,40 +180,41 @@
 					console.log("antes openDatabase");
 					var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
 					console.log("depois openDatabase");
+					
 					db.transaction(function(tx) {
-						console.log("antes drop");
 						tx.executeSql('DROP TABLE IF EXISTS usuario');
-						console.log("depois drop e antes create table");
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
-						console.log("depois create");
+						
+						tx.executeSql("INSERT INTO usuario (cpf, nome, email, celular) VALUES (?,?,?,?)", ["80941818500", "Lucas","lucasrego@gmail.com","7188145976"], function(tx, res) {
+							alert("insertId: " + res.insertId + " -- should be valid");
+						}, function(e) {
+							alert("ERROR 1: " + e.message);
+						});
+					});
+					
+					
+					db.transaction(function(tx) {
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
-							
-							console.log("depois select");
-							alert("res.cpf: " + res.rows.item(0).cpf);
-							
+							//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
+							//alert("res.rows.item(0).data_num: " + res.rows.item(0).data_num + " -- should be 100");
+						
 							if (res.rows.item(0).cpf == "") {
 								alert("antes popup");
 								myApp.popup('.popup-signup');
 								return false;
 							} else {
-								alert("cpf diferente de vazio");
+								alert("cpf diferente de vazio.");
+								
+								$("#cadastro_cpf").val(res.rows.item(0).cpf);
+								$("#cadastro_nome").val(res.rows.item(0).nome);
+								$("#cadastro_email").val(res.rows.item(0).email);
+								$("#cadastro_celular").val(res.rows.item(0).celular);
 								
 								myApp.popup('.popup-signup');
 								return false;
-								
-								//$("#cadastro_cpf").val(res.rows.item(0).cpf);
-								//$("#cadastro_nome").val(res.rows.item(0).nome);
-								//$("#cadastro_email").val(res.rows.item(0).email);
-								//$("#cadastro_celular").val(res.rows.item(0).celular);
 							}
-							
-						}, function(e) {
-							alert("ERROO: " + e.message);
 						});
-					}, function(e) {
-						alert("ERROO: " + e.message);
 					});
-					
 					
 					var IdProfissionalEsmalteria = "";
 					var nomeProfissionalEsmalteria = "";
