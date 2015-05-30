@@ -41,7 +41,7 @@ myApp.onPageInit('agendamentos', function (page) {
 			cpf: '80941818500'
 		},
 		beforeSend: function( xhr ) {
-			myApp.showPreloader('Consultando serviços disponíveis...');
+			myApp.showPreloader('Obtendo seus agendamentos...');
 			//Se precisar alterar xhr: xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
 		},
 		context: document.body
@@ -62,23 +62,26 @@ myApp.onPageInit('agendamentos', function (page) {
 		if (typeof jsonRetorno.resultado === "undefined") {
 			
 			var lsHTML = "";
-			lsHTML += '<div class="list-block"><ul>';
+			lsHTML += '<div class="list-block inset"><ul>';
 					
 			//adiciona os serviços e pacotes
 			$.each(jsonRetorno, function( index, value ) {
-
+					
 				lsHTML += '<li>';
 					lsHTML += '<a href="#" class="item-link item-content">';
+						lsHTML += '<div class="item-media">';
+						lsHTML += '<i class="icon my-icon"></i>';
+						lsHTML += '</div>';
 						lsHTML += '<div class="item-inner">';
-						lsHTML += '<div class="item-title">' + value.AGEN_Data + '</div>';
+						lsHTML += '<div class="item-title">' + value.DataFormatada + '</div>';
 						lsHTML += '<div class="item-after">' + value.AGEN_ID + '</div>';
 						lsHTML += '</div>';
 					lsHTML += '</a>';
 				lsHTML += '</li>';
-								
+
 			});
 			
-			lsHTML += '</ul><div class="list-block-label">List block label text goes here</div></div>';	
+			lsHTML += '</ul><div class="list-block-label">Exibindo apenas agendamentos em aberto e confirmados</div></div>';	
 			
 			$("#listaAgendamentos").append(lsHTML);
 			
@@ -469,7 +472,7 @@ $$(document).on('click', '#btnConcluirAgendamento', function (e) {
 	if (temEsmalteria) {
 		idSelecionadoEsmalteria = $('.btnEsmalteriaDisponivel.btnSelecionado').attr('id');
 		if (idSelecionadoEsmalteria === undefined) {
-			msgNaoSelecionado = "Selecione um profissional e horário para a Esmalteria.";
+			msgNaoSelecionado = "Selecione um profissional e horário para o(s) serviço(s) da Esmalteria.";
 		} else {
 			nomeProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[0];
 			IdProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[1];
@@ -480,9 +483,9 @@ $$(document).on('click', '#btnConcluirAgendamento', function (e) {
 		idSelecionadoEscovaria = $('.btnEscovariaDisponivel.btnSelecionado').attr('id');
 		if (idSelecionadoEscovaria === undefined) {
 			if ((temEsmalteria)&&((idSelecionadoEsmalteria === undefined)||(idSelecionadoEsmalteria == ""))) {
-				msgNaoSelecionado = "Selecione profissionais e horários para a Esmalteria e Escovaria.";
+				msgNaoSelecionado = "Selecione profissionais e horários para o(s) serviço(s) da Esmalteria e Escovaria.";
 			} else {
-				msgNaoSelecionado = "Selecione um profissional e horário para a Escovaria.";
+				msgNaoSelecionado = "Selecione um profissional e horário para o(s) serviço(s) da Escovaria.";
 			}
 		} else {
 			nomeProfissionalEscovaria = idSelecionadoEscovaria.split("|")[0];

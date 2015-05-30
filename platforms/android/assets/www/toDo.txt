@@ -1,4 +1,5 @@
 - ERROS: 
+	- Vindo da tela de meus agendamentos, na tela de agendar, esta fazendo o ajax apos selecionar os servicos no smartSelect
 	- Smart select está selecionando automaticamente o item 2 e gera erros seguintes: msg Ops! Nenhum profissional disponível... (Incluir alert no App para ver itens selecionados)
 	- Após agendamento com sucesso não está voltando para tela inicial (ou direcionar para agendamentos).
 - Falta concluir agendamento no PHP: Ja esta salvando no banco. Inserir Calendar, Cadastrar usuário, Identificar Usuário pelo CPF
@@ -6,7 +7,7 @@
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
 - Botão voltar da tela de horário/profissionais tem que já trazer os dados preenchidos (simular apenas o voltar do celular pode atender).
 - Revisar todas as telas com foco no botão voltar
-- Fazer ciclo do cadastro, login, recuperar senha
+- Fazer ciclo do cadastro, login com CPF
 - Ajustar menu inferior
 - Ajustar menu lateral
 - Fazer tela com preços
