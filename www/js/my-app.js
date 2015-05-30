@@ -444,25 +444,20 @@ myApp.onPageInit('agendar', function (page) {
 		//	message: "teste"
 		//});
 		
-		console.log("0");
+		alert("antes openDatabase");
 		var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
-		console.log("0.1");
+		alert("depois openDatabase");
 		db.transaction(function(tx) {
-			console.log("1");
 			tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, cpf text, email text, celular text)');
-			console.log("2");
 			tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
 				
-				console.log("3");
-				alet("nome: " + res.rows.item(0).nome);
-				
-				
 				if (res.rows.item(0).cpf == "") {
-					console.log("4");
+					alert("antes popup");
 					myApp.popup('.popup-signup');
 					return false;
 				} else {
-					console.log("5");
+					alert("cpf diferente de vazio: " + res.rows.item(0).cpf);
+					
 					$("#cadastro_cpf").val(res.rows.item(0).cpf);
 					$("#cadastro_nome").val(res.rows.item(0).nome);
 					$("#cadastro_email").val(res.rows.item(0).email);
@@ -470,11 +465,9 @@ myApp.onPageInit('agendar', function (page) {
 				}
 				
 			}, function(e) {
-				console.log("6");
 				alert("ERROR: " + e.message);
 			});
 		}, function(e) {
-			console.log("7");
 			alert("ERROR: " + e.message);
 		});
 		
