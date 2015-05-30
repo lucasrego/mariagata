@@ -177,13 +177,16 @@
 					
 					navigator.vibrate(1000);
 					
-					console.log("antes openDatabase1");
-					var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
-					console.log("depois openDatabase2");
+					console.log("antes openDatabase11");
+					var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
+					console.log("depois openDatabase22");
 					
 					db.transaction(function(tx) {
+						console.log("1");
 						tx.executeSql('DROP TABLE IF EXISTS usuario');
+						console.log("2");
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
+						console.log("3");
 						
 						tx.executeSql("INSERT INTO usuario (cpf, nome, email, celular) VALUES (?,?,?,?)", ["80941818500", "Lucas","lucasrego@gmail.com","7188145976"], function(tx, res) {
 							alert("insertId: " + res.insertId + " -- should be valid");
