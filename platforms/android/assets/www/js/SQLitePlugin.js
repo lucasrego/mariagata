@@ -1,4 +1,4 @@
-cordova.define("cordova-sqlite-storage.SQLitePlugin", function(require, exports, module) { (function() {
+(function() {
   var DB_STATE_INIT, DB_STATE_OPEN, READ_ONLY_REGEX, SQLiteFactory, SQLitePlugin, SQLitePluginTransaction, argsArray, dblocations, newSQLError, nextTick, root, txLocks;
 
   root = this;
@@ -572,5 +572,3 @@ cordova.define("cordova-sqlite-storage.SQLitePlugin", function(require, exports,
   };
 
 }).call(this);
-
-});

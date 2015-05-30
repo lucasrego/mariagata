@@ -413,10 +413,10 @@ myApp.onPageInit('agendar', function (page) {
 		});
 				
 	});
-			
+
 });
 
-// Wait for Cordova to load
+// Wait for Cordova to load.
 //document.addEventListener("deviceready", onDeviceReady, false);
 
 //function onDeviceReady() {

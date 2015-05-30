@@ -133,8 +133,6 @@
 <script type="text/javascript" src="js/my-app.js"></script>
 <script type="text/javascript" src="js/jquery.fitvids.js"></script>
 
-<script type="text/javascript" charset="utf-8" src="js/SQLitePlugin.js"></script>
-
 
 	<script>
 		
@@ -154,18 +152,18 @@
 				//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 				//});
 				
-				alert("onDeviceReady index");
-				navigator.vibrate(3000); 
+				alert("onDeviceReady index1");
+				navigator.vibrate(1000); 
 				
 				$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
-					navigator.vibrate(100);
+					navigator.vibrate(300);
 					//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
 					$('.btnEsmalteriaDisponivel').removeClass("btnSelecionado").addClass( "btnEsmalteria" );
 					$(e.target).removeClass( "btnEsmalteria" ).addClass( "btnSelecionado" );
 				});
 
 				$$(document).on('click', '.btnEscovariaDisponivel', function (e) {
-					navigator.vibrate(100);
+					navigator.vibrate(300);
 					//Limpa a classe dos botões btnEscovaria. Se não estiver disabled, aplica css do botão selecionado
 					$('.btnEscovariaDisponivel').removeClass("btnSelecionado").addClass( "btnEscovaria" );
 					$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
