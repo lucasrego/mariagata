@@ -171,12 +171,7 @@
 		
 					//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
 					
-					navigator.vibrate(3000);
-					
-					cordova.plugins.notification.local.schedule({
-						title: "CPF teste:",
-						message: "teste"
-					});
+					navigator.vibrate(1000);
 					
 					alert("antes openDatabase");
 					var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
@@ -185,26 +180,29 @@
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, cpf text, email text, celular text)');
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
 							
-							alert(res);
+							alert("res: " + res);
 							
 							if (res === "undefined") {
 								alert("antes popup");
 								myApp.popup('.popup-signup');
 								return false;
 							} else {
-								alert("cpf diferente de vazio: " + res.rows.item(0).cpf);
+								alert("cpf diferente de vazio");
 								
-								$("#cadastro_cpf").val(res.rows.item(0).cpf);
-								$("#cadastro_nome").val(res.rows.item(0).nome);
-								$("#cadastro_email").val(res.rows.item(0).email);
-								$("#cadastro_celular").val(res.rows.item(0).celular);
+								myApp.popup('.popup-signup');
+								return false;
+								
+								//$("#cadastro_cpf").val(res.rows.item(0).cpf);
+								//$("#cadastro_nome").val(res.rows.item(0).nome);
+								//$("#cadastro_email").val(res.rows.item(0).email);
+								//$("#cadastro_celular").val(res.rows.item(0).celular);
 							}
 							
 						}, function(e) {
-							alert("ERROR: " + e.message);
+							alert("ERROO: " + e.message);
 						});
 					}, function(e) {
-						alert("ERROR: " + e.message);
+						alert("ERROO: " + e.message);
 					});
 					
 					
