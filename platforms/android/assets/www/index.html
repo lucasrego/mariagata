@@ -148,7 +148,7 @@
 				//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 				//});
 				
-				alert("onDeviceReady index1");
+				//alert("onDeviceReady index1");
 				navigator.vibrate(1000); 
 				
 				$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
@@ -189,25 +189,18 @@
 					
 					db.transaction(function(tx) {
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
-							//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-							//alert("res.rows.item(0).data_num: " + res.rows.item(0).data_num + " -- should be 100");
+							alert("res.rows.length: " + res.rows.length);
+							//alert("cpf no bd: " + res.rows.item(0).cpf);
 							
-							alert("cpf no bd: " + res.rows.item(0).cpf);
-							
-							if (res.rows.item(0).cpf == "") {
-								alert("antes popup");
+							if (res.rows.length == 0) {
 								myApp.popup('.popup-signup');
+								event.preventDefault();
 								return false;
 							} else {
-								alert("cpf diferente de vazio.");
-								
 								$("#cadastro_cpf").val(res.rows.item(0).cpf);
 								$("#cadastro_nome").val(res.rows.item(0).nome);
 								$("#cadastro_email").val(res.rows.item(0).email);
-								$("#cadastro_celular").val(res.rows.item(0).celular);
-								
-								myApp.popup('.popup-signup');
-								return false;
+								$("#cadastro_celular").val(res.rows.item(0).celular);								
 							}
 						});
 					});
