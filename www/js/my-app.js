@@ -421,14 +421,6 @@ myApp.onPageInit('agendar', function (page) {
 
 //function onDeviceReady() {
 	
-	alert("alert ondeviceready");
-	//navigator.vibrate(1000);
-
-	//cordova.plugins.notification.local.schedule({
-	//	title: "Evento:",
-	//	message: "onDeviceReady"
-	//});
-		
 	$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
 		//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
 		$('.btnEsmalteriaDisponivel').removeClass("btnSelecionado").addClass( "btnEsmalteria" );

@@ -124,19 +124,22 @@
 		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/black/menu_close.png" alt="" title="" /></a></div>
 		</div>
     </div>
-	
+
+<script type="text/javascript" src="phonegap.js"></script>	
 <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
 <script src="js/jquery.validate.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/framework7.js"></script>
 <script type="text/javascript" src="js/my-app.js"></script>
 <script type="text/javascript" src="js/jquery.fitvids.js"></script>
 
-<script type="text/javascript" src="phonegap.js"></script>
+
 
 	
 	<script>
 		
 		$( document ).ready(function() {
+			
+			alert("antes ondeviceready");
 			
 			//document.addEventListener('pagebeforecreate', function(event) {
 			//});
@@ -145,6 +148,14 @@
 			document.addEventListener("deviceready", onDeviceReady, false);
 			
 			function onDeviceReady() {
+				
+				alert("dentro ondeviceready");
+				navigator.vibrate(2000);
+
+				cordova.plugins.notification.local.schedule({
+					title: "Evento:",
+					message: "onDeviceReady"
+				});
 				
 				//Pushwoosh
 				function initPushwoosh() {
@@ -182,7 +193,7 @@
 						}
 					);
 				} 
-				initPushwoosh();
+				//initPushwoosh();
 				//Fim Pushwoosh
 				
 				//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
@@ -191,7 +202,7 @@
 				//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 				//});			
 				
-				navigator.vibrate(3000); 
+				//navigator.vibrate(3000); 
 								
 				
 				
