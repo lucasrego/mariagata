@@ -437,40 +437,40 @@ myApp.onPageInit('agendar', function (page) {
 		
 		//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
 		
-		//navigator.vibrate(3000);
+		navigator.vibrate(3000);
 		
 		//cordova.plugins.notification.local.schedule({
 		//	title: "CPF teste:",
 		//	message: "teste"
 		//});
 		
-		/*
+		alert("antes openDatabase");
 		var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
+		alert("depois openDatabase");
 		db.transaction(function(tx) {
-			
 			tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, cpf text, email text, celular text)');
-			
 			tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
-				alet("nome: " + res.rows.item(0).nome);
-				
 				
 				if (res.rows.item(0).cpf == "") {
+					alert("antes popup");
 					myApp.popup('.popup-signup');
 					return false;
 				} else {
+					alert("cpf diferente de vazio: " + res.rows.item(0).cpf);
+					
 					$("#cadastro_cpf").val(res.rows.item(0).cpf);
 					$("#cadastro_nome").val(res.rows.item(0).nome);
 					$("#cadastro_email").val(res.rows.item(0).email);
 					$("#cadastro_celular").val(res.rows.item(0).celular);
 				}
 				
-			}, function(e) {				
+			}, function(e) {
 				alert("ERROR: " + e.message);
 			});
-		}, function(e) {				
+		}, function(e) {
 			alert("ERROR: " + e.message);
 		});
-		*/
+		
 		
 		var IdProfissionalEsmalteria = "";
 		var nomeProfissionalEsmalteria = "";

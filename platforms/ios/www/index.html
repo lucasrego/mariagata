@@ -129,11 +129,10 @@
 <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
 <script src="js/jquery.validate.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/framework7.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/my-app.js"></script>
 <script type="text/javascript" src="js/jquery.fitvids.js"></script>
 
-<script type="text/javascript" src="phonegap.js"></script>	
-	
 	<script>
 		
 		$( document ).ready(function() {
@@ -146,149 +145,26 @@
 			
 			function onDeviceReady() {
 				
-				//Pushwoosh
-				function initPushwoosh() {
-					var pushNotification = cordova.require("com.pushwoosh.plugins.pushwoosh.PushNotification");
-					
-					//set push notifications handler
-					document.addEventListener('push-notification', function(event) {
-						var title = event.notification.title;
-						var userData = event.notification.userdata;
-												 
-						if(typeof(userData) != "undefined") {
-							console.warn('user data: ' + JSON.stringify(userData));
-						}
-													 
-						alert(title);
-						//console.log("Pushwoosh addEventListener");
-						cordova.plugins.notification.local.schedule({
-							title: "Lembrete Maria Gata",
-							message: title
-						});
-						
-					});
-				 
-					//initialize Pushwoosh with projectid: "GOOGLE_PROJECT_NUMBER", pw_appid : "PUSHWOOSH_APP_ID". This will trigger all pending push notifications on start.
-					pushNotification.onDeviceReady({ projectid: "367258443335", pw_appid : "45AA4-F6CC1" });
-				 
-					//register for pushes
-					pushNotification.registerDevice(
-						function(status) {
-							var pushToken = status;
-							console.warn('push token: ' + pushToken);
-						},
-						function(status) {
-							console.warn(JSON.stringify(['failed to register ', status]));
-						}
-					);
-				} 
-				initPushwoosh();
-				//Fim Pushwoosh
-				
 				//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 				//cordova.plugins.notification.local.schedule({
 				//	title: "Lembrete Maria Gata",
 				//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 				//});			
-				
+				alert("onDeviceReady index");
 				navigator.vibrate(3000); 
-								
 				
-				
-				$(".btnWhatsapp").click(function() {
-					cordova.plugins.Whatsapp.send("7188791014");
-				}); //Fim click btnWhatsapp
-				
-				
-				$("#btnCadastrar").click(function() {
-					
-					var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
-					db.transaction(function(tx) {
-						
-						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, cpf text, email text, celular text)');
-						
-						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
-							//alet("nome: " + res.rows.item(0).nome);
-							
-							cordova.plugins.notification.local.schedule({
-								title: "CPF:",
-								message: res.rows.item(0).cpf
-							});
-							
-							$("#cadastro_cpf").val(res.rows.item(0).cpf);
-							$("#cadastro_nome").val(res.rows.item(0).nome);
-							$("#cadastro_email").val(res.rows.item(0).email);
-							$("#cadastro_celular").val(res.rows.item(0).celular);
-							
-							//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-							//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-						}, function(e) {				
-							//alert("ERROR: " + e.message);
-							cordova.plugins.notification.local.schedule({
-								title: "Erro no select:",
-								message: e.message
-							});
-						});
-					}, function(e) {				
-						//alert("ERROR: " + e.message);
-						cordova.plugins.notification.local.schedule({
-							title: "Erro 1o transaction:",
-							message: e.message
-						});
-					});
-					
-				}); //Fim click btnCadastrar
-				
-				
-				$("#frmCadastro").submit(function( event ) {
-					
-					var db = window.sqlitePlugin.openDatabase({name: "mariagata"});
+				$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
+					//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
+					$('.btnEsmalteriaDisponivel').removeClass("btnSelecionado").addClass( "btnEsmalteria" );
+					$(e.target).removeClass( "btnEsmalteria" ).addClass( "btnSelecionado" );
+				});
 
-					db.transaction(function(tx) {
-						tx.executeSql('DROP TABLE IF EXISTS usuario');
-						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text, senha text)');
-
-						tx.executeSql("INSERT INTO usuario (nome, email, celular, senha) VALUES (?,?,?,?)", [$("#cadastro_nome").val(), $("#cadastro_email").val(), $("#cadastro_celular").val(), $("#cadastro_password").val()], function(tx, res) {
-							console.log("insertId: " + res.insertId + " -- probably 1");
-							console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
-
-							db.transaction(function(tx) {
-								tx.executeSql("select count(id) as cnt from usuario;", [], function(tx, res) {
-									console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-									console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-								});
-							});
-
-						}, function(e) {
-						  console.log("ERROR: " + e.message);
-						});
-					});
-					
-					/*
-					//Cria/abre banco de dados: https://github.com/litehelpers/Cordova-sqlite-storage/blob/a97198d/README.md
-					var db = window.sqlitePlugin.openDatabase({name: "mariagata.db", createFromLocation: 1});
-					db.transaction(function(tx) {
-						tx.executeSql('DROP TABLE IF EXISTS usuario');
-						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, nome text, email text, celular text, senha text)');
-										
-						tx.executeSql("INSERT INTO usuario (nome, email, celular, senha) VALUES (?,?,?,?)", [$("#cadastro_nome").val(), $("#cadastro_email").val(), $("#cadastro_celular").val(), $("#cadastro_password").val()], function(tx, res) {
-							//console.log("insertId: " + res.insertId + " -- probably 1");
-							
-							db.transaction(function(tx) {
-								tx.executeSql("select count(id) as cnt from usuario;", [], function(tx, res) {
-									//console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-									//console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-								});
-							});
-
-						}, function(e) {				
-							//console.log("ERROR: " + e.message);
-						});
-					});
-					*/
-					
-					event.preventDefault();
-				}); //Fim form submit
+				$$(document).on('click', '.btnEscovariaDisponivel', function (e) {
+					//Limpa a classe dos botões btnEscovaria. Se não estiver disabled, aplica css do botão selecionado
+					$('.btnEscovariaDisponivel').removeClass("btnSelecionado").addClass( "btnEscovaria" );
+					$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
+				});
+				
 				
 			} // Fim onDeviceReady()
 						
