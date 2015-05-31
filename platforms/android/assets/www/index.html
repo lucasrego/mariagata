@@ -167,24 +167,24 @@
 					event.preventDefault();
 					
 					//Valida dados de cadastro
-					var cadastro_nome = $.trim($("#cadastro_nome").val();
-					var cadastro_cpf = $.trim($("#cadastro_cpf").val();
-					var cadastro_email = $.trim($("#cadastro_email").val();
-					var cadastro_celular = $.trim($("#cadastro_celular").val();
+					var cadastro_nome = $.trim($("#cadastro_nome").val());
+					var cadastro_cpf = $.trim($("#cadastro_cpf").val());
+					var cadastro_email = $.trim($("#cadastro_email").val());
+					var cadastro_celular = $.trim($("#cadastro_celular").val());
 					
-					if (cadastro_nome) == "") {
+					if (cadastro_nome == "") {
 						myApp.alert("Informe seu primeiro nome.", 'Dado obrigatório');
 						return false;
 					}
-					if (cadastro_cpf) == "") {
+					if (cadastro_cpf == "") {
 						myApp.alert("Informe o CPF. Com ele identificaremos você no sistema da Maria Gata!", 'Dado obrigatório');
 						return false;
 					}
-					if (cadastro_email) == "") {
+					if (cadastro_email == "") {
 						myApp.alert("Informe seu e-mail.", 'Dado obrigatório');
 						return false;
 					}
-					if (cadastro_celular) == "") {
+					if (cadastro_celular == "") {
 						myApp.alert("Informe seu celular com DDD. Com ele poderemos nos falar mais facilmente.", 'Dado obrigatório');
 						return false;
 					}

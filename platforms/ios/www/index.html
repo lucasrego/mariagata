@@ -112,7 +112,7 @@
 				<!--<div class="loginform">-->
 				<div class="mariagataform">
 					<!--<form id="LoginForm" method="post">-->
-					<form id="frmCadastro" method="post">
+					<form id="frmCadastro" action="#">
 						<input type="text" name="cadastro_nome" id="cadastro_nome" value="" class="form_input required" placeholder="Primeiro Nome" />
 						<input type="text" name="cadastro_cpf" id="cadastro_cpf" value="" class="form_input required" placeholder="CPF" />
 						<input type="text" name="cadastro_email" id="cadastro_email" value="" class="form_input required" placeholder="E-mail" />
@@ -137,9 +137,8 @@
 	<script>
 		
 		$( document ).ready(function() {
-			
+				
 			document.addEventListener("deviceready", onDeviceReady, false);
-			
 			function onDeviceReady() {
 				
 				//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
@@ -148,7 +147,6 @@
 				//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 				//});
 				
-				//alert("onDeviceReady index1");
 				navigator.vibrate(1000); 
 				
 				$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
@@ -165,67 +163,85 @@
 					$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
 				});
 				
-				
 				$( "#frmCadastro" ).submit(function( event ) {
 					event.preventDefault();
 					
 					//Valida dados de cadastro
-					if ($("#cadastro_nome").val() = "") {
-						myApp.alert("Informe seu primeiro nome", 'Dado obrigatório');
-						return false;
-					}
-					if ($("#cadastro_cpf").val() = "") {
-						myApp.alert("Informe o CPF", 'Dado obrigatório');
-						return false;
-					}
-					if ($("#cadastro_email").val() = "") {
-						myApp.alert("Informe seu e-mail", 'Dado obrigatório');
-						return false;
-					}
-					if ($("#cadastro_celular").val() = "") {
-						myApp.alert("Informe seu celular com DDD", 'Dado obrigatório');
-						return false;
-					}
+					var cadastro_nome = $.trim($("#cadastro_nome").val();
+					var cadastro_cpf = $.trim($("#cadastro_cpf").val();
+					var cadastro_email = $.trim($("#cadastro_email").val();
+					var cadastro_celular = $.trim($("#cadastro_celular").val();
 					
-					//Requisição para cadastrar ou atualizar cadastro
-					$.ajax({
-						url: "http://mariagata.com.br/sistema/mariagata.php",
-						type: 'POST',
-						data: {
-							a: 'salvardadosusuario',
-							cpf: $("#cadastro_cpf").val(),
-							nome: $("#cadastro_nome").val(),
-							email: $("#cadastro_email").val(),
-							celular: $("#cadastro_celular").val()
-						},
-						beforeSend: function( xhr ) {
-							myApp.showPreloader('Salvando seus dados...');
-						},
-						context: document.body
-						
-					})
-					.always(function() {		
-						myApp.hidePreloader();
-					})
-					.fail(function(jqXHR, textStatus, errorThrown) {
-						myApp.alert('Desculpe!! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
-					})
-					.done(function(ret) {
+					if (cadastro_nome) == "") {
+						myApp.alert("Informe seu primeiro nome.", 'Dado obrigatório');
+						return false;
+					}
+					if (cadastro_cpf) == "") {
+						myApp.alert("Informe o CPF. Com ele identificaremos você no sistema da Maria Gata!", 'Dado obrigatório');
+						return false;
+					}
+					if (cadastro_email) == "") {
+						myApp.alert("Informe seu e-mail.", 'Dado obrigatório');
+						return false;
+					}
+					if (cadastro_celular) == "") {
+						myApp.alert("Informe seu celular com DDD. Com ele poderemos nos falar mais facilmente.", 'Dado obrigatório');
+						return false;
+					}
 
-						//Teste se o objeto retornao é JSON, ou seja, existem dados
-						var jsonRetorno = jQuery.parseJSON(ret);
+					var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
+					db.transaction(function(tx) {
+						tx.executeSql('DROP TABLE IF EXISTS usuario');
+						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
+						
+						tx.executeSql("INSERT INTO usuario (cpf, nome, email, celular) VALUES (?,?,?,?)", [cadastro_cpf,cadastro_nome,cadastro_email,cadastro_celular], function(tx, res) {
+							//alert("insertId: " + res.insertId);
 							
-						if (jsonRetorno.resultado == 'SUCESSO') {			
-							myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
-							myApp.closeModal("popup-signup");
-						} else {
-							myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
-						}			
-						
-					}); //Fim ajax
-					
-				});
+							$.ajax({
+								url: "http://mariagata.com.br/sistema/mariagata.php",
+								type: 'POST',
+								data: {
+									a: 'salvardadosusuario',
+									cpf: cadastro_cpf,
+									nome: cadastro_nome,
+									email: cadastro_email,
+									celular: cadastro_celular
+								},
+								beforeSend: function( xhr ) {
+									myApp.showPreloader('Salvando seus dados...');
+								},
+								context: document.body
+								
+							})
+							.always(function() {		
+								myApp.hidePreloader();
+							})
+							.fail(function(jqXHR, textStatus, errorThrown) {
+								myApp.alert('Desculpe!! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
+							})
+							.done(function(ret) {
 
+								//Teste se o objeto retornao é JSON, ou seja, existem dados
+								var jsonRetorno = jQuery.parseJSON(ret);
+									
+								if (jsonRetorno.resultado == 'SUCESSO') {			
+									myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+									myApp.closeModal("popup-signup");
+								} else {
+									myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+								}			
+								
+							}); //Fim ajax
+							
+						}, function(e) {
+							myApp.alert("Não conseguimos salvar seus dados. Erro: " + e.message, 'Desculpe!');
+						});
+						
+					}); //Fim db.transaction
+					
+				}); //Fim form submit
+
+			
 				$$(document).on('click', '#btnConcluirAgendamento', function (e) {
 		
 					//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
@@ -235,14 +251,8 @@
 					db.transaction(function(tx) {
 						//tx.executeSql('DROP TABLE IF EXISTS usuario');
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
-						
-						//tx.executeSql("INSERT INTO usuario (cpf, nome, email, celular) VALUES (?,?,?,?)", ["80941818500", "Lucas","lucasrego@gmail.com","7188145976"], function(tx, res) {
-						//	alert("insertId: " + res.insertId + " -- should be valid");
-						//}, function(e) {
-						//	alert("ERROR 1: " + e.message);
-						//});
 					});					
-					
+
 					db.transaction(function(tx) {
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
 							//alert("res.rows.length: " + res.rows.length);
