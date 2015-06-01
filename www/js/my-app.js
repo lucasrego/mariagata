@@ -132,18 +132,26 @@ myApp.onPageInit('agendar', function (page) {
 		data = $('#data_agendamento').val();
 		
 		servicos = "";
-		$('#cmbListaServicos').find('option:selected').each(function(index, value){
+		//$$('[name=cmbListaServicos]').on('change', function(){
+		//	$$(this).find('option:selected').each(function(){
+		//		alert($$(this).val());
+		//		servicos += $$(this).val();
+		//		servicosnome += this.text;
+		//	})
+		//})
+		
+		$('#cmbListaServicos').find('option:checked').each(function(index, value){
 			servicos += this.value;
 			servicosnome += this.text;
-			if (index != $('#cmbListaServicos option:selected').length - 1) {
+			if (index != $('#cmbListaServicos option:checked').length - 1) {
 				servicosnome += ", ";
 				servicos += ",";
 			}
 		})
 		
-		alert("servicos selecionados: " + servicos);
-		event.preventDefault();
-		return false;
+		//alert("servicos selecionados: " + servicos);
+		//event.preventDefault();
+		//return false;
 		
 		if (filial != 1) {
 			event.preventDefault();

@@ -1,3 +1,0 @@
-# mariagata
-
-App Maria Gata
