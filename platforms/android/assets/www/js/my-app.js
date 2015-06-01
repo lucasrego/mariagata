@@ -29,7 +29,11 @@ var mainView = myApp.addView('.view-main', {
     dynamicNavbar: false
 });
 
-
+$$('#cmbListaServicos').on('change', function(){
+   //if (this.checked) $$('.smart-select option').prop('selected', true);
+   //else $$('.smart-select option').prop('selected', false);
+   alert("this.checked: " + this.checked);
+})
 
 myApp.onPageInit('agendar', function (page) {
 	
