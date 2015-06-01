@@ -150,22 +150,31 @@
 				navigator.vibrate(1000); 
 				
 				myApp.onPageInit('agendamentos', function (page) {
-					alert('inicio pagina agendamentos');
+					
+					var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
+					db.transaction(function(tx) {
+						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
+					});	//Fim db.transaction create table if not exists
+					alert('0');
 					db.transaction(function(tx) {
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
-							//alert("res.rows.length: " + res.rows.length);
+							alert("res.rows.length: " + res.rows.length);
 							//alert("cpf no bd: " + res.rows.item(0).cpf);
 							
 							if (res.rows.length == 0) {
+								alert('1');
 								myApp.popup('.popup-signup');
 								event.preventDefault();
 								return false;
 							} else {
+								alert('2');
 								
 								$("#cadastro_cpf").val(res.rows.item(0).cpf);
 								$("#cadastro_nome").val(res.rows.item(0).nome);
 								$("#cadastro_email").val(res.rows.item(0).email);
 								$("#cadastro_celular").val(res.rows.item(0).celular);
+								
+								alert('3');
 								
 								//obteragendamentoscliente
 								$.ajax({
@@ -257,7 +266,7 @@
 					var cadastro_nome = $.trim($("#cadastro_nome").val());
 					var cadastro_cpf = $.trim($("#cadastro_cpf").val());
 					var cadastro_email = $.trim($("#cadastro_email").val());
-					var cadastro_celular = $.trim($("#cadastro_celular").val());
+					var cadastro_celular = $.trim($("#cadastro_celular").val()).replace(/\D/g,''); //Replace remove caracteres não numéricos
 					
 					if (cadastro_nome == "") {
 						myApp.alert("Informe seu primeiro nome.", 'Dado obrigatório');
@@ -267,12 +276,20 @@
 						myApp.alert("Informe o CPF. Com ele sempre identificaremos você no sistema da Maria Gata!", 'Dado obrigatório');
 						return false;
 					}
+					if (cadastro_cpf.length != 11) {
+						myApp.alert("Parece que o CPF não está válido. Ele deve possuir 11 números.", 'Ops!');
+						return false;
+					}
 					if (cadastro_email == "") {
 						myApp.alert("Informe seu e-mail.", 'Dado obrigatório');
 						return false;
 					}
 					if (cadastro_celular == "") {
 						myApp.alert("Informe seu celular com DDD. Com ele poderemos confirmar os agendamentos e nos falar mais facilmente.", 'Dado obrigatório');
+						return false;
+					}
+					if ((cadastro_celular.length != 10)&&(cadastro_celular.length != 11)) {
+						myApp.alert("O celular não está válido. Verifique se digitou corretamente com o DDD (Ex: 7199999999).", 'Dado obrigatório');
 						return false;
 					}
 
@@ -338,7 +355,7 @@
 					db.transaction(function(tx) {
 						//tx.executeSql('DROP TABLE IF EXISTS usuario');
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
-					});	//Fim db.transaction create table if not exists			
+					});	//Fim db.transaction create table if not exists
 
 					db.transaction(function(tx) {
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {

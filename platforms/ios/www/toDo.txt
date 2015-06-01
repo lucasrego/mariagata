@@ -8,7 +8,6 @@
 - Botão voltar da tela de horário/profissionais tem que já trazer os dados preenchidos (simular apenas o voltar do celular pode atender).
 - Revisar todas as telas com foco no botão voltar
 - Fazer ciclo do cadastro, login com CPF
-- Validar dados do form de cadastro (email, cpf, celular)
 - Fazer botoes personalizados (esmalte, secador) e loader também
 - Ajustar menu inferior
 - Ajustar menu lateral
