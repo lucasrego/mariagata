@@ -138,6 +138,8 @@ myApp.onPageInit('agendar', function (page) {
 		})
 		
 		alert("servicos selecionados: " + servicos);
+		event.preventDefault();
+		return false;
 		
 		if (filial != 1) {
 			event.preventDefault();

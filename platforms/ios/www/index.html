@@ -155,26 +155,22 @@
 					db.transaction(function(tx) {
 						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
 					});	//Fim db.transaction create table if not exists
-					alert('0');
+					
 					db.transaction(function(tx) {
 						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
-							alert("res.rows.length: " + res.rows.length);
+							//alert("res.rows.length: " + res.rows.length);
 							//alert("cpf no bd: " + res.rows.item(0).cpf);
 							
 							if (res.rows.length == 0) {
-								alert('1');
 								myApp.popup('.popup-signup');
 								event.preventDefault();
 								return false;
 							} else {
-								alert('2');
 								
 								$("#cadastro_cpf").val(res.rows.item(0).cpf);
 								$("#cadastro_nome").val(res.rows.item(0).nome);
 								$("#cadastro_email").val(res.rows.item(0).email);
 								$("#cadastro_celular").val(res.rows.item(0).celular);
-								
-								alert('3');
 								
 								//obteragendamentoscliente
 								$.ajax({
@@ -182,7 +178,7 @@
 									type: 'POST',
 									data: {
 										a: 'obteragendamentoscliente',
-										cpf: $("#cadastro_cpf")
+										cpf: $("#cadastro_cpf").val()
 									},
 									beforeSend: function( xhr ) {
 										myApp.showPreloader('Obtendo seus agendamentos...');
