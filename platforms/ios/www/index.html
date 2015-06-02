@@ -1,513 +1,516 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>Framework7</title>
-    <link rel="stylesheet" href="../build/css/framework7.css">
-    <link rel="stylesheet" href="../build/css/framework7.themes.css">
-    <link rel="stylesheet" href="css/kitchen-sink.css">
-  </head>
-  <body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+<link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="apple-touch-startup-image-640x1096.png">
+<title>Escovaria e Esmalteria Maria Gata</title>
+<link rel="stylesheet" href="css/framework7.css">
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="css/colors/grayscale.css">
+<link type="text/css" rel="stylesheet" href="css/swipebox.css" />
+<link type="text/css" rel="stylesheet" href="css/animations.css" />
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700,900' rel='stylesheet' type='text/css'>
+
+
+</head>
+<body id="mobile_wrap">
+
     <div class="statusbar-overlay"></div>
+
     <div class="panel-overlay"></div>
-    <div class="panel panel-left panel-cover layout-dark">
-      <div class="content-block-title">Left Panel</div>
-      <div class="content-block">
-        <p>This is a side panel. You can close it by clicking outsite or on this link: <a href="#" class="close-panel">close me</a>. You can put here anything, even another isolated view like in <a href="#" data-panel="right" class="open-panel">Right Panel</a></p>
-      </div>
-      <div class="content-block-title">Framework7 Kitchen Sink</div>
-      <div class="list-block">
-        <ul>
-          <li><a href="modals.html" class="close-panel item-link"> 
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Modals</div>
-                </div>
-              </div></a></li>
-          <li><a href="popover.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Popover</div>
-                </div>
-              </div></a></li>
-          <li><a href="tabs.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Tabs</div>
-                </div>
-              </div></a></li>
-          <li><a href="panels.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Side Panels</div>
-                </div>
-              </div></a></li>
-          <li><a href="list-view.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">List View</div>
-                </div>
-              </div></a></li>
-          <li><a href="swipe-delete.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Swipe To Delete</div>
-                </div>
-              </div></a></li>
-          <li><a href="forms.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Forms</div>
-                </div>
-              </div></a></li>
-          <li><a href="messages.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Messages</div>
-                </div>
-              </div></a></li>
-          <li><a href="grid.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Grid</div>
-                </div>
-              </div></a></li>
-          <li><a href="preloader.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Preloader</div>
-                </div>
-              </div></a></li>
-          <li><a href="bars.html" class="close-panel item-link"> 
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Navbars And Toolbars</div>
-                </div>
-              </div></a></li>
-          <li><a href="transitions.html" class="close-panel item-link">
-              <div class="item-content">
-                <div class="item-media"><i class="icon icon-f7"></i></div>
-                <div class="item-inner"> 
-                  <div class="item-title">Transitions And Effects</div>
-                </div>
-              </div></a></li>
-        </ul>
-      </div>
-      <div class="content-block">
-        <p>Long text block goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sem urna, gravida non scelerisque id, fringilla ac velit. Phasellus elementum a ipsum at ornare. Mauris sagittis rhoncus euismod. Integer convallis augue eu lacus ultrices, in dictum elit consequat. Nulla faucibus massa id felis egestas eleifend. Proin consequat dignissim magna ut scelerisque. Vestibulum ac lorem semper, posuere sapien nec, pharetra massa. Nulla a tellus facilisis, sollicitudin quam porta, aliquam lorem. Fusce dignissim eros ac diam molestie, ut ultrices lorem tristique. Ut facilisis augue ac nisi egestas malesuada. Nunc posuere tortor quis eleifend mollis. Aliquam erat volutpat. Donec feugiat elit tellus, nec convallis orci elementum in. Sed urna mi, vestibulum id tempus id, pretium et ante. Pellentesque eget sollicitudin ligula. Phasellus pellentesque velit eu porta suscipit.</p>
-      </div>
-    </div>
-    <div class="panel panel-right panel-reveal layout-dark">
-      <div class="view view-right">
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="center sliding">Right Panel</div>
-          </div>
-        </div>
-        <div class="pages navbar-through">
-          <div data-page="panel-right1" class="page">
-            <div class="page-content"> 
-              <div class="content-block">
-                <p>This is a right side panel. You can close it by clicking outsite or on this link: <a href="#" class="close-panel">close me</a>. You can put here anything, even another isolated view, try it:</p>
-              </div>
-              <div class="list-block">
-                <ul>
-                  <li><a href="panel-right2.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-inner"> 
-                          <div class="item-title">Right panel page 2</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="panel-right3.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-inner"> 
-                          <div class="item-title">Right panel page 3</div>
-                        </div>
-                      </div></a></li>
-                </ul>
-              </div>
+
+    <div class="panel panel-left panel-cover">
+          <div class="user_login_info">
+            <div class="user_thumb">
+				<img src="images/profile.jpg" alt="" title="" />
+				  <div class="user_details">
+					<!--<p>Oi, <span>Juliana</span></p>-->
+				  </div>  
+				  <div class="user_social">
+					<!--
+					<a href="#" data-popup=".popup-social" class="open-popup"><img src="images/icons/white/twitter.png" alt="" title="" /></a>
+					-->
+				  </div>      
             </div>
+
+                <nav class="user-nav">
+                    <ul>
+						<li><a href="#" data-popup=".popup-login" class="open-popup close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Login</span></a></li>
+						<li><a href="agendar.html"><img src="images/icons/white/blog.png" alt="" title="" /><span>Agendar</span></a></li>
+						<li><a href="agendamentos.html"><img src="images/icons/white/heart.png" alt="" title="" /><span>Meus Agendamentos</span><strong class="green">12</strong></a></li>
+						<li><a href="#" data-popup=".popup-signup" class="open-popup close-panel"><img src="images/icons/white/user.png" alt="" title="" /><span>Meu Cadastro</span></a></li>
+						<li><a href="#" class="btnWhatsapp"><img src="images/icons/white/call.png" alt="" title="" /><span>Agende pelo Whatsapp</span></a></li>
+						<li><a href="localizacao.html" ><img src="images/icons/white/map.png" alt="" title="" /><span>Como Chegar</span></a></li>
+                    </ul>
+                </nav>
           </div>
-        </div>
-      </div>
     </div>
+
+    
     <div class="views">
+
       <div class="view view-main">
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="center sliding">Framework7</div>
-            <div class="right"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
-          </div>
+
+        <div class="pages toolbar-through">
+
+			<div data-page="index" class="page homepage">
+				<div class="page-content">
+					<div class="logo"><img src="images/logo.png" alt="" title="" /></div> 
+				</div>
+			</div>
         </div>
+        <!-- MENU INFERIOR -->
         <div class="toolbar">
-          <div class="toolbar-inner"><a href="#" class="link">Dummy Link</a><a href="#" data-popover=".popover-menu" class="open-popover link">Menu</a></div>
+			<div class="toolbar-inner">
+				<ul class="toolbar_icons">
+					<li><a href="agendar.html"><img src="images/icons/white/blog.png" alt="Agendar Visita" title="Agendar Visita" /></a></li>
+					<li><a href="agendamentos.html"><img src="images/icons/white/heart.png" alt="Meus Agendamentos" title="Meus Agendamentos" /></a></li>
+					<li class="menuicon"><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>			  
+					<li><a href="#" class="btnWhatsapp"><img src="images/icons/white/call.png" alt="Agende pelo WhatsApp" title="Agende pelo WhatsApp" /></a></li>
+					<li><a href="localizacao.html"><img src="images/icons/white/map.png" alt="Como Chegar" title="Como Chegar" /></a></li>
+				</ul>
+			</div>  
         </div>
-        <div class="pages navbar-through toolbar-through">
-          <div data-page="index" class="page">
-            <div class="page-content">
-              <div class="content-block-title">Welcome To Framework7</div>
-              <div class="content-block"><a href="about.html" class="button">About Framework7</a></div>
-              <div class="content-block-title">Framework7 Kitchen Sink</div>
-              <div class="list-block">
+		
+      </div>
+    </div>
+    
+    <!-- About Popup -->
+    <div class="popup popup-menu">
+    <div class="content-block">
+              <nav class="main-nav">
                 <ul>
-                  <li><a href="modals.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Modals</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="popover.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Popover</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="tabs.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Tabs</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="panels.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Side Panels</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="list-view.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">List View</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="media-lists.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Media Lists</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="contacts.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Contacts List</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="swipe-delete.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Swipe To Delete</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="sortable-list.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Sortable List</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="accordion.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Accordion</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="pull-to-refresh.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Pull To Refresh</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="forms.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Forms</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="cards.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Cards</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="picker.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Picker</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="calendar.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Calendar / Datepicker</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="messages.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Messages</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="grid.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Grid</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="preloader.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Preloader</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="bars.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Navbars And Toolbars</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="searchbar.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Search Bar</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="swiper.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Swiper Slider</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="photo-browser.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Photo Browser</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="infinite-scroll.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Infinite Scroll</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="virtual-list.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Virtual List</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="notifications.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Notifications</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="lazy-load.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Lazy Load Images</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="login-screen.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Login Screen</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="color-themes.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Color Themes</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="#" class="item-link ks-generate-page">
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Dynamically Generated Content</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="transitions.html" class="item-link"> 
-                      <div class="item-content">
-                        <div class="item-media"><i class="icon icon-f7"></i></div>
-                        <div class="item-inner"> 
-                          <div class="item-title">Transitions And Effects</div>
-                        </div>
-                      </div></a></li>
+                  <li><a href="index.html" class="close-popup"><img src="images/icons/white/home.png" alt="" title="" /><span>Home</span></a></li>
+                  <li><a href="about.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>About</span></a></li>
+                  <li><a href="features.html" class="close-popup"><img src="images/icons/white/settings.png" alt="" title="" /><span>Features</span></a></li>
+                  <li><a href="photos.html" class="close-popup"><img src="images/icons/white/photos.png" alt="" title="" /><span>Gallery</span></a></li>
+                  <li><a href="videos.html" class="close-popup"><img src="images/icons/white/video.png" alt="" title="" /><span>Videos</span></a></li>
+                  <li><a href="blog.html" class="close-popup"><img src="images/icons/white/blog.png" alt="" title="" /><span>Blog</span></a></li>
+                  <li><a href="toggle.html" class="close-popup"><img src="images/icons/white/toogle.png" alt="" title="" /><span>Toggle</span></a></li>
+                  <li><a href="tabs.html" class="close-popup"><img src="images/icons/white/docs.png" alt="" title="" /><span>Tabs</span></a></li>
+                  <li><a href="#" data-popup=".popup-social" class="open-popup"><img src="images/icons/white/heart.png" alt="" title="" /><span>Social</span></a></li>
+                  <li><a href="#" data-popup=".popup-login" class="open-popup"><img src="images/icons/white/lock.png" alt="" title="" /><span>Login</span></a></li>
+                  <li><a href="tel:1234 5678" class="close-popup external"><img src="images/icons/white/phone.png" alt="" title="" /><span>Call Now</span></a></li>
+                  <li><a href="contact.html" class="close-popup"><img src="images/icons/white/contact.png" alt="" title="" /><span>Contact</span></a></li>
                 </ul>
-              </div>
-              <div class="content-block-title">Core Features</div>
-              <div class="content-block">
-                <p> <a href="core-features.html" class="button">Read About Core Features</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </nav>  
+      <div class="close_popup_button"><a href="#" class="close-popup"><img src="images/icons/black/menu_close.png" alt="" title="" /></a></div>
     </div>
-    <div class="popup demo-popup">
-      <div class="view navbar-fixed">
-        <div class="pages">
-          <div class="page">
-            <div class="navbar">
-              <div class="navbar-inner">
-                <div class="center">Popup Title</div>
-                <div class="right"><a href="#" class="link close-popup">Done</a></div>
-              </div>
-            </div>
-            <div class="page-content">
-              <div class="content-block">
-                <p>Here comes popup. You can put here anything, even independent view with its own navigation. Also not, that by default popup looks a bit different on iPhone/iPod and iPad, on iPhone it is fullscreen.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus mauris leo, eu bibendum neque congue non. Ut leo mauris, eleifend eu commodo a, egestas ac urna. Maecenas in lacus faucibus, viverra ipsum pulvinar, molestie arcu. Etiam lacinia venenatis dignissim. Suspendisse non nisl semper tellus malesuada suscipit eu et eros. Nulla eu enim quis quam elementum vulputate. Mauris ornare consequat nunc viverra pellentesque. Aenean semper eu massa sit amet aliquam. Integer et neque sed libero mollis elementum at vitae ligula. Vestibulum pharetra sed libero sed porttitor. Suspendisse a faucibus lectus.</p>
-                <p>Duis ut mauris sollicitudin, venenatis nisi sed, luctus ligula. Phasellus blandit nisl ut lorem semper pharetra. Nullam tortor nibh, suscipit in consequat vel, feugiat sed quam. Nam risus libero, auctor vel tristique ac, malesuada ut ante. Sed molestie, est in eleifend sagittis, leo tortor ullamcorper erat, at vulputate eros sapien nec libero. Mauris dapibus laoreet nibh quis bibendum. Fusce dolor sem, suscipit in iaculis id, pharetra at urna. Pellentesque tempor congue massa quis faucibus. Vestibulum nunc eros, convallis blandit dui sit amet, gravida adipiscing libero.</p>
-                <p>Morbi posuere ipsum nisl, accumsan tincidunt nibh lobortis sit amet. Proin felis lorem, dictum vel nulla quis, lobortis dignissim nunc. Pellentesque dapibus urna ut imperdiet mattis. Proin purus diam, accumsan ut mollis ac, vulputate nec metus. Etiam at risus neque. Fusce tincidunt, risus in faucibus lobortis, diam mi blandit nunc, quis molestie dolor tellus ac enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse interdum turpis a velit vestibulum pharetra. Vivamus blandit dapibus cursus. Aenean lorem augue, vehicula in eleifend ut, imperdiet quis felis.</p>
-                <p>Duis non erat vel lacus consectetur ultricies. Sed non velit dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin vel varius mi, a tristique ante. Vivamus eget nibh ac elit tempor bibendum sit amet vitae velit. Proin sit amet dapibus nunc, non porta tellus. Fusce interdum vulputate imperdiet. Sed faucibus metus at pharetra fringilla. Fusce mattis orci et massa congue, eget dapibus ante rhoncus. Morbi semper sed tellus vel dignissim. Cras vestibulum, sapien in suscipit tincidunt, lectus mi sodales purus, at egestas ligula dui vel erat. Etiam cursus neque eu lectus eleifend accumsan vitae non leo. Aliquam scelerisque nisl sed lacus suscipit, ac consectetur sapien volutpat. Etiam nulla diam, accumsan ut enim vel, hendrerit venenatis sem. Vestibulum convallis justo vitae pharetra consequat. Mauris sollicitudin ac quam non congue.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div> 
+    
+    
+    <!-- INFORMAR/ALTERAR DADOS USUÁRIO -->
+    <div class="popup popup-signup">
+		<div class="content-block-login">
+		    <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
+				<h4>INFORME SEUS DADOS</h4>
+				<!--<div class="loginform">-->
+				<div class="mariagataform">
+					<!--<form id="LoginForm" method="post">-->
+					<form id="frmCadastro" action="#">
+						<input type="text" name="cadastro_nome" id="cadastro_nome" value="" class="form_input required" placeholder="Primeiro Nome" />
+						<input type="text" name="cadastro_cpf" id="cadastro_cpf" value="" class="form_input required" placeholder="CPF" />
+						<input type="text" name="cadastro_email" id="cadastro_email" value="" class="form_input required" placeholder="E-mail" />
+						<input type="text" name="cadastro_celular" id="cadastro_celular" value="" class="form_input required" placeholder="celular (com DDD)" />
+						
+						<input type="submit" name="submit" class="form_submit" id="submit" value="SALVAR" />
+					</form>
+				</div>
+		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/black/menu_close.png" alt="" title="" /></a></div>
+		</div>
     </div>
-    <div class="popover popover-menu">
-      <div class="popover-angle"></div>
-      <div class="popover-inner">
-        <div class="list-block">
-          <ul>
-            <li><a href="modals.html" class="list-button item-link">Modals</a></li>
-            <li><a href="popover.html" class="list-button item-link">Popover</a></li>
-            <li><a href="tabs.html" class="list-button item-link">Tabs</a></li>
-            <li><a href="panels.html" class="list-button item-link">Side Panels</a></li>
-            <li><a href="list-view.html" class="list-button item-link">List View</a></li>
-            <li><a href="forms.html" class="list-button item-link">Forms</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="popover popover-music">
-      <div class="popover-angle"></div>
-      <div class="popover-inner">
-        <div class="list-block media-list">
-          <ul>
-            <li><a href="#" class="item-link item-content">
-                <div class="item-media"><img src="http://lorempixel.com/88/88/people/1" width="44"></div>
-                <div class="item-inner">
-                  <div class="item-title-row">
-                    <div class="item-title">Yellow Submarine</div>
-                  </div>
-                  <div class="item-subtitle">Beatles</div>
-                </div></a></li>
-            <li><a href="#" class="item-link item-content">
-                <div class="item-media"><img src="http://lorempixel.com/88/88/people/2" width="44"></div>
-                <div class="item-inner">
-                  <div class="item-title-row">
-                    <div class="item-title">Don't Stop Me Now</div>
-                  </div>
-                  <div class="item-subtitle">Queen</div>
-                </div></a></li>
-            <li><a href="#" class="item-link item-content">
-                <div class="item-media"><img src="http://lorempixel.com/88/88/people/3" width="44"></div>
-                <div class="item-inner">
-                  <div class="item-title-row">
-                    <div class="item-title">Billie Jean</div>
-                  </div>
-                  <div class="item-subtitle">Michael Jackson</div>
-                </div></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="login-screen">
-      <div class="view">
-        <div class="page">
-          <div class="page-content login-screen-content">
-            <div class="login-screen-title">Framework7</div>
-            <form>
-              <div class="list-block">
-                <ul>
-                  <li class="item-content">
-                    <div class="item-inner"> 
-                      <div class="item-title label">Username</div>
-                      <div class="item-input">
-                        <input type="text" name="username" placeholder="Your username">
-                      </div>
-                    </div>
-                  </li>
-                  <li class="item-content">
-                    <div class="item-inner"> 
-                      <div class="item-title label">Password</div>
-                      <div class="item-input">
-                        <input type="password" name="password" placeholder="Your password">
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="list-block">
-                <ul>
-                  <li><a href="#" class="item-link list-button">Sign In</a></li>
-                </ul>
-                <div class="list-block-label">Some text about login information.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="picker-modal picker-modal-demo">
-      <div class="toolbar">
-        <div class="toolbar-inner">
-          <div class="left"></div>
-          <div class="right"><a href="#" class="link close-picker">Done</a></div>
-        </div>
-      </div>
-      <div class="picker-modal-inner">
-        <div class="content-block">
-          <p>Integer mollis nulla id nibh elementum finibus. Maecenas eget fermentum ipsum. Sed sagittis condimentum nisl at tempus. Duis lacus libero, laoreet vitae ligula a, aliquet eleifend sapien. Nullam sodales viverra sodales. Nulla hendrerit condimentum dolor facilisis tempor. Donec at est malesuada, sagittis nisi et, accumsan enim.</p>
-        </div>
-      </div>
-    </div>
-    <script type="text/javascript" src="../build/js/framework7.js"></script>
-    <script type="text/javascript" src="js/kitchen-sink.js"></script>
+
+
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+<script src="js/jquery.validate.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/framework7.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/my-app.js"></script>
+<script type="text/javascript" src="js/jquery.fitvids.js"></script>
+
+
+	<script>
+		
+		$( document ).ready(function() {
+				
+			document.addEventListener("deviceready", onDeviceReady, false);
+			function onDeviceReady() {
+				
+				//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
+				//cordova.plugins.notification.local.schedule({
+				//	title: "Lembrete Maria Gata",
+				//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
+				//});
+				
+				navigator.vibrate(1000); 
+				
+				myApp.onPageInit('agendamentos', function (page) {
+					
+					var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
+					db.transaction(function(tx) {
+						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
+					});	//Fim db.transaction create table if not exists
+					
+					db.transaction(function(tx) {
+						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
+							//alert("res.rows.length: " + res.rows.length);
+							//alert("cpf no bd: " + res.rows.item(0).cpf);
+							
+							if (res.rows.length == 0) {
+								myApp.popup('.popup-signup');
+								event.preventDefault();
+								return false;
+							} else {
+								
+								$("#cadastro_cpf").val(res.rows.item(0).cpf);
+								$("#cadastro_nome").val(res.rows.item(0).nome);
+								$("#cadastro_email").val(res.rows.item(0).email);
+								$("#cadastro_celular").val(res.rows.item(0).celular);
+								
+								//obteragendamentoscliente
+								$.ajax({
+									url: "http://mariagata.com.br/sistema/mariagata.php",
+									type: 'POST',
+									data: {
+										a: 'obteragendamentoscliente',
+										cpf: $("#cadastro_cpf").val()
+									},
+									beforeSend: function( xhr ) {
+										myApp.showPreloader('Obtendo seus agendamentos...');
+										//Se precisar alterar xhr: xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+									},
+									context: document.body
+									
+								})
+								.always(function() {		
+									myApp.hidePreloader(); 			
+								})
+								.fail(function(jqXHR, textStatus, errorThrown) {
+									myApp.alert('Desculpe! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
+								})
+								.done(function(ret) {
+									
+									//Teste se o objeto retornao é JSON, ou seja, existem dados
+									var jsonRetorno = jQuery.parseJSON(ret);
+									
+									//Se o JSON não tiver a opção resultado é porque 1 ou mais condomínios foram retornados
+									if (typeof jsonRetorno.resultado === "undefined") {
+										
+										var lsHTML = "";
+										lsHTML += '<div class="list-block inset"><ul>';
+												
+										//adiciona os serviços e pacotes
+										$.each(jsonRetorno, function( index, value ) {
+												
+											lsHTML += '<li>';
+												lsHTML += '<a href="#" class="item-link item-content">';
+													lsHTML += '<div class="item-media">';
+													lsHTML += '<i class="icon my-icon"></i>';
+													lsHTML += '</div>';
+													lsHTML += '<div class="item-inner">';
+													lsHTML += '<div class="item-title">' + value.DataFormatada + '</div>';
+													lsHTML += '<div class="item-after">' + value.AGEN_ID + '</div>';
+													lsHTML += '</div>';
+												lsHTML += '</a>';
+											lsHTML += '</li>';
+
+										});
+										
+										lsHTML += '</ul><div class="list-block-label">Exibindo apenas agendamentos em aberto e confirmados</div></div>';	
+										
+										$("#listaAgendamentos").append(lsHTML);
+										
+									} else {			
+										if (jsonRetorno.resultado == 'NAOENCONTRADO') {			
+											myApp.alert(jsonRetorno.mensagem, 'Maria Gata');				
+										} else {
+											myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+										}			
+									}	
+								}); //Fim ajax
+								
+							} // Fim if/else se o BD local possui dados do usuário
+						});
+					}); //Fim db.transaction selesct		
+							
+				}); //Fim onPageInit agendamentos
+
+
+				$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
+					navigator.vibrate(300);
+					//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
+					$('.btnEsmalteriaDisponivel').removeClass("btnSelecionado").addClass( "btnEsmalteria" );
+					$(e.target).removeClass( "btnEsmalteria" ).addClass( "btnSelecionado" );
+				});
+
+				$$(document).on('click', '.btnEscovariaDisponivel', function (e) {
+					navigator.vibrate(300);
+					//Limpa a classe dos botões btnEscovaria. Se não estiver disabled, aplica css do botão selecionado
+					$('.btnEscovariaDisponivel').removeClass("btnSelecionado").addClass( "btnEscovaria" );
+					$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
+				});
+				
+				$( "#frmCadastro" ).submit(function( event ) {
+					event.preventDefault();
+					
+					//Valida dados de cadastro
+					var cadastro_nome = $.trim($("#cadastro_nome").val());
+					var cadastro_cpf = $.trim($("#cadastro_cpf").val());
+					var cadastro_email = $.trim($("#cadastro_email").val());
+					var cadastro_celular = $.trim($("#cadastro_celular").val()).replace(/\D/g,''); //Replace remove caracteres não numéricos
+					
+					if (cadastro_nome == "") {
+						myApp.alert("Informe seu primeiro nome.", 'Dado obrigatório');
+						return false;
+					}
+					if (cadastro_cpf == "") {
+						myApp.alert("Informe o CPF. Com ele sempre identificaremos você no sistema da Maria Gata!", 'Dado obrigatório');
+						return false;
+					}
+					if (cadastro_cpf.length != 11) {
+						myApp.alert("Parece que o CPF não está válido. Ele deve possuir 11 números.", 'Ops!');
+						return false;
+					}
+					if (cadastro_email == "") {
+						myApp.alert("Informe seu e-mail.", 'Dado obrigatório');
+						return false;
+					}
+					if (cadastro_celular == "") {
+						myApp.alert("Informe seu celular com DDD. Com ele poderemos confirmar os agendamentos e nos falar mais facilmente.", 'Dado obrigatório');
+						return false;
+					}
+					if ((cadastro_celular.length != 10)&&(cadastro_celular.length != 11)) {
+						myApp.alert("O celular não está válido. Verifique se digitou corretamente com o DDD (Ex: 7199999999).", 'Dado obrigatório');
+						return false;
+					}
+
+					var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
+					db.transaction(function(tx) {
+						tx.executeSql('DROP TABLE IF EXISTS usuario');
+						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
+						
+						tx.executeSql("INSERT INTO usuario (cpf, nome, email, celular) VALUES (?,?,?,?)", [cadastro_cpf,cadastro_nome,cadastro_email,cadastro_celular], function(tx, res) {
+							//alert("insertId: " + res.insertId);
+							
+							$.ajax({
+								url: "http://mariagata.com.br/sistema/mariagata.php",
+								type: 'POST',
+								data: {
+									a: 'salvardadosusuario',
+									cpf: cadastro_cpf,
+									nome: cadastro_nome,
+									email: cadastro_email,
+									celular: cadastro_celular
+								},
+								beforeSend: function( xhr ) {
+									myApp.showPreloader('Salvando seus dados...');
+								},
+								context: document.body
+								
+							})
+							.always(function() {		
+								myApp.hidePreloader();
+							})
+							.fail(function(jqXHR, textStatus, errorThrown) {
+								myApp.alert('Desculpe!! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
+							})
+							.done(function(ret) {
+
+								//Teste se o objeto retornao é JSON, ou seja, existem dados
+								var jsonRetorno = jQuery.parseJSON(ret);
+									
+								if (jsonRetorno.resultado == 'SUCESSO') {			
+									myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+									myApp.closeModal(".popup-signup");
+								} else {
+									myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+								}			
+								
+							}); //Fim ajax
+							
+						}, function(e) {
+							myApp.alert("Não conseguimos salvar seus dados. Erro: " + e.message, 'Desculpe!');
+						});
+						
+					}); //Fim db.transaction
+					
+				}); //Fim form submit
+
+			
+				$$(document).on('click', '#btnConcluirAgendamento', function (e) {
+		
+					//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
+					navigator.vibrate(1000);
+					
+					var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
+					db.transaction(function(tx) {
+						//tx.executeSql('DROP TABLE IF EXISTS usuario');
+						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
+					});	//Fim db.transaction create table if not exists
+
+					db.transaction(function(tx) {
+						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
+							//alert("res.rows.length: " + res.rows.length);
+							//alert("cpf no bd: " + res.rows.item(0).cpf);
+							
+							if (res.rows.length == 0) {
+								myApp.popup('.popup-signup');
+								event.preventDefault();
+								return false;
+							} else {
+							
+								//Dados já encontrados no BD Local
+								$("#cadastro_cpf").val(res.rows.item(0).cpf);
+								$("#cadastro_nome").val(res.rows.item(0).nome);
+								$("#cadastro_email").val(res.rows.item(0).email);
+								$("#cadastro_celular").val(res.rows.item(0).celular);
+
+								var IdProfissionalEsmalteria = "";
+								var nomeProfissionalEsmalteria = "";
+								var horarioEsmalteria = "";
+								var IdProfissionalEscovaria = "";
+								var nomeProfissionalEscovaria = "";
+								var horarioEscovaria = "";
+								var msgNaoSelecionado = "";
+								var idSelecionadoEsmalteria = "";
+								var idSelecionadoEscovaria = "";
+								
+								if (temEsmalteria) {
+									idSelecionadoEsmalteria = $('.btnEsmalteriaDisponivel.btnSelecionado').attr('id');
+									if (idSelecionadoEsmalteria === undefined) {
+										msgNaoSelecionado = "Selecione um profissional e horário para o(s) serviço(s) da Esmalteria.";
+									} else {
+										nomeProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[0];
+										IdProfissionalEsmalteria = idSelecionadoEsmalteria.split("|")[1];
+										horarioEsmalteria = idSelecionadoEsmalteria.split("|")[2];
+									}			
+								}
+								if (temEscovaria) {
+									idSelecionadoEscovaria = $('.btnEscovariaDisponivel.btnSelecionado').attr('id');
+									if (idSelecionadoEscovaria === undefined) {
+										if ((temEsmalteria)&&((idSelecionadoEsmalteria === undefined)||(idSelecionadoEsmalteria == ""))) {
+											msgNaoSelecionado = "Selecione profissionais e horários para o(s) serviço(s) da Esmalteria e Escovaria.";
+										} else {
+											msgNaoSelecionado = "Selecione um profissional e horário para o(s) serviço(s) da Escovaria.";
+										}
+									} else {
+										nomeProfissionalEscovaria = idSelecionadoEscovaria.split("|")[0];
+										IdProfissionalEscovaria = idSelecionadoEscovaria.split("|")[1];
+										horarioEscovaria = idSelecionadoEscovaria.split("|")[2];
+									}
+								}
+								
+								if (msgNaoSelecionado != "") {
+									myApp.alert(msgNaoSelecionado, 'Ops!');
+								} else {
+									
+									var dataExibicao = data.split("-")[2] + "/" + data.split("-")[1] + "/" + data.split("-")[0];
+									
+									var msgEsmalteria = "";
+									if (temEsmalteria) {
+										msgEsmalteria = '<p>Esmalteria: ' + nomeProfissionalEsmalteria + ' (' + horarioEsmalteria + 'h)</p>';
+									}
+									
+									var msgEscovaria = "";
+									if (temEscovaria) {
+										msgEscovaria = '<p>Escovaria: ' + nomeProfissionalEscovaria + ' (' + horarioEscovaria + 'h)</p>';
+									}
+									
+									var dadosAgendamento = '<span>' +
+																'<p>Unidade: Maria Gata Pituba</p>' +
+																'<p>Serviços: ' + servicosnome + '</p>' +																				
+																'<p>Quando: ' + dataExibicao + '</p>' +
+																msgEsmalteria +
+																msgEscovaria +
+															'</span>';
+
+									
+									myApp.modal({
+										title:  'Revise o agendamento',
+										text: dadosAgendamento,
+										buttons: [
+										  {
+											text: 'Vou revisar'
+										  },
+										  {
+											text: 'Pode agendar',
+											bold: true,
+											onClick: function() {
+												
+												//Requisição para agendar 
+												$.ajax({
+													url: "http://mariagata.com.br/sistema/mariagata.php",
+													type: 'POST',
+													data: {
+														a: 'confirmaragendamento',
+														cpf: $("#cadastro_cpf").val(),
+														filial: filial,
+														data: data,
+														servicos: servicos,
+														funcionarioEsmalteria: IdProfissionalEsmalteria,
+														horarioEsmalteria: horarioEsmalteria,
+														funcionarioEscovaria: IdProfissionalEscovaria,
+														horarioEscovaria: horarioEscovaria
+													},
+													beforeSend: function( xhr ) {
+														myApp.showPreloader('Confirmando Agendamento...');
+													},
+													context: document.body
+													
+												})
+												.always(function() {		
+													myApp.hidePreloader();
+												})
+												.fail(function(jqXHR, textStatus, errorThrown) {
+													myApp.alert('Desculpe!! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
+												})
+												.done(function(ret) {
+
+													//Teste se o objeto retornao é JSON, ou seja, existem dados
+													var jsonRetorno = jQuery.parseJSON(ret);
+														
+													if (jsonRetorno.resultado == 'SUCESSO') {			
+														myApp.alert(jsonRetorno.mensagem, 'Parabéns!');
+														//Volta para a tela inicial
+														//mainView.router.load({
+														//	url: "index.html"
+														//});
+													} else {
+														myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+													}			
+													
+												}); //Fim ajax
+											}
+										  }
+										]
+									});
+											
+								} //Fim if/else msgNaoSelecionado != ""
+								
+								
+								
+							} // Fim if/else se o BD local possui dados do usuário
+						});
+					}); //Fim db.transaction selesct
+					
+				}); //Fim .click
+				
+				
+			} // Fim onDeviceReady()
+						
+		}); //Fim document.ready()
+		
+		
+		//document.addEventListener('deviceready', function () {
+		//}, false); //Fim deviceready
+		
+	</script>
+	
+
   </body>
 </html>
