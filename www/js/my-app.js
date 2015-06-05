@@ -375,7 +375,7 @@ myApp.onPageInit('agendar', function (page) {
 	
 //} //Fim document.ready()
 	
-$$(document).on('pageInit', function (e) {
+//$$(document).on('pageInit', function (e) {
 	
 		//console.log('pageInit generico');
 		
@@ -514,4 +514,4 @@ $$(document).on('pageInit', function (e) {
 	
 		*/
 		
-})
+//})
