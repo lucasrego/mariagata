@@ -149,7 +149,7 @@
 				
 				navigator.vibrate(1000); 
 				
-				myApp.onPageInit('agendamentos', function (page) {
+				myApp.onPageInit('agendamentos2', function (page) {
 					
 					var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
 					db.transaction(function(tx) {
@@ -208,7 +208,7 @@
 										$.each(jsonRetorno, function( index, value ) {
 												
 											lsHTML += '<li>';
-												lsHTML += '<a href="#" class="item-link item-content">';
+												lsHTML += '<a href="#" id="' + value.AGEN_ID + '" class="item-link item-content botaoDetalharAgendamento">';
 													lsHTML += '<div class="item-media">';
 													lsHTML += '<i class="icon my-icon"></i>';
 													lsHTML += '</div>';
@@ -254,6 +254,7 @@
 					$('.btnEscovariaDisponivel').removeClass("btnSelecionado").addClass( "btnEscovaria" );
 					$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
 				});
+				
 				
 				$( "#frmCadastro" ).submit(function( event ) {
 					event.preventDefault();
@@ -340,8 +341,8 @@
 					}); //Fim db.transaction
 					
 				}); //Fim form submit
-
-			
+				
+				
 				$$(document).on('click', '#btnConcluirAgendamento', function (e) {
 		
 					//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.

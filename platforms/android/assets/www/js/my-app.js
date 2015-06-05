@@ -35,6 +35,7 @@ $$('#cmbListaServicos').on('change', function(){
    alert("this.checked: " + this.checked);
 })
 
+	
 myApp.onPageInit('agendar', function (page) {
 	
 	function checkConnection() {
@@ -118,7 +119,7 @@ myApp.onPageInit('agendar', function (page) {
 				myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
 			}			
 		}	
-	});
+	}); //Fim ajax
 		
 	filial = "";
 	servicos = "";
