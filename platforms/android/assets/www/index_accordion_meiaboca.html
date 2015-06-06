@@ -136,8 +136,8 @@
 	
 	$( document ).ready(function() {
 			
-		document.addEventListener("deviceready", onDeviceReady, false);
-		function onDeviceReady() {
+		//document.addEventListener("deviceready", onDeviceReady, false);
+		//function onDeviceReady() {
 			
 			//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 			//cordova.plugins.notification.local.schedule({
@@ -175,6 +175,7 @@
 			
 			function obterDadosUsuarioBD() {
 				
+				/*
 				var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
 				db.transaction(function(tx) {
 					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
@@ -195,14 +196,15 @@
 						}
 					});
 				});
+				*/
 				
 				//return false;
 				
-				//cpf_BD = "80941818500";
-				//nome_BD = "Lucas";
-				//email_BD = "lucasrego@gmail.com";
-				//celular_BD = "7188145976";
-				//return true;
+				cpf_BD = "80941818500";
+				nome_BD = "Lucas";
+				email_BD = "lucasrego@gmail.com";
+				celular_BD = "7188145976";
+				return true;
 				
 			}
 			
@@ -425,8 +427,9 @@
 						var newPageHorarios = 	'<div class="pages">' +
 													'<div data-page="horarios" class="page">' +
 														'<div class="page-content">' +
-															'<h2 class="page_title">Profissionais e Horários</h2>';
-						
+															'<h2 class="page_title">Profissionais e Horários</h2>' +
+															'<div class="list-block accordion-list">' + //Accordion
+															'<ul>'; //Accordion
 						var ultimoGrupo = "";
 						var ultimoFuncionario = "";
 						var totalItens = jsonRetorno.length;
@@ -481,11 +484,55 @@
 								}
 								
 								//Se mudou de grupo, insere cabeçalho do grupo:
-								if (ultimoGrupo != value.GSER_ID) {					
+								if (ultimoGrupo != value.GSER_ID) {
+								
 									if (value.GSER_ID == "1") {
-										newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";								
+										//newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";
+										newPageHorarios += "<li class='accordion-item'>";
+										newPageHorarios += "	<a href='#' class='item-content item-link'>";
+										newPageHorarios += "		<div class='item-inner'>";
+										newPageHorarios += "			<div class='item-title'>Esmalteria</div>"; //Accordion
+										newPageHorarios += "		</div>";
+										newPageHorarios += "	</a>";
+										newPageHorarios += "	<div class='accordion-item-content'>";
+										newPageHorarios += "		<div class='content-block'>";
+										
+										/*
+										<div class="list-block accordion-list">
+											<ul>
+												<li class="accordion-item">
+													<a href="#" class="item-content item-link">
+														<div class="item-inner">
+															<div class="item-title">Item 1</div>
+														</div>
+													</a>
+													<div class="accordion-item-content">
+														<div class="content-block">
+														  <p>Item 1 content. Lorem ipsum dolor sit amet...</p>
+														</div>
+													</div>
+												</li>												
+											</ul>
+										</div>
+										*/
+										
 									} else {
-										newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";								
+										//newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";
+										
+										//Fecha LI do accordion angerior
+										newPageHorarios += "</div>"; //Accordion
+										newPageHorarios += "</div>"; //Accordion
+										newPageHorarios += "</li>"; //Accordion
+									
+									
+										newPageHorarios += "<li class='accordion-item'>";
+										newPageHorarios += "	<a href='#' class='item-content item-link'>";
+										newPageHorarios += "		<div class='item-inner'>";
+										newPageHorarios += "			<div class='item-title'>Escovaria</div>"; //Accordion
+										newPageHorarios += "		</div>";
+										newPageHorarios += "	</a>";
+										newPageHorarios += "	<div class='accordion-item-content'>";
+										newPageHorarios += "		<div class='content-block'>";
 									}
 								}	
 								
@@ -528,6 +575,15 @@
 								if ((qtdHorariosProfissional == 1)||(qtdHorariosProfissional == 5)||(qtdHorariosProfissional == 9)||(qtdHorariosProfissional == 13)||(qtdHorariosProfissional == 17)||(qtdHorariosProfissional == 21)||(qtdHorariosProfissional == 25)||(qtdHorariosProfissional == 29)||(qtdHorariosProfissional == 33)) {
 									newPageHorarios += "</div>";
 								}
+								
+								//Fecha ultimo grupo accordion
+								newPageHorarios += "</div>"; //Accordion
+								newPageHorarios += "</div>"; //Accordion
+								newPageHorarios += "</li>"; //Accordion
+								
+								newPageHorarios += "</ul>"; //Accordion
+								newPageHorarios += "</div>"; //Accordion
+								
 								newPageHorarios += "</div>";
 								newPageHorarios += "</div>";	  
 								newPageHorarios += "</div>";						
@@ -541,6 +597,7 @@
 						});
 						
 						newPageHorarios += 	'</div>' +
+											
 											'<div class="content-block">' +
 												'<div class="row">' +
 													  '<div class="col-50">' +
@@ -840,7 +897,7 @@
 					return false;
 				}
 				if (cadastro_cpf.length != 11) {
-					myApp.alert("Parece que o CPF não está válido. Ele deve possuir 11 dígitos.", 'Ops!');
+					myApp.alert("Parece que o CPF não está válido. Ele deve possuir 11 números.", 'Ops!');
 					return false;
 				}
 				if (cadastro_email == "") {
@@ -1042,9 +1099,10 @@
 					
 				} //Fim else/if dadosUsuario
 				
-			}); //Fim btnConcluirAgendamento.click			
+			}); //Fim btnConcluirAgendamento.click
 			
-		} // Fim onDeviceReady()
+			
+		//} // Fim onDeviceReady()
 					
 	}); //Fim document.ready()
 	
