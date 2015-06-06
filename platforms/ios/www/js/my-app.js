@@ -35,189 +35,18 @@ $$('#cmbListaServicos').on('change', function(){
    alert("this.checked: " + this.checked);
 })
 
-
-myApp.onPageInit('agendamentos', function (page) {
-		
-	//obteragendamentoscliente
-	$.ajax({
-		url: "http://mariagata.com.br/sistema/mariagata.php",
-		type: 'POST',
-		data: {
-			a: 'obteragendamentoscliente',
-			cpf: '80941818500'
-		},
-		beforeSend: function( xhr ) {
-			myApp.showPreloader('Obtendo seus agendamentos...');
-			//Se precisar alterar xhr: xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
-		},
-		context: document.body
-		
-	})
-	.always(function() {		
-		myApp.hidePreloader(); 			
-	})
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		myApp.alert('Desculpe! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
-	})
-	.done(function(ret) {
-		
-		//Teste se o objeto retornao é JSON, ou seja, existem dados
-		var jsonRetorno = jQuery.parseJSON(ret);
-		
-		//Se o JSON não tiver a opção resultado é porque 1 ou mais condomínios foram retornados
-		if (typeof jsonRetorno.resultado === "undefined") {
-			
-			var lsHTML = "";
-			lsHTML += '<div class="list-block inset"><ul>';
-					
-			//adiciona os serviços e pacotes
-			$.each(jsonRetorno, function( index, value ) {
-					
-				lsHTML += '<li>';
-					lsHTML += '<a href="#" id="' + value.AGEN_ID + '" class="item-link item-content botaoDetalharAgendamento">';
-						lsHTML += '<div class="item-media">';
-						lsHTML += '<i class="icon my-icon"></i>';
-						lsHTML += '</div>';
-						lsHTML += '<div class="item-inner">';
-						lsHTML += '<div class="item-title">' + value.DataFormatada + '</div>';
-						lsHTML += '<div class="item-after">' + value.AGEN_ID + '</div>';
-						lsHTML += '</div>';
-					lsHTML += '</a>';
-				lsHTML += '</li>';
-
-			});
-			
-			lsHTML += '</ul><div class="list-block-label">Exibindo apenas agendamentos em aberto e confirmados</div></div>';	
-			
-			$("#listaAgendamentos").append(lsHTML);
-			
-		} else {			
-			if (jsonRetorno.resultado == 'NAOENCONTRADO') {			
-				myApp.alert(jsonRetorno.mensagem, 'Maria Gata');				
-			} else {
-				myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
-			}			
-		}	
-	}); //Fim ajax
-			
-}); //Fim onPageInit agendamentos
-
-
-$$(document).on('click', '.botaoDetalharAgendamento', function (e) {
-	
-	//obter detalhes do agendamento
-	$.ajax({
-		url: "http://mariagata.com.br/sistema/mariagata.php",
-		type: 'POST',
-		data: {
-			a: 'obterdetalhesagendamento',
-			agendamento: this.id
-		},
-		beforeSend: function( xhr ) {
-			myApp.showPreloader('Obtendo detalhes...');
-			//Se precisar alterar xhr: xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
-		},
-		context: document.body
-		
-	})
-	.always(function() {		
-		myApp.hidePreloader(); 			
-	})
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		myApp.alert('Desculpe! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
-	})
-	.done(function(ret) {
-		
-		//Teste se o objeto retornao é JSON, ou seja, existem dados
-		var jsonRetorno = jQuery.parseJSON(ret);
-				
-		//Se o JSON não tiver a opção resultado é porque 1 ou mais condomínios foram retornados
-		if (typeof jsonRetorno.resultado === "undefined") {
-			
-			var dataAgendamentoDetalhe = "";
-			var ultimoFuncionario = "";
-			var ultimoServico = "";
-			var servicosDetalhe = "";
-			var servicosId = "";
-			var funcionarioDetalhe = "";
-			
-			//Prepara as strings de exibição
-			$.each(jsonRetorno, function( index, value ) {
-				
-				dataAgendamentoDetalhe = value.DataAgendamento;
-				if (value.FUNC_ID != ultimoFuncionario) {
-					funcionarioDetalhe += '<p>' + value.AGFU_HoraInicio + 'h: ' + value.FUNC_Nome + ' (' + value.FUNC_Especialidade + ')</p>';
-				}
-				
-				if (servicosDetalhe.indexOf(value.SERV_Nome) == -1) {
-					servicosDetalhe += '<p>' + value.SERV_Nome + '</p>';
-				}
-				
-				ultimoFuncionario = value.FUNC_ID;
-				ultimoServico = value.SERV_ID;
-				
-			}); 
-			
-			var newPageDetalheAgendamento = 	'<div class="pages">' +
-									'<div data-page="detalhesAgendamento" class="page">' +
-										'<div class="page-content">' +
-											'<h2 class="page_title">Detalhes do Agendamento</h2>';
-			
-			newPageDetalheAgendamento += 	'<div class="card facebook-card">' +
-												'<div class="card-header no-border">' +
-													'<div class="facebook-avatar"><img src="images/funcionarios/juliana.png" width="40" height="40"></div>' +
-													'<div class="facebook-name">' + dataAgendamentoDetalhe + '</div>' +
-													'<div class="facebook-date">Monday at 3:47 PM</div>' +
-												'</div>' +
-												'<div class="card-content">' +
-												'<div class="card-content-inner">' +
-													servicosDetalhe +
-													'<p>&nbsp;</p>' +
-													funcionarioDetalhe +													
-												'</div>' +
-												'</div>' +
-												'<div class="card-footer no-border">' +
-													'<a href="#" class="link">Like</a>' +
-													'<a href="#" class="link">Comment</a>' +
-													'<a href="#" class="link">Share</a>' +
-												'</div>' +
-											'</div>' +
-											'<div class="content-block">' +
-												'<p><a href="#" id="' + this.id + '" class="button button-fill color-red button-round btnCancelarAgendamento">Cancelar</a></p>' +
-											'</div>' +
-										'</div>' +
-										'</div>' +
-										'</div>';
-			
-			mainView.router.load({
-				content: newPageDetalheAgendamento,
-				animatePages: false
-			});
-			
-		} else {			
-			if (jsonRetorno.resultado == 'NAOENCONTRADO') {			
-				myApp.alert(jsonRetorno.mensagem, 'Maria Gata');				
-			} else {
-				myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
-			}			
-		}	
-	}); //Fim ajax
-	
-});  //Fim click .botaoDetalharAgendamento
-
-
-
-$$(document).on('click', '.btnCancelarAgendamento', function (e) {
-	alert(this.id);
-});  //Fim click .btnCancelarAgendamento
-	
 	
 myApp.onPageInit('agendar', function (page) {
 	
 	function checkConnection() {
+		
+		alert('antes networkState');
+		
+		
 		var networkState = navigator.connection.type;
- 
+		
 		var states = {};
+		
 		states[Connection.UNKNOWN]  = 'Unknown connection';
 		states[Connection.ETHERNET] = 'Ethernet connection';
 		states[Connection.WIFI]     = 'WiFi connection';
@@ -226,6 +55,18 @@ myApp.onPageInit('agendar', function (page) {
 		states[Connection.CELL_4G]  = 'Cell 4G connection';
 		states[Connection.CELL]     = 'Cell generic connection';
 		states[Connection.NONE]     = 'No network connection';
+		
+		/*
+		states[Connection.UNKNOWN]  = 'UNKNOWN';
+		states[Connection.ETHERNET] = 'ETHERNET';
+		states[Connection.WIFI]     = 'WIFI';
+		states[Connection.CELL_2G]  = 'CELL_2G';
+		states[Connection.CELL_3G]  = 'CELL_3G';
+		states[Connection.CELL_4G]  = 'CELL_4G';
+		states[Connection.CELL]     = 'CELL';
+		states[Connection.NONE]     = 'NONE';
+		*/
+		alert('Connection type: ' + states[networkState]);
 		
 		if (networkState == Connection.NONE) {
 			myApp.alert('Ops! No momento não identificamos internet no seu aparelho. Para agendar precisamos dela! ;)', function () {
@@ -239,7 +80,7 @@ myApp.onPageInit('agendar', function (page) {
 	}
 	
 	//Verifica internet
-	//checkConnection();
+	checkConnection();
 	
 	//console.log("onPageInit agendar");
 	
@@ -295,7 +136,7 @@ myApp.onPageInit('agendar', function (page) {
 				myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
 			}			
 		}	
-	});
+	}); //Fim ajax
 		
 	filial = "";
 	servicos = "";
@@ -551,7 +392,7 @@ myApp.onPageInit('agendar', function (page) {
 	
 //} //Fim document.ready()
 	
-$$(document).on('pageInit', function (e) {
+//$$(document).on('pageInit', function (e) {
 	
 		//console.log('pageInit generico');
 		
@@ -690,4 +531,4 @@ $$(document).on('pageInit', function (e) {
 	
 		*/
 		
-})
+//})
