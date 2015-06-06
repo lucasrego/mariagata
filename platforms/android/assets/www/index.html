@@ -227,12 +227,13 @@
 				modalButtonCancel: 'Cancelar',
 				//smartSelectSearchbar: true,
 				//smartSelectInPopup: true,
-				hideTabbarOnPageScroll: true,
+				//hideTabbarOnPageScroll: true,
 				preroute: function (view, options) {
 					//alert(options.url); 
 					//Testa Internet e Dados usuário antes de onPageInit
+					var internet = false;
 					if (options.url === 'agendamentos.html') {						
-						var internet = checkConnection();
+						internet = checkConnection();
 						if (internet == false) {
 							myApp.alert('Não identificamos internet no seu aparelho. Para agendar precisamos dela! ;)', 'Ops!', function () {
 								//mainView.router.loadPage("index.html");
@@ -247,7 +248,7 @@
 						}
 					}
 					if (options.url === 'agendar.html') {						
-						var internet = checkConnection();
+						internet = checkConnection();
 						if (internet == false) {							
 							myApp.alert('Não identificamos internet no seu aparelho. Para agendar precisamos dela! ;)', 'Ops!', function () {
 								//mainView.router.loadPage("index.html");
@@ -296,24 +297,24 @@
 					if (typeof jsonRetorno.resultado === "undefined") {
 						
 						//Limpa o option padrão. Caso não tenha o padrão, os itens selecionados não ficam visíveis ao voltar na tela.
-						$('#cmbListaServicos option[value="0"]').remove();
+						//$('#cmbListaServicos option[value="0"]').remove();
 						
 						//adiciona os serviços e pacotes
 						$.each(jsonRetorno, function( index, value ) {
 							if (value.SERV_Tipo == "PA") {
 								//myApp.smartSelectAddOption($$('.smart-select select optigroup').eq(1), '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>', 0); 
-								myApp.smartSelectAddOption('#cmbListaServicosPacotes', '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>');
-								//$("#cmbListaServicosPacotes").append('<option value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
+								//myApp.smartSelectAddOption('.smart-select select ', '<option data-option-color="orange" value="' + value.SERV_Nome + '">' + value.SERV_Nome + '</option>');
+								$("#cmbListaServicosPacotes").append('<option data-option-color="black" value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
 							}
 							if (value.SERV_Tipo == "EC") {
 								//myApp.smartSelectAddOption($$('.smart-select select optigroup').eq(1), '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>', 0); 
-								myApp.smartSelectAddOption('#cmbListaServicosEscovaria', '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>');
-								//$("#cmbListaServicosEscovaria").append('<option value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
+								//myApp.smartSelectAddOption('.smart-select select ', '<option data-option-color="pink" value="' + value.SERV_Nome + '">' + value.SERV_Nome + '</option>');
+								$("#cmbListaServicosEscovaria").append('<option data-option-color="pink" value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
 							}
 							if (value.SERV_Tipo == "EM") {
 								//myApp.smartSelectAddOption($$('.smart-select select optigroup').eq(1), '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>', 0); 
-								myApp.smartSelectAddOption('#cmbListaServicosEsmalteria', '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>');
-								//$("#cmbListaServicosEsmalteria").append('<option value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
+								//myApp.smartSelectAddOption('.smart-select select ', '<option data-option-color="blue" value="' + value.SERV_Nome + '">' + value.SERV_Nome + '</option>');
+								$("#cmbListaServicosEsmalteria").append('<option data-option-color="blue" value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
 							}
 							
 						});
