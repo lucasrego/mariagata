@@ -137,8 +137,8 @@
 	
 	$( document ).ready(function() {
 			
-		//document.addEventListener("deviceready", onDeviceReady, false);
-		//function onDeviceReady() {
+		document.addEventListener("deviceready", onDeviceReady, false);
+		function onDeviceReady() {
 			
 			//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 			//cordova.plugins.notification.local.schedule({
@@ -175,8 +175,7 @@
 			}
 			
 			function obterDadosUsuarioBD() {
-				
-				/*
+
 				var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
 				db.transaction(function(tx) {
 					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
@@ -197,16 +196,15 @@
 						}
 					});
 				});
-				*/
 				
 				//return false;
-				
+				/*
 				cpf_BD = "80941818500";
 				nome_BD = "Lucas";
 				email_BD = "lucasrego@gmail.com";
 				celular_BD = "7188145976";
 				return true;
-				
+				*/
 			}
 			
 			
@@ -580,8 +578,6 @@
 
 			
 			myApp.onPageInit('agendamentos', function (page) {
-				
-				alert('pageInit agendamentos');
 				
 				//obteragendamentoscliente
 				$.ajax({
@@ -1051,7 +1047,7 @@
 			}); //Fim btnConcluirAgendamento.click
 			
 			
-		//} // Fim onDeviceReady()
+		} // Fim onDeviceReady()
 					
 	}); //Fim document.ready()
 	
