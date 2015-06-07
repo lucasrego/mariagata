@@ -3,6 +3,9 @@
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
 - Botão voltar da tela de horário/profissionais tem que já trazer os dados preenchidos (simular apenas o voltar do celular pode atender).
 - Revisar todas as telas com foco no botão voltar
+- Fazer telas administrativas:
+	- Ver horarios disponiveis e agendar para um cliente
+	- Ver agendamentos e cancelar
 - Fazer botoes personalizados (esmalte, secador) e loader também
 - Ajustar menu inferior
 - Ajustar menu lateral
