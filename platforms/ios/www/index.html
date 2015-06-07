@@ -136,8 +136,8 @@
 	
 	$( document ).ready(function() {
 			
-		//document.addEventListener("deviceready", onDeviceReady, false);
-		//function onDeviceReady() {
+		document.addEventListener("deviceready", onDeviceReady, false);
+		function onDeviceReady() {
 			
 			//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 			//cordova.plugins.notification.local.schedule({
@@ -175,7 +175,6 @@
 			
 			function obterDadosUsuarioBD() {
 				
-				/*
 				var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
 				db.transaction(function(tx) {
 					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
@@ -196,15 +195,14 @@
 						}
 					});
 				});
-				*/
 				
 				//return false;
 				
-				cpf_BD = "80941818500";
-				nome_BD = "Lucas";
-				email_BD = "lucasrego@gmail.com";
-				celular_BD = "7188145976";
-				return true;
+				//cpf_BD = "80941818500";
+				//nome_BD = "Lucas";
+				//email_BD = "lucasrego@gmail.com";
+				//celular_BD = "7188145976";
+				//return true;
 				
 			}
 			
@@ -329,24 +327,7 @@
 				}); //Fim ajax
 
 			}); //Fim onPageInit agendar
-			
-			/*
-			$$(document).on('click', '.page.smart-select-page', function(e){
-			   alert('asdas');
-			});
-			
-			$$(document).on('pageInit', 'page[data-page*="smart-select-"]' ,function(page){
-				alert('asdasd2');
-			});
-			
-			$$(document).on('pageInit', function(e){
-			   var page = e.detail.page;
-			   if (page.name.indexOf('smart-select-')>=0) {
-				  alert('sdf3');
-			   }
-			});
-			*/
-			
+						
 			//Variaveis globais
 			filial = "";
 			servicos = "";
@@ -360,7 +341,10 @@
 				data = $('#data_agendamento').val();
 				
 				servicos = "";
+				servicosnome = "";
 				
+				/*
+				//Combo multiselect
 				$('#cmbListaServicos').find('option:checked').each(function(index, value){
 					servicos += this.value;
 					servicosnome += this.text;
@@ -369,10 +353,20 @@
 						servicos += ",";
 					}
 				})
+				*/
 				
-				//alert("servicos selecionados: " + servicos);
-				//event.preventDefault();
-				//return false;
+				if ($('#cmbListaServicosPacotes').val() != 0) {
+					servicos += $('#cmbListaServicosPacotes').val() + ",";
+					servicosnome += $("#cmbListaServicosPacotes option:selected").text() + ", ";				
+				}
+				if ($('#cmbListaServicosEsmalteria').val() != 0) {
+					servicos += $('#cmbListaServicosEsmalteria').val() + ",";
+					servicosnome += $("#cmbListaServicosEsmalteria option:selected").text() + ", ";
+				}
+				if ($('#cmbListaServicosEscovaria').val() != 0) {
+					servicos += $('#cmbListaServicosEscovaria').val() + ",";
+					servicosnome += $("#cmbListaServicosEscovaria option:selected").text() + ", ";
+				}
 				
 				if (filial != 1) {
 					event.preventDefault();
@@ -389,9 +383,11 @@
 					myApp.alert('Nenhum pacote ou serviço selecionado.', 'Maria Gata');
 					return false;			
 				} else {
-					servicos = servicos.toString();
+					//Remove vírgula para servico e virgula + espaço para servicosnome
+					servicos = servicos.substring(0,(servicos.length - 1)).toString();
+					servicosnome = servicosnome.substring(0,(servicosnome.length - 2)).toString();
 				}
-								
+				
 				temEscovaria = false;
 				temEsmalteria = false;
 				
@@ -844,7 +840,7 @@
 					return false;
 				}
 				if (cadastro_cpf.length != 11) {
-					myApp.alert("Parece que o CPF não está válido. Ele deve possuir 11 números.", 'Ops!');
+					myApp.alert("Parece que o CPF não está válido. Ele deve possuir 11 dígitos.", 'Ops!');
 					return false;
 				}
 				if (cadastro_email == "") {
@@ -1046,10 +1042,9 @@
 					
 				} //Fim else/if dadosUsuario
 				
-			}); //Fim btnConcluirAgendamento.click
+			}); //Fim btnConcluirAgendamento.click			
 			
-			
-		//} // Fim onDeviceReady()
+		} // Fim onDeviceReady()
 					
 	}); //Fim document.ready()
 	

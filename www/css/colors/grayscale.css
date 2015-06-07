@@ -76,7 +76,7 @@ color:#d7d7d7;
 .popup{
 background: #171717;
 }
-.popup-login, .popup-signup, .popup-forgot{
+.popup-login, .popup-signup, .popup-contato, .popup-endereco, .popup-forgot{
 background-color:#FFFFFF;
 /*background-color:#263239;*/
 /*background-color:#EA0059;*/
@@ -92,12 +92,11 @@ background-color:#CD0046;
 /* LEFT AND RIGHT SLIDE PANEL */
 /*===============================================*/	
 .panel {
-background:#606060;
-/* background:#f65821; */
+background:#CD0046;
 }
 .user-nav ul li, ul.popular_posts li{
 /*border-bottom:1px #797878 solid;*/
-border-bottom:1px #EA0059 solid;
+border-bottom:1px #FFFFFF solid;
 }
 /* MENU OPENER ICON */
 ul.toolbar_icons li.menuicon{
