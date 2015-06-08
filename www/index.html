@@ -131,9 +131,7 @@
 	
 	
 	
-	//$( document ).ready(function() {
-		
-		ambiente = "producao";
+	$( document ).ready(function() {
 		
 		document.addEventListener("deviceready", onDeviceReady, false);
 		function onDeviceReady() {
@@ -144,72 +142,9 @@
 			//	message: "Oi, está lembrada do seu agendamento na Maria Gata? Esperamos você lá!! Se não puder comparecer, não deixe de nos avisar, ok?! ;)."
 			//});
 			
+			dadosUsuario = "";
 			navigator.vibrate(1000); 
-			
-			function checkConnection() {
-					
-				var networkState = navigator.connection.type;
-				
-				var states = {};
-				
-				states[Connection.UNKNOWN]  = 'Unknown connection';
-				states[Connection.ETHERNET] = 'Ethernet connection';
-				states[Connection.WIFI]     = 'WiFi connection';
-				states[Connection.CELL_2G]  = 'Cell 2G connection';
-				states[Connection.CELL_3G]  = 'Cell 3G connection';
-				states[Connection.CELL_4G]  = 'Cell 4G connection';
-				states[Connection.CELL]     = 'Cell generic connection';
-				states[Connection.NONE]     = 'No network connection';
-				
-				//alert('states[networkState]: ' + states[networkState]);
-				//alert('states[Connection.NONE]: ' + states[Connection.NONE]);
-				 
-				if (states[networkState] == states[Connection.NONE]) {
-					return false;
-				} else {
-					return states[networkState];
-				}
-				
-			}
-			
-			function obterDadosUsuarioBD() {
-				
-				if (ambiente == "teste") {
-					//return false;
-					
-					cpf_BD = "80941818500";
-					nome_BD = "Lucas";
-					email_BD = "lucasrego@gmail.com";
-					celular_BD = "7188145976";
-					return true;
-				
-				} else {
-					
-					var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
-					db.transaction(function(tx) {
-						tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
-					});
-					
-					db.transaction(function(tx) {
-						tx.executeSql("select cpf, nome, email, celular from usuario;", [], function(tx, res) {
-							if (res.rows.length == 0) {
-								return false;
-							} else {
-								//return [res.rows.item(0).cpf, res.rows.item(0).nome, res.rows.item(0).email, res.rows.item(0).celular];
-								cpf_BD = res.rows.item(0).cpf;
-								nome_BD = res.rows.item(0).nome;
-								email_BD = res.rows.item(0).email;
-								celular_BD = res.rows.item(0).celular;
-								
-								return true;
-							}
-						});
-					});
-					
-				} //Fim else ambiente
-			}
-			
-			
+						
 			// Initialize your app
 			var myApp = new Framework7({
 				cache: false,
@@ -237,22 +172,21 @@
 					if (options.url === 'agendamentos.html') {						
 						internet = checkConnection();
 						if (internet == false) {
-							myApp.alert('Não identificamos internet no seu aparelho. Para agendar precisamos dela! ;)', 'Ops!', function () {
+							myApp.alert('Verifique sua internet. Precisamos dela para acessar a Maria Gata! ;)', 'Ops!', function () {
 								//mainView.router.loadPage("index.html");
 								return false;								
 							});						
 						} else {
-							var dadosUsuario = obterDadosUsuarioBD();
-							if (dadosUsuario == false) {
-								myApp.popup('.popup-signup'); 
-								return false;
+							if (dadosUsuario == "") {
+								myApp.popup('.popup-signup');
+								return false;			
 							}
 						}
 					}
 					if (options.url === 'agendar.html') {						
 						internet = checkConnection();
 						if (internet == false) {							
-							myApp.alert('Não identificamos internet no seu aparelho. Para agendar precisamos dela! ;)', 'Ops!', function () {
+							myApp.alert('Verifique sua internet. Precisamos dela para acessar a Maria Gata! ;)', 'Ops!', function () {
 								//mainView.router.loadPage("index.html");
 								return false;
 							});
@@ -266,7 +200,111 @@
 			var mainView = myApp.addView('.view-main', {
 				dynamicNavbar: false
 			});
-
+			
+			//http://www.html5rocks.com/en/tutorials/file/filesystem/
+			window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+			
+			function errorHandler(e) {
+				myApp.hidePreloader();
+				var msg = "";
+				switch (e.code) {
+					case FileError.QUOTA_EXCEEDED_ERR:
+						msg = 'ESPAÇO EM DISCO NÃO DISPONÍVEL';
+						break;
+					case FileError.NOT_FOUND_ERR:
+						dadosUsuario = "";
+						msg = "";
+						break;
+					case FileError.SECURITY_ERR:
+						msg = 'ERRO DE SEGURANÇA';
+						break;
+					case FileError.INVALID_MODIFICATION_ERR:
+						msg = 'ERRO DE MODIFICAÇÃO';
+						break;
+					case FileError.INVALID_STATE_ERR:
+						msg = 'ERRO DE ESTADO';
+						break;
+					default:
+						msg = 'ERRO DESCONHECIDO';
+						break;
+				};
+				if (msg != "") {
+					myApp.alert('Não conseguimos acessar seu aparelho para salvar dados. [' + msg + ']', 'FALHA');
+				}
+			}
+			
+			function salvarDadosArquivo(valor) {
+				
+				//Antecipa preenchimento dos dadosUsuario, pois a escrita e leitura são assíncronas
+				dadosUsuario = valor;
+				
+				//Preenche campos do popup singup
+				$("#cadastro_cpf").val(dadosUsuario.split("|")[0]);
+				$("#cadastro_nome").val(dadosUsuario.split("|")[1]);
+				$("#cadastro_email").val(dadosUsuario.split("|")[2]);
+				$("#cadastro_celular").val(dadosUsuario.split("|")[3]);
+				
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(filesystem) {
+					filesystem.root.getFile('mariagata.txt', {create: true}, function(fileEntry) {
+						fileEntry.createWriter(function(writer) {
+							writer.write(valor);							
+						}, errorHandler);
+					}, errorHandler);
+				}, errorHandler);
+			}
+			
+			function lerDadosArquivo() {
+				myApp.showPreloader('Acessando dados do dispositivo...');
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(filesystem) {
+					filesystem.root.getFile('mariagata.txt', null, function(fileEntry) {
+						fileEntry.file(function(file) {
+							var reader = new FileReader();
+							reader.onloadend = function(evt) {
+								myApp.hidePreloader();
+								dadosUsuario = evt.target.result;
+								
+								//Preenche campos do popup singup
+								$("#cadastro_cpf").val(dadosUsuario.split("|")[0]);
+								$("#cadastro_nome").val(dadosUsuario.split("|")[1]);
+								$("#cadastro_email").val(dadosUsuario.split("|")[2]);
+								$("#cadastro_celular").val(dadosUsuario.split("|")[3]);
+							};
+							reader.readAsText(file);
+						}, errorHandler);
+					}, errorHandler);
+				}, errorHandler);
+			}
+			
+			//Lê dados do usuário, pois é assíncrono e pode demorar um pouco no momento do acesso.
+			//salvarDadosArquivo("80941818500|Lucas|lucasrego@gmail.com|7188145976");
+			lerDadosArquivo();
+			
+			function checkConnection() {
+					
+				var networkState = navigator.connection.type;
+				
+				var states = {};
+				
+				states[Connection.UNKNOWN]  = 'Unknown connection';
+				states[Connection.ETHERNET] = 'Ethernet connection';
+				states[Connection.WIFI]     = 'WiFi connection';
+				states[Connection.CELL_2G]  = 'Cell 2G connection';
+				states[Connection.CELL_3G]  = 'Cell 3G connection';
+				states[Connection.CELL_4G]  = 'Cell 4G connection';
+				states[Connection.CELL]     = 'Cell generic connection';
+				states[Connection.NONE]     = 'No network connection';
+				
+				//alert('states[networkState]: ' + states[networkState]);
+				//alert('states[Connection.NONE]: ' + states[Connection.NONE]);
+				 
+				if (states[networkState] == states[Connection.NONE]) {
+					return false;
+				} else {
+					return states[networkState];
+				}
+				
+			}
+						
 			myApp.onPageInit('agendar', function (page) {
 				
 				//Obter servicos filial
@@ -579,13 +617,15 @@
 			
 			myApp.onPageInit('agendamentos', function (page) {
 				
+				cpf_BD = dadosUsuario.split("|")[0];
+				
 				//obteragendamentoscliente
 				$.ajax({
 					url: "http://mariagata.com.br/sistema/mariagata.php",
 					type: 'POST',
 					data: {
 						a: 'obteragendamentoscliente',
-						cpf: cpf_BD //preenchida no obterDadosUsuarioBD no preroute
+						cpf: cpf_BD
 					},
 					beforeSend: function( xhr ) {
 						myApp.showPreloader('Obtendo seus agendamentos...');
@@ -857,58 +897,45 @@
 					myApp.alert("O celular não está válido. Verifique se digitou corretamente com o DDD (Ex: 7199999999).", 'Dado obrigatório');
 					return false;
 				}
-
-				var db = window.sqlitePlugin.openDatabase({name: "mariagata", location: 1});
-				db.transaction(function(tx) {
-					tx.executeSql('DROP TABLE IF EXISTS usuario');
-					tx.executeSql('CREATE TABLE IF NOT EXISTS usuario (id integer primary key, cpf text, nome text, email text, celular text)');
-					
-					tx.executeSql("INSERT INTO usuario (cpf, nome, email, celular) VALUES (?,?,?,?)", [cadastro_cpf,cadastro_nome,cadastro_email,cadastro_celular], function(tx, res) {
-						//alert("insertId: " + res.insertId);
-						
-						$.ajax({
-							url: "http://mariagata.com.br/sistema/mariagata.php",
-							type: 'POST',
-							data: {
-								a: 'salvardadosusuario',
-								cpf: cadastro_cpf,
-								nome: cadastro_nome,
-								email: cadastro_email,
-								celular: cadastro_celular
-							},
-							beforeSend: function( xhr ) {
-								myApp.showPreloader('Salvando seus dados...');
-							},
-							context: document.body
-							
-						})
-						.always(function() {		
-							myApp.hidePreloader();
-						})
-						.fail(function(jqXHR, textStatus, errorThrown) {
-							myApp.alert('Desculpe!! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
-						})
-						.done(function(ret) {
-
-							//Teste se o objeto retornao é JSON, ou seja, existem dados
-							var jsonRetorno = jQuery.parseJSON(ret);
-								
-							if (jsonRetorno.resultado == 'SUCESSO') {			
-								myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
-								myApp.closeModal(".popup-signup");
-							} else {
-								myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
-							}			
-							
-						}); //Fim ajax
-						
-					}, function(e) {
-						myApp.alert("Não conseguimos salvar seus dados. Erro: " + e.message, 'Desculpe!');
-					});
-					
-				}); //Fim db.transaction
 				
-			}); //Fim form submit
+				$.ajax({
+					url: "http://mariagata.com.br/sistema/mariagata.php",
+					type: 'POST',
+					data: {
+						a: 'salvardadosusuario',
+						cpf: cadastro_cpf,
+						nome: cadastro_nome,
+						email: cadastro_email,
+						celular: cadastro_celular
+					},
+					beforeSend: function( xhr ) {
+						myApp.showPreloader('Salvando seus dados...');
+					},
+					context: document.body
+					
+				})
+				.always(function() {		
+					myApp.hidePreloader();
+				})
+				.fail(function(jqXHR, textStatus, errorThrown) {
+					myApp.alert('Desculpe!! Ocorreu um erro inesperado. Por favor, feche e abra novamente o APP ou entre em contato pelo Whatsapp Maria Gata: 71 8879-1014.', 'Maria Gata');
+				})
+				.done(function(ret) {
+
+					//Teste se o objeto retornao é JSON, ou seja, existem dados
+					var jsonRetorno = jQuery.parseJSON(ret);
+						
+					if (jsonRetorno.resultado == 'SUCESSO') {
+						salvarDadosArquivo(cadastro_cpf + "|" + cadastro_nome + "|" + cadastro_email + "|" + cadastro_celular);
+						myApp.closeModal(".popup-signup");
+						myApp.alert(jsonRetorno.mensagem, 'Maria Gata');						
+					} else {
+						myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
+					}
+					
+				}); //Fim ajax
+				
+			}); //Fim frmCadastro submit
 			
 			
 			$$(document).on('click', '#btnConcluirAgendamento', function (e) {
@@ -916,12 +943,15 @@
 				//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
 				navigator.vibrate(1000);
 				
-				var dadosUsuario = obterDadosUsuarioBD();
-				if (dadosUsuario == false) {
-					myApp.popup('.popup-signup'); 
-					return false;
+				if (dadosUsuario == "") {
+					myApp.alert('Iremos precisar dos seus dados completos para agendar o seu momento, ok?', 'Maria Gata', function () {
+						myApp.popup('.popup-signup');
+						return false;				
+					});
 				} else {
-
+					
+					cpf_BD = dadosUsuario.split("|")[0];
+					
 					var IdProfissionalEsmalteria = "";
 					var nomeProfissionalEsmalteria = "";
 					var horarioEsmalteria = "";
@@ -1048,7 +1078,7 @@
 			
 		} // Fim onDeviceReady()
 					
-	//}); //Fim document.ready()
+	}); //Fim document.ready()
 	
 </script>
 	

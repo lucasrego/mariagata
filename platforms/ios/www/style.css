@@ -43,6 +43,12 @@ Template:	Mobix - Mobile Web APP Template
 /*===============================================*/
 /* 2. GENERAL		 						 */
 /*===============================================*/	
+
+/*
+LETRA MENU ESQUERDA: .user-nav ul li a{
+LINHA SEPARADORA ITENS MENU ESQUERDA: .user-nav ul li, ul.popular_posts li
+*/
+
 html,
 body {
 position: relative;
@@ -299,7 +305,7 @@ background-color:#077c83;
 /* LINK MENU ESQUERDA */
 .user-nav ul li a{
 color:#fff;
-/*color:#EA0059;*/
+/*color:#CD0046;*/
 font-size:14px;
 font-weight:300;
 }
@@ -373,8 +379,8 @@ display:inline-block;
 }
 /* Linha menu esquerda */
 ul.popular_posts li a{
-/*color:#FFFFFF; */
-color:#EA0059;
+color:#FFFFFF;
+/*color:#CD0046;*/
 }
 
 /*===============================================*/
@@ -766,7 +772,7 @@ font-size:14px;
 .popup-social h4{
 padding-top:40px;
 }
-.popup-login h4, .popup-signup h4, .popup-forgot h4 {
+.popup-contato h4, .popup-endereco h4, .popup-signup h4, .popup-forgot h4 {
 /*color:#4F4F4F;*/
 color:#8C8C8C;
 /*font-size:18px;*/
@@ -776,15 +782,6 @@ text-align:center;
 padding:0 0 10px 0;
 margin:0px;
 }
-.popup-agendar1 h4, .popup-agendar2 h4, .popup-agendar3 h4 {
-color:#4F4F4F;
-font-size:16px;
-font-weight:700;
-text-align:center;
-padding:0 0 10px 0;
-margin:0px;
-}
-
 ul.social_share{
 list-style:none;
 padding:0px;
