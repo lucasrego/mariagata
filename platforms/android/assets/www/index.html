@@ -341,6 +341,7 @@
 						
 						//adiciona os serviços e pacotes
 						$.each(jsonRetorno, function( index, value ) {
+							
 							if (value.SERV_Tipo == "PA") {
 								//myApp.smartSelectAddOption($$('.smart-select select optigroup').eq(1), '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>', 0); 
 								//myApp.smartSelectAddOption('.smart-select select ', '<option data-option-color="black" value="' + value.SERV_Nome + '">' + value.SERV_Nome + '</option>');
@@ -355,6 +356,16 @@
 								//myApp.smartSelectAddOption($$('.smart-select select optigroup').eq(1), '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>', 0); 
 								//myApp.smartSelectAddOption('.smart-select select ', '<option data-option-color="black" value="' + value.SERV_Nome + '">' + value.SERV_Nome + '</option>');
 								$("#cmbListaServicosEsmalteria").append('<option data-option-color="black" value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
+							}
+							if (value.SERV_Tipo == "MA") {
+								//myApp.smartSelectAddOption($$('.smart-select select optigroup').eq(1), '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>', 0); 
+								//myApp.smartSelectAddOption('.smart-select select ', '<option data-option-color="black" value="' + value.SERV_Nome + '">' + value.SERV_Nome + '</option>');
+								$("#cmbListaServicosMaquiagem").append('<option data-option-color="black" value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
+							}
+							if (value.SERV_Tipo == "DE") {
+								//myApp.smartSelectAddOption($$('.smart-select select optigroup').eq(1), '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>', 0); 
+								//myApp.smartSelectAddOption('.smart-select select ', '<option data-option-color="black" value="' + value.SERV_Nome + '">' + value.SERV_Nome + '</option>');
+								$("#cmbListaServicosDepilacao").append('<option data-option-color="black" value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
 							}							
 						});
 					} else {			
@@ -407,6 +418,14 @@
 					servicos += $('#cmbListaServicosEscovaria').val() + ",";
 					servicosnome += $("#cmbListaServicosEscovaria option:selected").text() + ", ";
 				}
+				if ($('#cmbListaServicosMaquiagem').val() != 0) {
+					servicos += $('#cmbListaServicosMaquiagem').val() + ",";
+					servicosnome += $("#cmbListaServicosMaquiagem option:selected").text() + ", ";
+				}
+				if ($('#cmbListaServicosDepilacao').val() != 0) {
+					servicos += $('#cmbListaServicosDepilacao').val() + ",";
+					servicosnome += $("#cmbListaServicosDepilacao option:selected").text() + ", ";
+				}
 				
 				if (filial != 1) {
 					event.preventDefault();
@@ -430,6 +449,8 @@
 				
 				temEscovaria = false;
 				temEsmalteria = false;
+				temMaquiagem = false;
+				temDepilacao = false;
 				
 				//Consultar disponibilidade de profissionais e os horário livres
 				$.ajax({
@@ -490,11 +511,21 @@
 								classeBotao = "btnEsmalteria";
 								classeBotaoDisponivel = "btnEsmalteriaDisponivel";
 								temEsmalteria = true;						
-							} else {
+							} else if (value.GSER_ID == 2) {
 								divGrupo = $('#cardEscovaria');
 								classeBotao = "btnEscovaria";
 								classeBotaoDisponivel = "btnEscovariaDisponivel";
 								temEscovaria = true;						
+							} else if (value.GSER_ID == 3) {
+								divGrupo = $('#cardMaquiagem');
+								classeBotao = "btnMaquiagem";
+								classeBotaoDisponivel = "btnMaquiagemDisponivel";
+								temMaquiagem = true;
+							} else {
+								divGrupo = $('#cardDepilacao');
+								classeBotao = "btnDepilacao";
+								classeBotaoDisponivel = "btnDepilacaoDisponivel";
+								temDepilacao = true;
 							}
 							
 							idBotao = value.FUNC_Nome + "|" + value.FUNC_ID + "|" + horario;
@@ -524,15 +555,19 @@
 								if (ultimoGrupo != value.GSER_ID) {					
 									if (value.GSER_ID == "1") {
 										newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";								
-									} else {
+									} else if (value.GSER_ID == "2") {
 										newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";								
+									} else if (value.GSER_ID == "3") {
+										newPageHorarios += "<div class='content-block-title'>MAQUIAGEM: Escolha profissional e horário</div>";								
+									} else {
+										newPageHorarios += "<div class='content-block-title'>DEPILAÇÃO: Escolha profissional e horário</div>";								
 									}
 								}	
 								
 								//Abre o novo card e registra o 1º horário
 								newPageHorarios += "<div class='card facebook-card'>";
 								newPageHorarios += "<div class='card-header'>";
-								newPageHorarios += "<div class='facebook-avatar'><img src='images/funcionarios/juliana.png' width='40' height='40'></div>";
+								newPageHorarios += "<div class='facebook-avatar'><img src='images/funcionarios/" + value.FUNC_ID + ".png' width='40' height='40'></div>";
 								newPageHorarios += "<div class='facebook-name'><b>" + value.FUNC_Nome + "</b></div>";
 								newPageHorarios += "<div class='facebook-date'>" + value.FUNC_Especialidade + "</div>";
 								newPageHorarios += "</div>";
@@ -847,8 +882,7 @@
 				
 			});  //Fim click .btnCancelarAgendamento
 				
-
-			
+				
 			$$(document).on('click', '.btnEsmalteriaDisponivel', function (e) {
 				navigator.vibrate(300);
 				//Limpa a classe dos botões btnEsmalteriaDisponivel. Se não estiver disabled, aplica css do botão selecionado
@@ -861,6 +895,20 @@
 				//Limpa a classe dos botões btnEscovaria. Se não estiver disabled, aplica css do botão selecionado
 				$('.btnEscovariaDisponivel').removeClass("btnSelecionado").addClass( "btnEscovaria" );
 				$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
+			});
+			
+			$$(document).on('click', '.btnMaquiagemDisponivel', function (e) {
+				navigator.vibrate(300);
+				//Limpa a classe dos botões btnMaquiagem. Se não estiver disabled, aplica css do botão selecionado
+				$('.btnMaquiagemDisponivel').removeClass("btnSelecionado").addClass( "btnMaquiagem" );
+				$(e.target).removeClass( "btnMaquiagem" ).addClass( "btnSelecionado" );
+			});
+			
+			$$(document).on('click', '.btnDepilacaoDisponivel', function (e) {
+				navigator.vibrate(300);
+				//Limpa a classe dos botões btnDepilacao. Se não estiver disabled, aplica css do botão selecionado
+				$('.btnDepilacaoDisponivel').removeClass("btnSelecionado").addClass( "btnDepilacao" );
+				$(e.target).removeClass( "btnDepilacao" ).addClass( "btnSelecionado" );
 			});
 			
 			

@@ -5,6 +5,7 @@
 - Validar dados CPF no PHP (não confiar 100% na passagem do parâmetro na tela, que obtem do txt que pode ser alteado.
 - No inicio da busca de profissionais e horários: Validar data no servidor PHP: Segunda, domingo ou feriado, nao deixa agendar.
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
+- Criar banco de produção e direcionar aplicação
 - Botão voltar da tela de horário/profissionais tem que já trazer os dados preenchidos (simular apenas o voltar do celular pode atender).
 - Revisar todas as telas com foco no botão voltar
 - Fazer telas administrativas:

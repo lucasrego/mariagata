@@ -1,4 +1,8 @@
+- Esconder menu esquerdo ao abrir popup pelo proprio menu
+- Validar dados (especialmente cpf) ao ler e usar os dados
+- Ver local onde o arquivo de dados será salvo (não apagou ao limpar dados do app)
 - Falta concluir agendamento no PHP: Cadastrar usuário, Identificar Usuário pelo CPF
+- Validar dados CPF no PHP (não confiar 100% na passagem do parâmetro na tela, que obtem do txt que pode ser alteado.
 - No inicio da busca de profissionais e horários: Validar data no servidor PHP: Segunda, domingo ou feriado, nao deixa agendar.
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
 - Botão voltar da tela de horário/profissionais tem que já trazer os dados preenchidos (simular apenas o voltar do celular pode atender).
