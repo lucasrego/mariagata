@@ -366,7 +366,7 @@
 								//myApp.smartSelectAddOption($$('.smart-select select optigroup').eq(1), '<option value="' + value.SERV_ID + '">' + value.SERV_Nome + '</option>', 0); 
 								//myApp.smartSelectAddOption('.smart-select select ', '<option data-option-color="black" value="' + value.SERV_Nome + '">' + value.SERV_Nome + '</option>');
 								$("#cmbListaServicosDepilacao").append('<option data-option-color="black" value=' + value.SERV_ID + '>' + value.SERV_Nome + '</option>');
-							}							
+							}				
 						});
 					} else {			
 						if (jsonRetorno.resultado == 'NAOENCONTRADO') {			
@@ -449,8 +449,6 @@
 				
 				temEscovaria = false;
 				temEsmalteria = false;
-				temMaquiagem = false;
-				temDepilacao = false;
 				
 				//Consultar disponibilidade de profissionais e os horário livres
 				$.ajax({
@@ -511,21 +509,11 @@
 								classeBotao = "btnEsmalteria";
 								classeBotaoDisponivel = "btnEsmalteriaDisponivel";
 								temEsmalteria = true;						
-							} else if (value.GSER_ID == 2) {
+							} else {
 								divGrupo = $('#cardEscovaria');
 								classeBotao = "btnEscovaria";
 								classeBotaoDisponivel = "btnEscovariaDisponivel";
 								temEscovaria = true;						
-							} else if (value.GSER_ID == 3) {
-								divGrupo = $('#cardMaquiagem');
-								classeBotao = "btnMaquiagem";
-								classeBotaoDisponivel = "btnMaquiagemDisponivel";
-								temMaquiagem = true;
-							} else {
-								divGrupo = $('#cardDepilacao');
-								classeBotao = "btnDepilacao";
-								classeBotaoDisponivel = "btnDepilacaoDisponivel";
-								temDepilacao = true;
 							}
 							
 							idBotao = value.FUNC_Nome + "|" + value.FUNC_ID + "|" + horario;
@@ -555,12 +543,8 @@
 								if (ultimoGrupo != value.GSER_ID) {					
 									if (value.GSER_ID == "1") {
 										newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";								
-									} else if (value.GSER_ID == "2") {
-										newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";								
-									} else if (value.GSER_ID == "3") {
-										newPageHorarios += "<div class='content-block-title'>MAQUIAGEM: Escolha profissional e horário</div>";								
 									} else {
-										newPageHorarios += "<div class='content-block-title'>DEPILAÇÃO: Escolha profissional e horário</div>";								
+										newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";								
 									}
 								}	
 								
@@ -897,20 +881,6 @@
 				$(e.target).removeClass( "btnEscovaria" ).addClass( "btnSelecionado" );
 			});
 			
-			$$(document).on('click', '.btnMaquiagemDisponivel', function (e) {
-				navigator.vibrate(300);
-				//Limpa a classe dos botões btnMaquiagem. Se não estiver disabled, aplica css do botão selecionado
-				$('.btnMaquiagemDisponivel').removeClass("btnSelecionado").addClass( "btnMaquiagem" );
-				$(e.target).removeClass( "btnMaquiagem" ).addClass( "btnSelecionado" );
-			});
-			
-			$$(document).on('click', '.btnDepilacaoDisponivel', function (e) {
-				navigator.vibrate(300);
-				//Limpa a classe dos botões btnDepilacao. Se não estiver disabled, aplica css do botão selecionado
-				$('.btnDepilacaoDisponivel').removeClass("btnSelecionado").addClass( "btnDepilacao" );
-				$(e.target).removeClass( "btnDepilacao" ).addClass( "btnSelecionado" );
-			});
-			
 			
 			$( "#frmCadastro" ).submit(function( event ) {
 				event.preventDefault();
@@ -1003,10 +973,13 @@
 					var IdProfissionalEsmalteria = "";
 					var nomeProfissionalEsmalteria = "";
 					var horarioEsmalteria = "";
+					
 					var IdProfissionalEscovaria = "";
 					var nomeProfissionalEscovaria = "";
 					var horarioEscovaria = "";
+					
 					var msgNaoSelecionado = "";
+					
 					var idSelecionadoEsmalteria = "";
 					var idSelecionadoEscovaria = "";
 					
