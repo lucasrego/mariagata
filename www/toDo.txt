@@ -1,5 +1,4 @@
 - Esconder menu esquerdo ao abrir popup pelo proprio menu
-- Perguntar se clcar no botão voltar do celular, pois sai da aplicação.
 - Validar dados (especialmente cpf) ao ler e usar os dados
 - Ver local onde o arquivo de dados será salvo (não apagou ao limpar dados do app)
 - Falta concluir agendamento no PHP: Cadastrar usuário, Identificar Usuário pelo CPF
