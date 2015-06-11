@@ -1,3 +1,5 @@
+- Fechar Painel da esquerda (close-panel) quando clicar em Agendar.html ou Agendamentos.html
+- Ajustar páginas contato e localização
 - PHP: 
 	- confirmaragendamento:
 		- VALIDAR DISPONIBILIDADE DOS PROFISSIONAIS E HORARIOS
