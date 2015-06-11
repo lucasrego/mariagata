@@ -133,8 +133,10 @@
 	
 	$( document ).ready(function() {
 		
-		document.addEventListener("deviceready", onDeviceReady, false);
+		document.addEventListener("deviceready", onDeviceReady, false);		
 		function onDeviceReady() {
+					
+			document.addEventListener("backbutton", backButton, false);
 			
 			//Local Notification: https://github.com/katzer/cordova-plugin-local-notifications/wiki
 			//cordova.plugins.notification.local.schedule({
@@ -278,6 +280,27 @@
 			//Lê dados do usuário, pois é assíncrono e pode demorar um pouco no momento do acesso.
 			//salvarDadosArquivo("80941818500|Lucas|lucasrego@gmail.com|7188145976");
 			lerDadosArquivo();
+			
+			function backButton() {
+				
+				myApp.modal({
+					title:  'Maria Gata',
+					text: 'Deseja sair do App Maria Gata?',
+					buttons: [
+					  {
+						text: 'Não'
+					  },
+					  {
+						text: 'Sim',
+						bold: true,
+						onClick: function() {
+							navigator.app.exitApp();
+						}
+					  }
+					]
+				}); //Fim Modal
+				
+			}
 			
 			function checkConnection() {
 					

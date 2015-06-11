@@ -41,9 +41,9 @@
 				<ul>
 					<li><a href="agendar.html"><img src="images/icons/white/esmalte.png" alt="" title="" /><span>Agende seu Momento</span></a></li>
 					<li><a href="agendamentos.html"><img src="images/icons/white/blog.png" alt="" title="" /><span>Meus Agendamentos</span><!--<strong class="green">12</strong>--></a></li>
-					<li><a href="#" data-popup=".popup-signup" class="open-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Meu Cadastro</span></a></li>
-					<li><a href="#" data-popup=".popup-contato" class="open-popup"><img src="images/icons/white/call.png" alt="" title="" /><span>Contato</span></a></li>
-					<li><a href="#" data-popup=".popup-endereco" class="open-popup"><img src="images/icons/white/map.png" alt="" title="" /><span>Como Chegar</span></a></li>
+					<li><a href="#" data-popup=".popup-signup" class="open-popup close-panel"><img src="images/icons/white/user.png" alt="" title="" /><span>Meu Cadastro</span></a></li>
+					<li><a href="#" data-popup=".popup-contato" class="open-popup close-panel"><img src="images/icons/white/call.png" alt="" title="" /><span>Contato</span></a></li>
+					<li><a href="#" data-popup=".popup-endereco" class="open-popup close-panel"><img src="images/icons/white/map.png" alt="" title="" /><span>Como Chegar</span></a></li>
 				</ul>
 			</nav>
           </div>
@@ -757,10 +757,10 @@
 					//Teste se o objeto retornao é JSON, ou seja, existem dados
 					var jsonRetorno = jQuery.parseJSON(ret);
 							
-					//Se o JSON não tiver a opção resultado é porque 1 ou mais condomínios foram retornados
 					if (typeof jsonRetorno.resultado === "undefined") {
 						
 						var dataAgendamentoDetalhe = "";
+						var nomeUnidade = "";
 						var ultimoFuncionario = "";
 						var ultimoServico = "";
 						var servicosDetalhe = "";
@@ -771,10 +771,12 @@
 						$.each(jsonRetorno, function( index, value ) {
 							
 							dataAgendamentoDetalhe = value.DataAgendamento;
+							nomeUnidade = value.NomeUnidade;
 							if (value.FUNC_ID != ultimoFuncionario) {
 								funcionarioDetalhe += '<p>' + value.AGFU_HoraInicio + 'h: ' + value.FUNC_Nome + ' (' + value.FUNC_Especialidade + ')</p>';
 							}
 							
+							//Se serviço ainda não foi inserdo, adiciona a variável de exibição
 							if (servicosDetalhe.indexOf(value.SERV_Nome) == -1) {
 								servicosDetalhe += '<p>' + value.SERV_Nome + '</p>';
 							}
@@ -791,9 +793,9 @@
 						
 						newPageDetalheAgendamento += 	'<div class="card facebook-card">' +
 															'<div class="card-header no-border">' +
-																'<div class="facebook-avatar"><img src="images/funcionarios/juliana.png" width="40" height="40"></div>' +
+																//'<div class="facebook-avatar"><img src="images/funcionarios/juliana.png" width="40" height="40"></div>' +
 																'<div class="facebook-name">' + dataAgendamentoDetalhe + '</div>' +
-																'<div class="facebook-date"></div>' +
+																'<div class="facebook-date">' + nomeUnidade + '</div>' +
 															'</div>' +
 															'<div class="card-content">' +
 															'<div class="card-content-inner">' +
@@ -802,14 +804,14 @@
 																funcionarioDetalhe +													
 															'</div>' +
 															'</div>' +
-															'<div class="card-footer no-border">' +
-																'<a href="#" class="link">Like</a>' +
-																'<a href="#" class="link">Comment</a>' +
-																'<a href="#" class="link">Share</a>' +
-															'</div>' +
+															//'<div class="card-footer no-border">' +
+																//'<a href="#" class="link">Like</a>' +
+																//'<a href="#" class="link">Comment</a>' +
+																//'<a href="#" class="link">Share</a>' +
+															//'</div>' +
 														'</div>' +
 														'<div class="content-block">' +
-															'<p><a href="#" id="cancelar|' + agendamentoId + '" class="button button-fill color-red button-round btnCancelarAgendamento">Cancelar</a></p>' +
+															'<p><a href="#" id="cancelar|' + agendamentoId + '" class="button button-fill color-red button-round btnCancelarAgendamento">Cancelar Agendamento</a></p>' +
 														'</div>' +
 													'</div>' +
 													'</div>' +
