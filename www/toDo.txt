@@ -7,9 +7,10 @@
 - Ver local onde o arquivo de dados será salvo (não apagou ao limpar dados do app)
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
 - Criar banco de produção e direcionar aplicação
-- Fazer telas administrativas:
+- Fazer telas administrativas/internas:
 	- Ver horarios disponiveis e agendar para um cliente
 	- Ver agendamentos e cancelar
+	- cron para enviar SMS
 - Fazer botoes personalizados (esmalte, secador) e loader também
 - Icons, splash screen
 - Bloquear orientação
