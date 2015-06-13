@@ -1,10 +1,8 @@
-- Fechar Painel da esquerda (close-panel) quando clicar em Agendar.html ou Agendamentos.html
 - Ajustar páginas contato e localização
 - PHP: 
 	- confirmaragendamento:
 		- VALIDAR DISPONIBILIDADE DOS PROFISSIONAIS E HORARIOS
 		- Ajustar dados Evento no Google Calendar
-- Ver local onde o arquivo de dados será salvo (não apagou ao limpar dados do app)
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
 - Criar banco de produção e direcionar aplicação
 - Fazer telas administrativas/internas:
@@ -14,7 +12,7 @@
 - Fazer botoes personalizados (esmalte, secador) e loader também
 - Icons, splash screen
 - Bloquear orientação
-- Cadastrar no Google para publicar
+- Cadastrar no Google para publicar app
 - Ver cadastro Apple
 - Limpar sujeira de código fonte
 - Revisar config.xml

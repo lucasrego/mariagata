@@ -169,13 +169,13 @@ font-family: inherit;
 cursor: pointer;
 }
 .btnEsmalteria{
-background-color:#FF0066;
+background-color:#FC257A;
 }
 .btnEscovaria {
-background-color:#FF0066;
+background-color:#FC257A;
 }
 .btnSelecionado {
-background-color:#00FF00;
+background-color:#4CD964;
 }
 .button.active {
 /*color: #fff;*/
@@ -586,7 +586,7 @@ font-weight:300;
 margin:0;
 display:inline-block;
 letter-spacing:-0.5px;
-background-color:#EA0059;
+background-color:#FC257A;
 color:#FFFFFF;
 }
 h2.page_subtitle{
@@ -985,7 +985,7 @@ span.day{
 font-size:55px;
 font-weight:700;
 line-height:30px;
-color:#EA0059;
+color:#FC257A;
 }
 span.month{
 font-size:20px;
@@ -1314,17 +1314,17 @@ font-weight:400;
 padding:10px 3%; 
 width:93%; 
 margin:0 0 15px 0;
-border:1px solid #EA0059;
+border:1px solid #FC257A;
 background-color:#FFFFFF;
-color:#EA0059;
+color:#FC257A;
 }
 .mariagataform select.form_input{
 padding:10px 3%; 
 width:93%; 
 margin:0 0 15px 0;
-border:1px solid #EA0059;
+border:1px solid #FC257A;
 background-color:#FFFFFF;
-color:#EA0059;
+color:#FC257A;
 }
 .mariagataform input.form_submit{ 
 width:100%;
@@ -1334,7 +1334,7 @@ font-weight:normal;
 text-align:center;
 cursor:pointer; 
 font-size:18px;
-color:#EA0059;
+color:#FC257A;
 -webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;
 border: none;
 cursor:pointer;
@@ -1357,7 +1357,7 @@ padding:30px 0 0 0;
 padding:0px;
 }
 .signup_bottom a{
-color:#EA0059;
+color:#FC257A;
 font-weight:700;
 }
 .signup_social{

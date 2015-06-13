@@ -1,4 +1,3 @@
-- Fechar Painel da esquerda (close-panel) quando clicar em Agendar.html ou Agendamentos.html
 - Ajustar páginas contato e localização
 - PHP: 
 	- confirmaragendamento:
@@ -14,7 +13,7 @@
 - Fazer botoes personalizados (esmalte, secador) e loader também
 - Icons, splash screen
 - Bloquear orientação
-- Cadastrar no Google para publicar
+- Cadastrar no Google para publicar app
 - Ver cadastro Apple
 - Limpar sujeira de código fonte
 - Revisar config.xml

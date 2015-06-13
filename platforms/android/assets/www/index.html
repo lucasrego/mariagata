@@ -145,7 +145,7 @@
 			//});
 			
 			dadosUsuario = "";
-			navigator.vibrate(1000); 
+			//navigator.vibrate(1000); 
 						
 			// Initialize your app
 			var myApp = new Framework7({
@@ -164,11 +164,7 @@
 				modalTitle: 'Maria Gata',
 				modalButtonOk: 'Ok',
 				modalButtonCancel: 'Cancelar',
-				//smartSelectSearchbar: true,
-				//smartSelectInPopup: true,
-				//hideTabbarOnPageScroll: true,
 				preroute: function (view, options) {
-					//alert(options.url); 
 					//Testa Internet e Dados usuário antes de onPageInit
 					var internet = false;
 					if (options.url === 'agendamentos.html') {						
@@ -330,6 +326,8 @@
 						
 			myApp.onPageInit('agendar', function (page) {
 				
+				myApp.closePanel();
+				
 				//Obter servicos filial
 				$.ajax({
 					url: "http://mariagata.com.br/sistema/mariagata.php",
@@ -406,6 +404,7 @@
 			filial = "";
 			servicos = "";
 			data = "";
+			dataExibicao = "";
 			servicosnome = "";
 
 			//Evento de clique no botão de pesquisar horários
@@ -413,7 +412,8 @@
 	
 				filial = $('#cmbFilial').val();
 				data = $('#data_agendamento').val();
-				
+				dataExibicao = data.split("-")[2] + "/" + data.split("-")[1] + "/" + data.split("-")[0];
+						
 				servicos = "";
 				servicosnome = "";
 				
@@ -508,6 +508,7 @@
 													'<div data-page="horarios" class="page">' +
 														'<div class="page-content">' +
 															'<h2 class="page_title">Profissionais e Horários</h2>';
+															
 						
 						var ultimoGrupo = "";
 						var ultimoFuncionario = "";
@@ -565,9 +566,40 @@
 								//Se mudou de grupo, insere cabeçalho do grupo:
 								if (ultimoGrupo != value.GSER_ID) {					
 									if (value.GSER_ID == "1") {
-										newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";								
+										
+										if (index == 0) {
+											newPageHorarios += "<div class='card facebook-card'>";
+											newPageHorarios += "<div class='card-content'>";
+											newPageHorarios += "<div class='card-content-inner'>";
+											newPageHorarios += "<p><b>Data: </b>" + dataExibicao + "</p>";
+											newPageHorarios += "<p><b>Serviço(s): </b>" + servicosnome + "</p>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "<p>&nbsp;</p>";
+										} else {
+											newPageHorarios += "<p>&nbsp;</p>";
+										}
+										
+										newPageHorarios += "<p><a href='#' class='button button-big button-fill color-gray'>ESCOLHA O HORÁRIO PARA MANICURE</a></p>";
+									
 									} else {
-										newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";								
+										
+										if (index == 0) {
+											newPageHorarios += "<div class='card facebook-card'>";
+											newPageHorarios += "<div class='card-content'>";
+											newPageHorarios += "<div class='card-content-inner'>";
+											newPageHorarios += "<p><b>Data: </b>" + dataExibicao + "</p>";
+											newPageHorarios += "<p><b>Serviço(s): </b>" + servicosnome + "</p>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "<p>&nbsp;</p>";
+										} else {
+											newPageHorarios += "<p>&nbsp;</p>";
+										}
+										
+										newPageHorarios += "<p><a href='#' class='button button-big button-fill color-gray'>ESCOLHA O HORÁRIO PARA CABELO/ESTÉTICA</a></p>";										
 									}
 								}	
 								
@@ -658,6 +690,8 @@
 
 			
 			myApp.onPageInit('agendamentos', function (page) {
+				
+				myApp.closePanel();
 				
 				cpf_BD = dadosUsuario.split("|")[0];
 				
@@ -984,8 +1018,6 @@
 			$$(document).on('click', '#btnConcluirAgendamento', function (e) {
 	
 				//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
-				navigator.vibrate(1000);
-				
 				if (dadosUsuario == "") {
 					myApp.alert('Iremos precisar dos seus dados completos para agendar o seu momento, ok?', 'Maria Gata', function () {
 						myApp.popup('.popup-signup');
@@ -1036,8 +1068,6 @@
 					if (msgNaoSelecionado != "") {
 						myApp.alert(msgNaoSelecionado, 'Ops!');
 					} else {
-						
-						var dataExibicao = data.split("-")[2] + "/" + data.split("-")[1] + "/" + data.split("-")[0];
 						
 						var msgEsmalteria = "";
 						if (temEsmalteria) {

@@ -5864,6 +5864,7 @@ html.ios-gt-6.pixel-ratio-3 .picker-calendar.picker-modal-inline .picker-calenda
 .disabled,
 [disabled] {
   opacity: 0.55;
+  background-color: #7B7B7B !important; /* Incluído para deixar os botões cinza */
   pointer-events: none;
 }
 .disabled .disabled,

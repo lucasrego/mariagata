@@ -133,8 +133,8 @@
 	
 	$( document ).ready(function() {
 		
-		document.addEventListener("deviceready", onDeviceReady, false);		
-		function onDeviceReady() {
+		//document.addEventListener("deviceready", onDeviceReady, false);		
+		//function onDeviceReady() {
 					
 			document.addEventListener("backbutton", backButton, false);
 			
@@ -145,7 +145,7 @@
 			//});
 			
 			dadosUsuario = "";
-			navigator.vibrate(1000); 
+			//navigator.vibrate(1000); 
 						
 			// Initialize your app
 			var myApp = new Framework7({
@@ -164,11 +164,7 @@
 				modalTitle: 'Maria Gata',
 				modalButtonOk: 'Ok',
 				modalButtonCancel: 'Cancelar',
-				//smartSelectSearchbar: true,
-				//smartSelectInPopup: true,
-				//hideTabbarOnPageScroll: true,
 				preroute: function (view, options) {
-					//alert(options.url); 
 					//Testa Internet e Dados usuário antes de onPageInit
 					var internet = false;
 					if (options.url === 'agendamentos.html') {						
@@ -279,7 +275,7 @@
 			
 			//Lê dados do usuário, pois é assíncrono e pode demorar um pouco no momento do acesso.
 			//salvarDadosArquivo("80941818500|Lucas|lucasrego@gmail.com|7188145976");
-			lerDadosArquivo();
+			//lerDadosArquivo();
 			
 			function backButton() {
 				
@@ -329,6 +325,8 @@
 			}
 						
 			myApp.onPageInit('agendar', function (page) {
+				
+				myApp.closePanel();
 				
 				//Obter servicos filial
 				$.ajax({
@@ -508,6 +506,8 @@
 													'<div data-page="horarios" class="page">' +
 														'<div class="page-content">' +
 															'<h2 class="page_title">Profissionais e Horários</h2>';
+															'<div class="content-block-title">Data: ' + data + '</div>';
+															'<div class="content-block-title">Serviços: ' + servicosnome + ' </div>';
 						
 						var ultimoGrupo = "";
 						var ultimoFuncionario = "";
@@ -565,9 +565,13 @@
 								//Se mudou de grupo, insere cabeçalho do grupo:
 								if (ultimoGrupo != value.GSER_ID) {					
 									if (value.GSER_ID == "1") {
-										newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";								
+										//newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";								
+										newPageHorarios += "<p>&nbsp;</p>";
+										newPageHorarios += "<p><a href='#' class='button button-big button-fill color-green'>ESCOLHA HORÁRIO PARA MANICURE</a></p>";
 									} else {
-										newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";								
+										//newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";
+										newPageHorarios += "<p>&nbsp;</p>";
+										newPageHorarios += "<p><a href='#' class='button button-big button-fill color-green'>ESCOLHA HORÁRIO PARA CABELO/ESTÉTICA</a></p>";										
 									}
 								}	
 								
@@ -658,6 +662,8 @@
 
 			
 			myApp.onPageInit('agendamentos', function (page) {
+				
+				myApp.closePanel();
 				
 				cpf_BD = dadosUsuario.split("|")[0];
 				
@@ -984,8 +990,6 @@
 			$$(document).on('click', '#btnConcluirAgendamento', function (e) {
 	
 				//Se já tiver os dados de login e cadastro no BD, conclui o agendamento. Caso contrário, abre popup de login/cadastro.
-				navigator.vibrate(1000);
-				
 				if (dadosUsuario == "") {
 					myApp.alert('Iremos precisar dos seus dados completos para agendar o seu momento, ok?', 'Maria Gata', function () {
 						myApp.popup('.popup-signup');
@@ -1122,7 +1126,7 @@
 				
 			}); //Fim btnConcluirAgendamento.click			
 			
-		} // Fim onDeviceReady()
+		//} // Fim onDeviceReady()
 					
 	}); //Fim document.ready()
 	
