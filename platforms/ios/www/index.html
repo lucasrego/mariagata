@@ -39,7 +39,7 @@
 			
 			<nav class="user-nav">
 				<ul>
-					<li><a href="agendar.html"><img src="images/icons/white/esmalte.png" alt="" title="" /><span>Agende seu Momento</span></a></li>
+					<li><a href="agendar.html"><img src="images/icons/white/secador.png" alt="" title="" /><span>Agende seu Momento</span></a></li>
 					<li><a href="agendamentos.html"><img src="images/icons/white/blog.png" alt="" title="" /><span>Meus Agendamentos</span><!--<strong class="green">12</strong>--></a></li>
 					<li><a href="#" data-popup=".popup-signup" class="open-popup close-panel"><img src="images/icons/white/user.png" alt="" title="" /><span>Meu Cadastro</span></a></li>
 					<li><a href="#" data-popup=".popup-contato" class="open-popup close-panel"><img src="images/icons/white/call.png" alt="" title="" /><span>Contato</span></a></li>
@@ -66,7 +66,7 @@
         <div class="toolbar">
 			<div class="toolbar-inner">
 				<ul class="toolbar_icons">
-					<li><a href="agendar.html"><img src="images/icons/white/esmalte.png" alt="Agende seu Momento" title="Agende seu Momento" /></a></li>
+					<li><a href="agendar.html"><img src="images/icons/white/secador.png" alt="Agende seu Momento" title="Agende seu Momento" /></a></li>
 					<li><a href="agendamentos.html"><img src="images/icons/white/blog.png" alt="Meus Agendamentos" title="Meus Agendamentos" /></a></li>
 					<li class="menuicon"><a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>			  
 					<li><a href="#" data-popup=".popup-contato" class="open-popup"><img src="images/icons/white/call.png" alt="Contato" title="Agende pelo WhatsApp" /></a></li>
@@ -104,17 +104,24 @@
 		<div class="content-block-login">
 		    <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
 				<h4>FALE COM A MARIA GATA</h4>
-				<div class='card facebook-card'>
-					<div class='card-header'>
-						<div class='facebook-avatar'><img src='images/icons/white/call.png' width='40' height='40'></div>
-						<div class='facebook-name'><b>Como prefere falar?</b></div>
-						<div class='facebook-date'></div>
-					</div>
-					<div class='card-content'>
-						<div class='card-content-inner'>
-							<p>WhatsApp: (71) 8879-1014</p>
-							<p>Fixo: 3037-0814</p>
+				<div class="card facebook-card">
+					<div class="card-header no-border">
+						<!--
+						<div class="facebook-avatar">
+							<img src='images/icons/black/call.png' width='34' height='34'>
 						</div>
+						-->
+					</div>
+					<div class="card-content">
+						<p><b>WhatsApp: </b><a href="#" id="btnWhatsapp">(71) 8879-1014</a>
+						<br /><b>Fixo: </b>3037-0814</p>
+						<p><b>Instagram: </b>
+						<br /><a href="http://instagram.com/escovariamariagata" class="external">http://instagram.com/escovariamariagata</a></p>
+						<p><b>Facebook: </b>
+						<br /><a href="http://instagram.com/escovariamariagata" class="external">http://instagram.com/escovariamariagata</a></p>
+					</div>
+					<div class="card-footer no-border">
+						<p><b>Funcionamento: </b>Terça a Sábado das 09 às 18h.</p>
 					</div>
 				</div>
 		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/black/menu_close.png" alt="" title="" /></a></div>
@@ -127,7 +134,24 @@
 		<div class="content-block-login">
 		    <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
 				<h4>COMO CHEGAR</h4>
-				
+				<div class="card facebook-card">
+					<div class="card-header no-border">
+						<!--
+						<div class="facebook-avatar">
+							<img src='images/icons/black/call.png' width='34' height='34'>
+						</div>
+						-->
+					</div>
+					<div class="card-content">
+						<p><b>Endereço: </b>
+						<br />Alameda Benevendo, 22, Loja 1, Pituba</p>
+						<p><b>Ponto de Referência: </b>
+						<br />Entre a escola Colméia e o laboratório LEME.</p>
+					</div>
+					<div class="card-footer no-border">
+						<p><b>Funcionamento: </b>Terça a Sábado das 09 às 18h.</p>
+					</div>
+				</div>
 		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/black/menu_close.png" alt="" title="" /></a></div>
 		</div>
     </div>
@@ -145,8 +169,8 @@
 	
 	$( document ).ready(function() {
 		
-		document.addEventListener("deviceready", onDeviceReady, false);		
-		function onDeviceReady() {
+		//document.addEventListener("deviceready", onDeviceReady, false);		
+		//function onDeviceReady() {
 					
 			document.addEventListener("backbutton", backButton, false);
 			
@@ -287,7 +311,7 @@
 			
 			//Lê dados do usuário, pois é assíncrono e pode demorar um pouco no momento do acesso.
 			//salvarDadosArquivo("80941818500|Lucas|lucasrego@gmail.com|7188145976");
-			lerDadosArquivo();
+			//lerDadosArquivo();
 			
 			function backButton() {
 				
@@ -878,9 +902,11 @@
 				}); //Fim ajax
 				
 			});  //Fim click .botaoDetalharAgendamento
-
-
-
+			
+			$$(document).on('click', '#btnWhatsapp', function (e) {
+				cordova.plugins.Whatsapp.send("7188791014");
+			});
+			
 			$$(document).on('click', '.btnCancelarAgendamento', function (e) {
 				agendamentoCancelarId = this.id.split("|")[1];
 				
@@ -1164,7 +1190,7 @@
 				
 			}); //Fim btnConcluirAgendamento.click			
 			
-		} // Fim onDeviceReady()
+		//} // Fim onDeviceReady()
 					
 	}); //Fim document.ready()
 	
