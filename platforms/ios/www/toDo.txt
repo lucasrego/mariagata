@@ -3,7 +3,6 @@
 	- confirmaragendamento:
 		- VALIDAR DISPONIBILIDADE DOS PROFISSIONAIS E HORARIOS
 		- Ajustar dados Evento no Google Calendar
-- Ver local onde o arquivo de dados será salvo (não apagou ao limpar dados do app)
 - Testar e ajustar caso em que nenhum funcionário é encontrado.
 - Criar banco de produção e direcionar aplicação
 - Fazer telas administrativas/internas:

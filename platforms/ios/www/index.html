@@ -104,7 +104,19 @@
 		<div class="content-block-login">
 		    <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
 				<h4>FALE COM A MARIA GATA</h4>
-				
+				<div class='card facebook-card'>
+					<div class='card-header'>
+						<div class='facebook-avatar'><img src='images/icons/white/call.png' width='40' height='40'></div>
+						<div class='facebook-name'><b>Como prefere falar?</b></div>
+						<div class='facebook-date'></div>
+					</div>
+					<div class='card-content'>
+						<div class='card-content-inner'>
+							<p>WhatsApp: (71) 8879-1014</p>
+							<p>Fixo: 3037-0814</p>
+						</div>
+					</div>
+				</div>
 		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/black/menu_close.png" alt="" title="" /></a></div>
 		</div>
     </div>
@@ -133,8 +145,8 @@
 	
 	$( document ).ready(function() {
 		
-		//document.addEventListener("deviceready", onDeviceReady, false);		
-		//function onDeviceReady() {
+		document.addEventListener("deviceready", onDeviceReady, false);		
+		function onDeviceReady() {
 					
 			document.addEventListener("backbutton", backButton, false);
 			
@@ -275,7 +287,7 @@
 			
 			//Lê dados do usuário, pois é assíncrono e pode demorar um pouco no momento do acesso.
 			//salvarDadosArquivo("80941818500|Lucas|lucasrego@gmail.com|7188145976");
-			//lerDadosArquivo();
+			lerDadosArquivo();
 			
 			function backButton() {
 				
@@ -404,6 +416,7 @@
 			filial = "";
 			servicos = "";
 			data = "";
+			dataExibicao = "";
 			servicosnome = "";
 
 			//Evento de clique no botão de pesquisar horários
@@ -411,7 +424,8 @@
 	
 				filial = $('#cmbFilial').val();
 				data = $('#data_agendamento').val();
-				
+				dataExibicao = data.split("-")[2] + "/" + data.split("-")[1] + "/" + data.split("-")[0];
+						
 				servicos = "";
 				servicosnome = "";
 				
@@ -506,8 +520,7 @@
 													'<div data-page="horarios" class="page">' +
 														'<div class="page-content">' +
 															'<h2 class="page_title">Profissionais e Horários</h2>';
-															'<div class="content-block-title">Data: ' + data + '</div>';
-															'<div class="content-block-title">Serviços: ' + servicosnome + ' </div>';
+															
 						
 						var ultimoGrupo = "";
 						var ultimoFuncionario = "";
@@ -565,13 +578,40 @@
 								//Se mudou de grupo, insere cabeçalho do grupo:
 								if (ultimoGrupo != value.GSER_ID) {					
 									if (value.GSER_ID == "1") {
-										//newPageHorarios += "<div class='content-block-title'>ESMALTERIA: Escolha profissional e horário</div>";								
-										newPageHorarios += "<p>&nbsp;</p>";
-										newPageHorarios += "<p><a href='#' class='button button-big button-fill color-green'>ESCOLHA HORÁRIO PARA MANICURE</a></p>";
+										
+										if (index == 0) {
+											newPageHorarios += "<div class='card facebook-card'>";
+											newPageHorarios += "<div class='card-content'>";
+											newPageHorarios += "<div class='card-content-inner'>";
+											newPageHorarios += "<p><b>Data: </b>" + dataExibicao + "</p>";
+											newPageHorarios += "<p><b>Serviço(s): </b>" + servicosnome + "</p>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "<p>&nbsp;</p>";
+										} else {
+											newPageHorarios += "<p>&nbsp;</p>";
+										}
+										
+										newPageHorarios += "<p><a href='#' class='button button-big button-fill color-gray'>ESCOLHA O HORÁRIO PARA MANICURE</a></p>";
+									
 									} else {
-										//newPageHorarios += "<div class='content-block-title'>ESCOVARIA: Escolha profissional e horário</div>";
-										newPageHorarios += "<p>&nbsp;</p>";
-										newPageHorarios += "<p><a href='#' class='button button-big button-fill color-green'>ESCOLHA HORÁRIO PARA CABELO/ESTÉTICA</a></p>";										
+										
+										if (index == 0) {
+											newPageHorarios += "<div class='card facebook-card'>";
+											newPageHorarios += "<div class='card-content'>";
+											newPageHorarios += "<div class='card-content-inner'>";
+											newPageHorarios += "<p><b>Data: </b>" + dataExibicao + "</p>";
+											newPageHorarios += "<p><b>Serviço(s): </b>" + servicosnome + "</p>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "</div>";
+											newPageHorarios += "<p>&nbsp;</p>";
+										} else {
+											newPageHorarios += "<p>&nbsp;</p>";
+										}
+										
+										newPageHorarios += "<p><a href='#' class='button button-big button-fill color-gray'>ESCOLHA O HORÁRIO PARA CABELO/ESTÉTICA</a></p>";										
 									}
 								}	
 								
@@ -1041,8 +1081,6 @@
 						myApp.alert(msgNaoSelecionado, 'Ops!');
 					} else {
 						
-						var dataExibicao = data.split("-")[2] + "/" + data.split("-")[1] + "/" + data.split("-")[0];
-						
 						var msgEsmalteria = "";
 						if (temEsmalteria) {
 							msgEsmalteria = '<p>Esmalteria: ' + nomeProfissionalEsmalteria + ' (' + horarioEsmalteria + 'h)</p>';
@@ -1126,7 +1164,7 @@
 				
 			}); //Fim btnConcluirAgendamento.click			
 			
-		//} // Fim onDeviceReady()
+		} // Fim onDeviceReady()
 					
 	}); //Fim document.ready()
 	

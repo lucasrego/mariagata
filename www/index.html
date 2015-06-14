@@ -104,7 +104,26 @@
 		<div class="content-block-login">
 		    <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
 				<h4>FALE COM A MARIA GATA</h4>
-				
+				<div class="card facebook-card">
+					<div class="card-header no-border">
+						<!--
+						<div class="facebook-avatar">
+							<img src='images/icons/black/call.png' width='34' height='34'>
+						</div>
+						-->
+					</div>
+					<div class="card-content">
+						<p><b>WhatsApp: </b><a href="#" id="btnWhatsapp">(71) 8879-1014</a>
+						<br /><b>Fixo: </b>3037-0814</p>
+						<p><b>Instagram: </b>
+						<br /><a href="http://instagram.com/escovariamariagata" class="external">http://instagram.com/escovariamariagata</a></p>
+						<p><b>Facebook: </b>
+						<br /><a href="http://instagram.com/escovariamariagata" class="external">http://instagram.com/escovariamariagata</a></p>
+					</div>
+					<div class="card-footer no-border">
+						<p><b>Funcionamento: </b>Terça a Sábado das 09 às 18h.</p>
+					</div>
+				</div>
 		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/black/menu_close.png" alt="" title="" /></a></div>
 		</div>
     </div>
@@ -115,7 +134,24 @@
 		<div class="content-block-login">
 		    <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
 				<h4>COMO CHEGAR</h4>
-				
+				<div class="card facebook-card">
+					<div class="card-header no-border">
+						<!--
+						<div class="facebook-avatar">
+							<img src='images/icons/black/call.png' width='34' height='34'>
+						</div>
+						-->
+					</div>
+					<div class="card-content">
+						<p><b>Endereço: </b>
+						<br />Alameda Benevendo, 22, Loja 1, Pituba</p>
+						<p><b>Ponto de Referência: </b>
+						<br />Entre a escola Colméia e o laboratório LEME.</p>
+					</div>
+					<div class="card-footer no-border">
+						<p><b>Funcionamento: </b>Terça a Sábado das 09 às 18h.</p>
+					</div>
+				</div>
 		  <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/black/menu_close.png" alt="" title="" /></a></div>
 		</div>
     </div>
@@ -866,9 +902,11 @@
 				}); //Fim ajax
 				
 			});  //Fim click .botaoDetalharAgendamento
-
-
-
+			
+			$$(document).on('click', '#btnWhatsapp', function (e) {
+				cordova.plugins.Whatsapp.send("7188791014");
+			});
+			
 			$$(document).on('click', '.btnCancelarAgendamento', function (e) {
 				agendamentoCancelarId = this.id.split("|")[1];
 				
