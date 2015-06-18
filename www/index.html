@@ -1041,9 +1041,10 @@
 					var jsonRetorno = jQuery.parseJSON(ret);
 						
 					if (jsonRetorno.resultado == 'SUCESSO') {
+						//Se sucesso, parâmetro mensagem retorna o ID do usuário (Utilizado no Frontend Web)
 						salvarDadosArquivo(cadastro_cpf + "|" + cadastro_nome + "|" + cadastro_email + "|" + cadastro_celular);
 						myApp.closeModal(".popup-signup");
-						myApp.alert(jsonRetorno.mensagem, 'Maria Gata');						
+						myApp.alert('Dados salvos com sucesso!', 'Maria Gata');						
 					} else {
 						myApp.alert(jsonRetorno.mensagem, 'Maria Gata');
 					}
